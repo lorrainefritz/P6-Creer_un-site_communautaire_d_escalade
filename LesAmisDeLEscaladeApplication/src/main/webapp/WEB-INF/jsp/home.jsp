@@ -10,5 +10,13 @@
 <body>
 	<div id="bloc_page">
 		<header><%@ include file="menu.jsp"%></header>
+		
+		<div id=image>
+		<img alt="un chat sur une colline regardant au loin sur fond de montagne"
+			src="\imagesAndLogos\images\CatOnAHill.jpg">
+
+	</div>
+	</div>
+	<footer><%@ include file="footer.jsp"%></footer>	
 </body>
 </html>

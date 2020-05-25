@@ -12,32 +12,13 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
-//@EnableWebMvc
-//@ComponentScan
-public class MvcConfig implements WebMvcConfigurer {
 
-	
-	
-	
-	
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
-	}
+public class MvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("home");
 		registry.addViewController("/home").setViewName("home");
 	}
-	
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-	}
-	
 
 }
