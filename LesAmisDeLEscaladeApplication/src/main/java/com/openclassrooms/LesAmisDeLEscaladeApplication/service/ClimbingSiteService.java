@@ -18,8 +18,8 @@ public class ClimbingSiteService {
 	}
 	
 	public List<ClimbingSiteItem> getClimbingSiteItems(){
-		List<ClimbingSiteItem> climbingSiteItem = climbingSiteRepository.getListOfSite();
-		return climbingSiteItem;
+		List<ClimbingSiteItem> climbingSiteItems = climbingSiteRepository.getListOfSite();
+		return climbingSiteItems;
 	}
 	
 	public int getClimbinSiteListSize() {
@@ -34,7 +34,7 @@ public class ClimbingSiteService {
 	public void addOrUpdateClimbingSiteItem(ClimbingSiteItem climbingSiteItem) throws DuplicateTitleException {
 		ClimbingSiteItem existingSiteItem = findClimbingSiteById(climbingSiteItem.getId());
 		if (existingSiteItem == null) {
-			if (climbingSiteRepository.findClimbingSiteByTitle(climbingSiteItem.getTitle())!=null) {
+			if (climbingSiteRepository.findClimbingSiteBySecteur(climbingSiteItem.getTitle())!=null) {
 				throw new DuplicateTitleException();
 			}
 			climbingSiteRepository.addClimbingSiteItem(climbingSiteItem);
@@ -43,9 +43,10 @@ public class ClimbingSiteService {
 			existingSiteItem.setTitle(climbingSiteItem.getTitle());
 			existingSiteItem.setSecteur(climbingSiteItem.getSecteur());
 			existingSiteItem.setImage(climbingSiteItem.getImage());
-			existingSiteItem.setLongeur(climbingSiteItem.getLongeur());
+			existingSiteItem.setLongueur(climbingSiteItem.getLongueur());
 			existingSiteItem.setNombreDeVoies(climbingSiteItem.getNombreDeVoies());
 			existingSiteItem.setDifficulty(climbingSiteItem.getDifficulty());
+			existingSiteItem.setTagged(climbingSiteItem.isTagged());
 		}
 	}
 

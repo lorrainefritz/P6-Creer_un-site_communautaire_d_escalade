@@ -1,0 +1,8 @@
+@charset "UTF-8";
+/* tableau climbingSiteList */
+table {border-collapse:collapse}
+td {border:1px solid black}
+
+/* footer */
+footer { background-color:rgb(19,87,149)}
+footer a{color:white;}

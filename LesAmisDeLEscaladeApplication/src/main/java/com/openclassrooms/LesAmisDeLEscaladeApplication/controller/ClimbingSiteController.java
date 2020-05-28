@@ -68,14 +68,18 @@ public class ClimbingSiteController {
 	}
 
 	@GetMapping("/climbingSiteList")
+	
 	public ModelAndView getClimbingSiteList() {
 		logger.info("HTTP GET request received at /climbingSiteList URL");
 		String viewName = "climbingSiteList";
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("climbingSiteItem", climbingSiteService.getClimbingSiteItems());
+		model.put("climbingSiteItems", climbingSiteService.getClimbingSiteItems());
 		model.put("numberOfclimbingSite", climbingSiteService.getClimbinSiteListSize());
+		
 
 		return new ModelAndView(viewName, model);
 	}
 
 }
+
+

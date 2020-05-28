@@ -8,7 +8,7 @@ public class ClimbingSiteItem {
 	private String title;
 	private String image;
 	private String secteur;
-	private int longeur;
+	private int longueur;
 	private String difficulty;
 	private boolean tagged;
 	private int nombreDeVoies;
@@ -19,14 +19,14 @@ public class ClimbingSiteItem {
 	
 	
 
-	public ClimbingSiteItem(Integer id, String title, String image, String secteur, int longeur, String difficulty,
+	public ClimbingSiteItem(Integer id, String title, String image, String secteur, int longueur, String difficulty,
 			boolean tagged, int nombreDeVoies) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.image = image;
 		this.secteur = secteur;
-		this.longeur = longeur;
+		this.longueur = longueur;
 		this.difficulty = difficulty;
 		this.tagged = tagged;
 		this.nombreDeVoies = nombreDeVoies;
@@ -66,12 +66,12 @@ public class ClimbingSiteItem {
 		this.secteur = secteur;
 	}
 
-	public int getLongeur() {
-		return longeur;
+	public int getLongueur() {
+		return longueur;
 	}
 
-	public void setLongeur(int longeur) {
-		this.longeur = longeur;
+	public void setLongueur(int longueur) {
+		this.longueur = longueur;
 	}
 
 	public String getDifficulty() {

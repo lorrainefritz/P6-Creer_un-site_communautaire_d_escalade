@@ -7,13 +7,15 @@
 <title>Les Amis de L'escalade</title>
 </head>
 <body>
-	<div id=contenu>
 
-		<div id=contact>
-			<a href="/contact">Contact</a>
-		</div>
-		<div id=mentions_legales>
-			<a href="/mentions_legales">Mentions Légales</a>
+	<div id=contenu>
+		<div id ="mention">
+			<div id=contact>
+				<a href="/contact">Contact</a>
+			</div>
+			<div id=mentions_legales>
+				<a href="/mentions_legales">Mentions Légales</a>
+			</div>
 		</div>
 
 		<div id=logo_facebook>
