@@ -71,11 +71,32 @@
 			</div>
 
 
-			<div class="form element">
-				<label for="difficulty">Difficulté</label> <input type="text"
-					class="form label" id="difficulty" name="difficulty"
-					placeholder="3-9c" value="${param.difficulty}">
-
+			<div class="form element">Difficulté
+			
+			<select name="difficulty"> 
+			<option value="3a">3a</option>
+			<option value="3b">3b</option>
+			<option value="3c">3c</option>
+			<option value="4a">4a</option>
+			<option value="4b">4b</option>
+			<option value="4c">4c</option>
+			<option value="5a">5a</option>
+			<option value="5b">5b</option>
+			<option value="5c">5c</option>
+			<option value="6a">6a</option>
+			<option value="6b">6b</option>
+			<option value="6c">6c</option>
+			<option value="7a">7a</option>
+			<option value="7b">7b</option>
+			<option value="7c">7c</option>
+			<option value="8a">8a</option>
+			<option value="8b">8b</option>
+			<option value="8c">8c</option>
+			<option value="9a">9a</option>
+			<option value="9b">9b</option>
+			<option value="9c">9c</option>
+			
+			</select>	
 				<div class="element">
 					<span class="text-danger">${InputError.get("difficulty")} </span>
 				</div>
