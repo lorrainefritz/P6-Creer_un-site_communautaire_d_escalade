@@ -28,17 +28,12 @@ public class ClimbingSiteController {
 	private ClimbingSiteService climbingSiteService;
 	private final Logger logger = LoggerFactory.getLogger(ClimbingSiteController.class);
 
-	@RequestMapping("/test")
-	public String showHome() {
-		String viewHome = "home";
-		return viewHome;
-	}
 	
-	@GetMapping("/climbingSiteItemForm")
+	@GetMapping("/ajouterDesSitesDEscalade")
 	public ModelAndView showClimbingSiteItemForm(@RequestParam(required = false) Integer id) {
-		logger.info("HTTP GET request received at /climbingSiteItemForm URL");
+		logger.info("HTTP GET request received at /ajouterDesSitesDEscalade");
 
-		String viewName = "climbingSiteItemForm";
+		String viewName = "ajouterDesSitesDEscalade";
 		Map<String, Object> model = new HashMap<String, Object>();
 		ClimbingSiteItem climbingSiteItem = climbingSiteService.findClimbingSiteById(id);
 		if (climbingSiteItem == null) {
@@ -49,29 +44,29 @@ public class ClimbingSiteController {
 		return new ModelAndView(viewName, model);
 	}
 
-	@PostMapping("/climbingSiteItemForm")
+	@PostMapping("/ajouterDesSitesDEscalade")
 	public ModelAndView submitClimbingSiteItemForm(@Valid ClimbingSiteItem climbingSiteItem,
 			BindingResult bindingResult) {
-		logger.info("HTTP POST request received at /climbingSiteItemForm URL");
+		logger.info("HTTP POST request received at /ajouterDesSitesDEscalade URL");
 		if (bindingResult.hasErrors()) {
-			return new ModelAndView("climbingSiteItemForm");
+			return new ModelAndView("ajouterDesSitesDEscalade");
 		}
 		try {
 			climbingSiteService.addOrUpdateClimbingSiteItem(climbingSiteItem);
 		} catch (DuplicateTitleException e) {
 			bindingResult.rejectValue("secteur", "", "Ce site d'escalade existe déjà");
-			return new ModelAndView("climbingSiteItemForm");
+			return new ModelAndView("ajouterDesSitesDEscalade");
 		}
 		RedirectView redirect = new RedirectView();
-		redirect.setUrl("/climbingSiteList");
+		redirect.setUrl("/listeDesSitesDEscalade");
 		return new ModelAndView(redirect);
 	}
 
-	@GetMapping("/climbingSiteList")
+	@GetMapping("/listeDesSitesDEscalade")
 	
 	public ModelAndView getClimbingSiteList() {
-		logger.info("HTTP GET request received at /climbingSiteList URL");
-		String viewName = "climbingSiteList";
+		logger.info("HTTP GET request received at /listeDesSitesDEscalade URL");
+		String viewName = "listeDesSitesDEscalade";
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("climbingSiteItems", climbingSiteService.getClimbingSiteItems());
 		model.put("numberOfclimbingSite", climbingSiteService.getClimbinSiteListSize());

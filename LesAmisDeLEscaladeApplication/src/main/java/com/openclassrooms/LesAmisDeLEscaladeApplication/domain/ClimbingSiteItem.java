@@ -3,14 +3,29 @@ package com.openclassrooms.LesAmisDeLEscaladeApplication.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.openclassrooms.LesAmisDeLEscaladeApplication.validation.VerificationDuNombreDeVoies;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.validation.VerificationDuNombreDeVoiesValidator;
+
 public class ClimbingSiteItem {
 	private Integer id;
+	@Size(max=10)
+	@NotBlank(message="Entrez un titre svp")
 	private String title;
+	@NotBlank(message="Entrez une image svp")
 	private String image;
+	@Size(max=10)
+	@NotBlank(message="Entrez un secteur svp")
 	private String secteur;
+	@NotNull(message="Entrez une longueur svp")
 	private int longueur;
+	@NotBlank(message="Entrez une difficulté svp")
 	private String difficulty;
 	private boolean tagged;
+	@NotNull(message="Entrez un nombre de voies svp")
 	private int nombreDeVoies;
 	
 	public ClimbingSiteItem() {

@@ -40,7 +40,10 @@
 						<td>${cS.longueur}</td>
 						<td>${cS.nombreDeVoies}</td>
 						<td>${cS.difficulty}</td>
-						<td>${cS.tagged}</td>
+						<td><c:if test="${cS.tagged == true}">
+								<img alt="officiel des amis de l'escalade"
+									src="/imagesAndLogos/logos/logoOfficielDesAmisDeLEscalade.png">
+							</c:if></td>
 					</tr>
 				</c:forEach>
 			</tbody>

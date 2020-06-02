@@ -16,9 +16,9 @@
 					l'Association</a></li>
 			<li> <a> Les Sites d'escalade : </a>
 				<ul> 
-					<li><a href="/climbingSiteList">La liste des Sites D'escalade</a></li>
+					<li><a href="/listeDesSitesDEscalade">La liste des Sites D'escalade</a></li>
 					<li><a href="/lesSitesDEscalade">Rechercher des Sites D'escalade</a></li>
-					<li><a href="/climbingSiteItemForm">Ajouter des Sites D'escalade</a></li>
+					<li><a href="/ajouterDesSitesDEscalade">Ajouter des Sites D'escalade</a></li>
 				</ul> 
 			</li>
 			<li><a href="/listeDesTopos">Liste des Topos</a></li>
