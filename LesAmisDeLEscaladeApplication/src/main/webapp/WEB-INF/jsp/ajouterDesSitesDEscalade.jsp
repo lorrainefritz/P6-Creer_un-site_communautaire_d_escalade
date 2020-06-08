@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -25,7 +26,7 @@
 					class="form label" id="title" name="title"
 					placeholder="Obligatoire" value="${param.title}">
 				<div class="element">
-					<span class="text-danger">${InputError.get("title")} </span>
+					<span class="text-danger">${titleError}</span>
 				</div>
 			</div>
 			<div class="form element">
@@ -106,7 +107,7 @@
 			<div class="form element">
 				<div id ="tag">
 				<p> Officiel des Amis de L'escalade</p>
-					<input type="radio" name="tagged" value="true">Oui
+					<input type="radio" name="tagged" value="true" checked="checked">Oui
 					<input type="radio" name="tagged" value="false">Non
 
 					<div class="element">

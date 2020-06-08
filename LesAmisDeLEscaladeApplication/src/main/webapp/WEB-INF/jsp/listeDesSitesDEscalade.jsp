@@ -44,7 +44,16 @@
 								<img alt="officiel des amis de l'escalade"
 									src="/imagesAndLogos/logos/logoOfficielDesAmisDeLEscalade.png">
 							</c:if></td>
+						<td><a
+							href="${pageContext.request.contextPath}/listeDesSitesDEscalade =${cs.id}"><i
+								class="suppr"></i></a> <a
+							href="${pageContext.request.contextPath}/ajouterDesSitesDEscalade=${cs.id}"><i
+								class="edit"></i></a></td>
+						<td><button class="suppr" type="submit">Supprimer</button>
+							<button class="edit" type="submit">Modifier</button></td>
 					</tr>
+
+
 				</c:forEach>
 			</tbody>
 		</table>

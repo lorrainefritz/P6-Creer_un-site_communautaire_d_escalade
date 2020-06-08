@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Ressource name = "bddLesAmisDeLEscalade"
+	driverClassName = "org.postgresql.Driver"
+	type ="javax.sql.Datasource"
+	
+	url="jdbc:postgresql://localhost:5432/BDD_LES_AMIS_DE_LESCALADE"
+	username="postgres"
+		password="13PommesOranges"
+		
+		
+	
+
+</Context>

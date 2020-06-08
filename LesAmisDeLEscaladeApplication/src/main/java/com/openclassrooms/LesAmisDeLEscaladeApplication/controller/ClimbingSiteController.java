@@ -47,9 +47,15 @@ public class ClimbingSiteController {
 	@PostMapping("/ajouterDesSitesDEscalade")
 	public ModelAndView submitClimbingSiteItemForm(@Valid ClimbingSiteItem climbingSiteItem,
 			BindingResult bindingResult) {
+		ModelAndView mw= new ModelAndView();
+		mw.addObject("error", "global.error");
+		mw.addObject("titleError", "Cornet de frites");
+		
 		logger.info("HTTP POST request received at /ajouterDesSitesDEscalade URL");
 		if (bindingResult.hasErrors()) {
-			return new ModelAndView("ajouterDesSitesDEscalade");
+//			return new ModelAndView("ajouterDesSitesDEscalade");
+			logger.info("HTTP POST request received at /ajouterDesSitesDEscalade URL with errors in the form");
+			return mw;
 		}
 		try {
 			climbingSiteService.addOrUpdateClimbingSiteItem(climbingSiteItem);

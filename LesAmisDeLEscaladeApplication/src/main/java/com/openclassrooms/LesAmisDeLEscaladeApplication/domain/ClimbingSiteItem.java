@@ -12,19 +12,25 @@ import com.openclassrooms.LesAmisDeLEscaladeApplication.validation.VerificationD
 
 public class ClimbingSiteItem {
 	private Integer id;
-	@Size(max=10)
-	@NotBlank(message="Entrez un titre svp")
+	
+	@Size(max=10, message="{title.size}")
+	@NotBlank(message="{title.notempty}")
 	private String title;
+	
 	@NotBlank(message="Entrez une image svp")
 	private String image;
+	
 	@Size(max=10)
 	@NotBlank(message="Entrez un secteur svp")
 	private String secteur;
+	
 	@NotNull(message="Entrez une longueur svp")
 	private int longueur;
+	
 	@NotBlank(message="Entrez une difficulté svp")
 	private String difficulty;
 	private boolean tagged;
+	
 	@NotNull(message="Entrez un nombre de voies svp")
 	private int nombreDeVoies;
 	
