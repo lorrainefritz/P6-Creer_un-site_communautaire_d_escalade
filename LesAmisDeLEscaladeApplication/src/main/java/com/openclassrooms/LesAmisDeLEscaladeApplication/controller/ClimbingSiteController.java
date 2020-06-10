@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,14 +28,13 @@ import com.openclassrooms.LesAmisDeLEscaladeApplication.service.ClimbingSiteServ
 import com.openclassrooms.LesAmisDeLEscaladeApplication.validation.ClimbingSiteValidation;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.validation.ClimbingSiteValidator;
 
-
 @Controller
 public class ClimbingSiteController {
 
 	@Autowired
 	private ClimbingSiteService climbingSiteService;
 	private final Logger logger = LoggerFactory.getLogger(ClimbingSiteController.class);
-	
+
 	@Autowired
 	ClimbingSiteValidator climbingSiteValidator;
 
@@ -54,24 +54,23 @@ public class ClimbingSiteController {
 	}
 
 	@PostMapping("/ajouterDesSitesDEscalade")
-	public ModelAndView submitClimbingSiteItemForm(@Valid ClimbingSiteItem climbingSiteItem,
-			BindingResult bindingResult) {
-		
-		
-//		((Model) mw).addAttribute("climbingSiteItem",climbingSiteItem);
+	public ModelAndView submitClimbingSiteItemForm(
+			@Valid @ModelAttribute("climbingSiteItem") ClimbingSiteItem climbingSiteItem, BindingResult bindingResult) {
+
 		climbingSiteValidator.validate(climbingSiteItem, bindingResult);
 
-//		
+		ModelAndView mw = new ModelAndView();
 //
-//		mw.addObject("error", "global.error");
-//		mw.addObject("titleError", "title.error");
+		mw.addObject("error", "global.error");
+		mw.addObject("titleError", "Cornet frites");
 
 		logger.info("HTTP POST request received at /ajouterDesSitesDEscalade URL");
 		if (bindingResult.hasErrors()) {
 
 			logger.info("HTTP POST request received at /ajouterDesSitesDEscalade URL with errors in the form");
 
-			return new ModelAndView("ajouterDesSitesDEscalade"); 
+//			return new ModelAndView("ajouterDesSitesDEscalade");
+			return climbingSiteValidator.getError();
 		}
 		try {
 			climbingSiteService.addOrUpdateClimbingSiteItem(climbingSiteItem);
@@ -83,9 +82,6 @@ public class ClimbingSiteController {
 		redirect.setUrl("/listeDesSitesDEscalade");
 		return new ModelAndView(redirect);
 	}
-	
-	
-	
 
 	public ClimbingSiteValidator getClimbingSiteValidator() {
 		return climbingSiteValidator;
@@ -106,6 +102,5 @@ public class ClimbingSiteController {
 
 		return new ModelAndView(viewName, model);
 	}
-	
 
 }

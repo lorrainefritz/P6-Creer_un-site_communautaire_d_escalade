@@ -3,10 +3,12 @@
 table {border-collapse:collapse}
 td {border:1px solid black}
 
-
+/* header{background-color:rgb(19,87,149); display : flex} */
 
 /* erreurs */
 .error{color:red;}
 /* footer */
 footer { background-color:rgb(19,87,149)}
 footer a{color:white;}
+
+/* #part_supp_footer{display: flex; align-items: center ;padding-left :5%; padding-right: 5%; padding-bottom: 1%; padding-top: 1%; justify-content: space-between;} */

@@ -8,7 +8,10 @@
 </head>
 <body>
 
-	<div id=contenu>
+	<div id=contenu_footer>
+	
+	<div id ="part_supp_footer">
+	
 		<div id ="mention">
 			<div id=contact>
 				<a href="/contact">Contact</a>
@@ -29,6 +32,11 @@
 		<div id=logo_instagram>
 			<img alt="logo d'instagram" src="\imagesAndLogos\logos\instagram.png">
 		</div>
+</div>
+<div id ="part_inf_footer">
+<a>tous droits réservés @les_Amis_de_L_Escalade.com</a>
+</div>
+
 
 	</div>
 

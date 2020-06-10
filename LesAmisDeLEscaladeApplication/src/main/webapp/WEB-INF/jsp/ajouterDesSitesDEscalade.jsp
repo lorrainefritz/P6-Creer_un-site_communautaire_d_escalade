@@ -20,13 +20,12 @@
 		</header>
 		<form method="post">
 		
-
 			<div class="form element">
 				<label for="title">Titre</label> <input type="text"
 					class="form label" id="title" name="title"
 					placeholder="Obligatoire" value="${param.title}">
 				<div class="element">
-					<span class="text-danger">${inputError.get("title")}</span>
+					<span class="text-danger">${title}</span>
 				</div>
 			</div>
 			<div class="form element">
