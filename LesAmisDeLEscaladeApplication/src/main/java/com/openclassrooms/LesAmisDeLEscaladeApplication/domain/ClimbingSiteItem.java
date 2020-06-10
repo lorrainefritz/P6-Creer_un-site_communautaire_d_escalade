@@ -7,31 +7,29 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.openclassrooms.LesAmisDeLEscaladeApplication.validation.VerificationDuNombreDeVoies;
-import com.openclassrooms.LesAmisDeLEscaladeApplication.validation.VerificationDuNombreDeVoiesValidator;
 
 public class ClimbingSiteItem {
 	private Integer id;
 	
-	@Size(max=10, message="{title.size}")
-	@NotBlank(message="{title.notempty}")
+	@Size(max=10)
+	@NotBlank
 	private String title;
 	
-	@NotBlank(message="Entrez une image svp")
+	@NotBlank
 	private String image;
 	
 	@Size(max=10)
-	@NotBlank(message="Entrez un secteur svp")
+	@NotBlank
 	private String secteur;
 	
-	@NotNull(message="Entrez une longueur svp")
+	@NotNull
 	private int longueur;
 	
-	@NotBlank(message="Entrez une difficulté svp")
+	@NotBlank
 	private String difficulty;
 	private boolean tagged;
 	
-	@NotNull(message="Entrez un nombre de voies svp")
+	@NotNull
 	private int nombreDeVoies;
 	
 	public ClimbingSiteItem() {

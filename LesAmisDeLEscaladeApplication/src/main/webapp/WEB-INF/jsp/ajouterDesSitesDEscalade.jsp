@@ -26,16 +26,18 @@
 					class="form label" id="title" name="title"
 					placeholder="Obligatoire" value="${param.title}">
 				<div class="element">
-					<span class="text-danger">${titleError}</span>
+					<span class="text-danger">${inputError.get("title")}</span>
 				</div>
 			</div>
 			<div class="form element">
-				<label for="image">Image</label> <input type="text"
+				<label for="image">Image</label> 
+				<input type="text"
 					class="form label" id="image" name="image"
 					placeholder="Obligatoire" value="${param.image}">
+					
 
 				<div class="element">
-					<span class="text-danger">${InputError.get("image")} </span>
+					<span class="text-danger">${inputError.get("image")} </span>
 				</div>
 			</div>
 
@@ -45,7 +47,7 @@
 					placeholder="Obligatoire" value="${param.secteur}">
 
 				<div class="element">
-					<span class="text-danger">${InputError.get("secteur")} </span>
+					<span class="text-danger">${inputError.get("secteur")} </span>
 				</div>
 			</div>
 
@@ -55,7 +57,7 @@
 					value="${param.longueur}">
 
 				<div class="element">
-					<span class="text-danger">${InputError.get("longueur")} </span>
+					<span class="text-danger">${inputError.get("longueur")} </span>
 				</div>
 			</div>
 
@@ -66,7 +68,7 @@
 					value="${param.nombreDeVoies}">
 
 				<div class="element">
-					<span class="text-danger">${InputError.get("nombreDeVoies")}
+					<span class="text-danger">${inputError.get("nombreDeVoies")}
 					</span>
 				</div>
 			</div>
@@ -99,7 +101,7 @@
 			
 			</select>	
 				<div class="element">
-					<span class="text-danger">${InputError.get("difficulty")} </span>
+					<span class="text-danger">${inputError.get("difficulty")} </span>
 				</div>
 			</div>
 
