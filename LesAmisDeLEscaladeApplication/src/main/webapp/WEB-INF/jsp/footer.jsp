@@ -8,34 +8,37 @@
 </head>
 <body>
 
-	<div id=contenu_footer>
-	
-	<div id ="part_supp_footer">
-	
-		<div id ="mention">
-			<div id=contact>
-				<a href="/contact">Contact</a>
+	<div class=contenu_footer>
+
+		<div class="part_supp_footer">
+
+			<div class="mentionsEtContact">
+				<div class=contact>
+					<a href="/contact">Contact</a>
+				</div>
+				<div class=mentions_legales>
+					<a href="/mentions_legales">Mentions Légales</a>
+				</div>
 			</div>
-			<div id=mentions_legales>
-				<a href="/mentions_legales">Mentions Légales</a>
+			<div class="logos_footer">
+				<div class=logo_facebook>
+						<img alt="logo de facebook"
+							src="\imagesAndLogos\logos\facebook.png">
+				</div>
+
+				<div class=logo_twitter>
+						<img alt="logo de twitter" src="\imagesAndLogos\logos\twitter.png">
+				</div>
+
+				<div class=logo_instagram>
+						<img alt="logo d'instagram"
+							src="\imagesAndLogos\logos\instagram.png">
+				</div>
 			</div>
 		</div>
-
-		<div id=logo_facebook>
-			<img alt="logo de facebook" src="\imagesAndLogos\logos\facebook.png">
+		<div class="part_inf_footer">
+			<p>tous droits réservés @les_Amis_de_L_Escalade.com</p>
 		</div>
-
-		<div id=logo_twitter>
-			<img alt="logo de twitter" src="\imagesAndLogos\logos\twitter.png">
-		</div>
-
-		<div id=logo_instagram>
-			<img alt="logo d'instagram" src="\imagesAndLogos\logos\instagram.png">
-		</div>
-</div>
-<div id ="part_inf_footer">
-<a>tous droits réservés @les_Amis_de_L_Escalade.com</a>
-</div>
 
 
 	</div>

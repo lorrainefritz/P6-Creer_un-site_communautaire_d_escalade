@@ -25,7 +25,6 @@ import com.openclassrooms.LesAmisDeLEscaladeApplication.domain.ClimbingSiteItem;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.exception.DuplicateTitleException;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.service.ClimbingSiteService;
 
-import com.openclassrooms.LesAmisDeLEscaladeApplication.validation.ClimbingSiteValidation;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.validation.ClimbingSiteValidator;
 
 @Controller
@@ -62,7 +61,6 @@ public class ClimbingSiteController {
 		ModelAndView mw = new ModelAndView();
 //
 		mw.addObject("error", "global.error");
-		mw.addObject("titleError", "Cornet frites");
 
 		logger.info("HTTP POST request received at /ajouterDesSitesDEscalade URL");
 		if (bindingResult.hasErrors()) {
@@ -94,7 +92,7 @@ public class ClimbingSiteController {
 	@GetMapping("/listeDesSitesDEscalade")
 
 	public ModelAndView getClimbingSiteList() {
-		logger.info("HTTP GET request received at /listeDesSitesDEscalade URL");
+		logger.info("HTTP GET request received at /listeDesSitesDEscalade URL pour ClimbingSiteList");
 		String viewName = "listeDesSitesDEscalade";
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("climbingSiteItems", climbingSiteService.getClimbingSiteItems());
@@ -102,5 +100,18 @@ public class ClimbingSiteController {
 
 		return new ModelAndView(viewName, model);
 	}
+	
+//	@PostMapping("/editerUnSiteDEscalade")
+//	public ModelAndView editClimbingSiteList(@Valid @ModelAttribute("climbingSiteItem") ClimbingSiteItem climbingSiteItem, BindingResult bindingResult) {
+//		logger.info("HTTP POST request received at /listeDesSitesDEscalade URL pour ClimbingSiteList");
+//		climbingSiteValidator.validate(climbingSiteItem, bindingResult);
+//		ModelAndView mw = new ModelAndView();
+//		
+//		if(bindingResult.hasErrors()) {
+//			logger.info("HTTP POST request received at /listeDesSitesDEscalade URL with errors in the form");
+//			return climbingSiteValidator.getError();
+//		}
+//		
+//	}
 
 }

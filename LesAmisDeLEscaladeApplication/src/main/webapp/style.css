@@ -1,14 +1,210 @@
 @charset "UTF-8";
+
+/* ---------------------------------------------------------------- */
+/* body */
+body {
+	text-align: justify;
+	margin-left: 5%;
+	margin-right: 5%;
+	font-family: Georgia;
+}
+
+/* ---------------------------------------------------------------- */
+/* header */
+.navigation_menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.navigation_menu .logo {
+	display: flex;
+	justify-content: center;
+}
+
+.menu_header {
+	display: flex;
+	align-items: center;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-bottom: 1%;
+	padding-top: 1%;
+	justify-content: space-between;
+	background-color: rgb(19, 87, 149);
+	font-family: Georgia;
+	color: white;
+}
+
+.menu_header a {
+	color: white;
+}
+
+/* .menu_header div{
+	background-color: white;		
+} */
+
+/* titre de page */
+header .header_bottom_part {
+	text-align: center;
+	border: 3px black solid;
+}
+/* ------------------------------------------------------------------------------- */
+/* home page */
+
+/* image d'accueil sur la page principale */
+.header_midle_part {
+	background-color: rgb(215, 215, 215);
+}
+
+.image_holder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 5%;
+	margin-right: 5%;
+	background-color: rgb(215, 215, 215);
+}
+
+/* articles */
+.home_articles_setion {
+	background-color: rgb(173, 212, 251);
+}
+
+.home_articles_setion article {
+	display: flex;
+	margin-top: 1%;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 1%;
+	overflow: auto;
+}
+/* l'interieur de l'article */
+.home_articles_setion .text_article {
+	margin-left: 5%;
+	margin-right: 5%;
+	padding-left: 5%;
+	padding-right: 5%;
+	background-color: white;
+}
+
+/* ---------------------------------------------------------------- */
+/* ajouter des Sites d'escalade */
+.page_formulaire {
+	background-color: rgb(173, 212, 251);
+}
+
+.formulaire {
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+/* pour la mention officiel des amis de l'escalade */
+.tag {
+	padding-top: 1%;
+	/* border : 3px red solid; */
+}
+/* permet de prendre toute la largeur pour les champs du formulaire */
+input[type=text] {
+	width: 100%;
+	display: block;
+	padding: 12px 15px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+/* modification du bouton pour soumettre le formulaire */
+.btn_form_submit {
+	padding: 12px 28px;
+	background-color: rgb(22, 155, 213);
+	border-radius: 12px;
+	color: white;
+}
+
+.btn_form_submit:hover {
+	background-color: rgb(19, 87, 149);
+	color: white;
+}
+
+/* ---------------------------------------------------------------- */
+/* Liste des Sites d'escalade */
+
 /* tableau climbingSiteList */
-table {border-collapse:collapse}
-td {border:1px solid black}
+table {
+	border-collapse: collapse;
+}
 
-/* header{background-color:rgb(19,87,149); display : flex} */
+td {
+	border: 1px solid black;
+}
 
+/* ---------------------------------------------------------------- */
 /* erreurs */
-.error{color:red;}
-/* footer */
-footer { background-color:rgb(19,87,149)}
-footer a{color:white;}
+.text-danger {
+	color: red;
+}
 
-/* #part_supp_footer{display: flex; align-items: center ;padding-left :5%; padding-right: 5%; padding-bottom: 1%; padding-top: 1%; justify-content: space-between;} */
+/* ---------------------------------------------------------------- */
+/* footer */
+footer {
+	background-color: rgb(19, 87, 149);
+}
+
+.part_supp_footer {
+	margin-top: 1%;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 1%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-family: Georgia;
+}
+
+.part_supp_footer a {
+	color: white;
+}
+
+.mentionsEtContact {
+	display: flex;
+	align-items: center;
+	justify-content: space-arround;
+}
+
+.contact {
+	
+}
+
+.mentions_legales {
+	padding-left: 30%;
+	/* border: 3px pink solid; */
+}
+
+.logos_footer {
+	display: flex;
+	align-items: center;
+	display: flex;
+	justify-content: space-arround;
+	margin-left: 5%;
+}
+
+.logo_twitter {
+	padding-left: 5%;
+}
+
+.logo_instagram {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.part_inf_footer {
+	border-top: 1px white solid;
+}
+
+.part_inf_footer p {
+	color: white;
+	text-align: center;
+	font-family: Georgia;
+}
+/*responsive*/
+@media all and (max-width: 1024px) {
+}

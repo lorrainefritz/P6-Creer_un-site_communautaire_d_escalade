@@ -45,7 +45,7 @@
 									src="/imagesAndLogos/logos/logoOfficielDesAmisDeLEscalade.png">
 							</c:if></td>
 						<td><a
-							href="${pageContext.request.contextPath}/listeDesSitesDEscalade =${cs.id}"><i
+							href="${pageContext.request.contextPath}/ajouterDesSitesDEscalade=${cs.id}"><i
 								class="suppr"></i></a> <a
 							href="${pageContext.request.contextPath}/ajouterDesSitesDEscalade=${cs.id}"><i
 								class="edit"></i></a></td>
