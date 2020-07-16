@@ -90,18 +90,22 @@ public class ClimbingSiteController {
 	}
 
 	@GetMapping("/listeDesSitesDEscalade")
-
 	public ModelAndView getClimbingSiteList() {
 		logger.info("HTTP GET request received at /listeDesSitesDEscalade URL pour ClimbingSiteList");
 		String viewName = "listeDesSitesDEscalade";
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("climbingSiteItems", climbingSiteService.getClimbingSiteItems());
 		model.put("numberOfclimbingSite", climbingSiteService.getClimbinSiteListSize());
-
 		return new ModelAndView(viewName, model);
 	}
 	
-//	@PostMapping("/editerUnSiteDEscalade")
+//	@GetMapping("/modifierUnSiteDEscalade")
+//	public ModelAndView ShowAClimbingSiteItemForEdit(@RequestParam(required = false)Integer id) {
+//		logger.info("HTTP GET request received at /modifierUnSiteDEscalade");
+//	}
+	
+	
+//	@PostMapping("/modifierUnSiteDEscalade")
 //	public ModelAndView editClimbingSiteList(@Valid @ModelAttribute("climbingSiteItem") ClimbingSiteItem climbingSiteItem, BindingResult bindingResult) {
 //		logger.info("HTTP POST request received at /listeDesSitesDEscalade URL pour ClimbingSiteList");
 //		climbingSiteValidator.validate(climbingSiteItem, bindingResult);

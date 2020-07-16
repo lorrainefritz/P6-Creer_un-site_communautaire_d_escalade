@@ -17,7 +17,7 @@
 					<a href="/contact">Contact</a>
 				</div>
 				<div class=mentions_legales>
-					<a href="/mentions_legales">Mentions Légales</a>
+					<a href="/mentionsLegales">Mentions Légales</a>
 				</div>
 			</div>
 			<div class="logos_footer">

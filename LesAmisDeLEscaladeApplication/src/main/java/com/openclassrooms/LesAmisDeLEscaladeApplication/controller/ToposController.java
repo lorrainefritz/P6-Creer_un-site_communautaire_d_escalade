@@ -8,11 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ToposController {
-	private final Logger logger = LoggerFactory.getLogger(ClimbingSiteController.class);
+	private final Logger logger = LoggerFactory.getLogger(ToposController.class);
 	
 @GetMapping("/listeDesTopos")	
 	public ModelAndView getToposList() {
-	logger.info("HTTP GET request received at /listeDesSitesDEscalade URL");
+	logger.info("HTTP GET request received at /listeDesTopos URL");
 	String viewName ="listeDesTopos";
 	return new ModelAndView ();
 	

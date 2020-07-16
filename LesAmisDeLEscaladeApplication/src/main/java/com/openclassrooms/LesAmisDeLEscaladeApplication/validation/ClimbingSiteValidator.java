@@ -44,7 +44,7 @@ public class ClimbingSiteValidator implements Validator {
 		//validation du titre
 		if (title == null || title.trim().isEmpty()) {
 			errors.rejectValue("title", "climbingSite.empty");
-			error.addObject("title", "le champs de titre est vide merci de rentrer un tire");
+			error.addObject("title", "le champs de titre est vide merci de rentrer un titre");
 			logger.info("le titre est vide");
 		}
 		if (title.length() > 10) {
@@ -59,7 +59,7 @@ public class ClimbingSiteValidator implements Validator {
 			error.addObject("image", "le champs d'image est vide. Merci de rentrer une image.");
 			logger.info("l'image est vide");
 		}
-		 if(!image.contains(".png")&&!image.contains(".jpeg")){
+		 if(!image.contains(".png")&&!image.contains(".jpeg")&& image.length()<5){
 			errors.rejectValue("image", "image.wrong.format");
 			error.addObject("image","Merci de rentrer une image qui est au format jpeg ou png.");
 			logger.info("l'image est au mauvais format");
@@ -77,13 +77,18 @@ public class ClimbingSiteValidator implements Validator {
 				error.addObject("nombreDeVoies", "Merci de rentrer un nombre de voies supérieur à 0.");
 				logger.info("nombre de voies");
 		 }
+		 if(nombreDeVoies>10) {
+			 errors.rejectValue("nombreDeVoies", "nombreDeVoies.too.long");
+				error.addObject("nombreDeVoies", "Merci de rentrer un nombre de voies inférieur à 10.");
+				logger.info("nombre de voies");
+		 }
 		 //validation de la longueur
 		 if(longueur<=0) {
 			 errors.rejectValue("longueur", "longueur.empty.or.negativ");
 				error.addObject("longueur", "Merci de rentrer une longueur de parcours supérieure à 0.");
 				logger.info("longueur <ou = à 0");
 		 }
-		 if(longueur>1000) {
+		 if(longueur>100) {
 			 errors.rejectValue("longueur", "longueur.width");
 				error.addObject("longueur", "Merci de rentrer une longueur de parcours inférieure à 1000.");
 				logger.info("longueur > 1000");

@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div id="bloc_page">
+	<div class="bloc_page">
 		<header>
 			<div class="header_top_part">
 				<%@ include file="menu.jsp"%>
@@ -45,9 +45,9 @@
 									src="/imagesAndLogos/logos/logoOfficielDesAmisDeLEscalade.png">
 							</c:if></td>
 						<td><a
-							href="${pageContext.request.contextPath}/ajouterDesSitesDEscalade=${cs.id}"><i
+							href="${pageContext.request.contextPath}/listeDesSitesDEscalade=${cs.id}"><i
 								class="suppr"></i></a> <a
-							href="${pageContext.request.contextPath}/ajouterDesSitesDEscalade=${cs.id}"><i
+							href="${pageContext.request.contextPath}/modifierUnSiteDEscalade=${cs.id}"><i
 								class="edit"></i></a></td>
 						<td><button class="suppr" type="submit">Supprimer</button>
 							<button class="edit" type="submit">Modifier</button></td>

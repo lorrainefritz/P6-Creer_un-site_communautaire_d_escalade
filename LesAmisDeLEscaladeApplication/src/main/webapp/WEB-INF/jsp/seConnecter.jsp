@@ -15,7 +15,7 @@
 				<%@ include file="menu.jsp"%>
 			</div>
 			<div class="header_bottom_part">
-				<h1>AJOUTER UN SITE D'ESCALADE</h1>
+				<h1>SE CONNECTER</h1>
 			</div>
 		</header>
 	<footer><%@ include file="footer.jsp"%></footer>

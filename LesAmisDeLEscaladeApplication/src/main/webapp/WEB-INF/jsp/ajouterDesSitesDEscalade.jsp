@@ -7,9 +7,17 @@
 <meta charset="UTF-8">
 <title>Les Amis de L'escalade</title>
 <link rel="stylesheet" href="style.css">
+<script src="myScript.js"></script>
+<!-- <script >
+function myFunction(){
+	var title = document.forms["formulaire"]["title"].value;
+	alert("marche " + title);
+}
+</script> -->
+
 </head>
 <body>
-	<div id="bloc_page">
+	<div class="bloc_page">
 		<header>
 			<div class="header_top_part">
 				<%@ include file="menu.jsp"%>
@@ -19,21 +27,21 @@
 			</div>
 		</header>
 		<div class="page_formulaire">
-			<form class="formulaire" method="post">
+			<form class="formulaire" method="post" name="formulaire">
 				<div class="form_element">
 					<label for="title">TITRE</label> <input type="text"
 						class="form_label" id="title" name="title"
 						placeholder="Obligatoire" value="${param.title}">
-					<div class="element">
-						<span class="text-danger">${title}</span>
+					<div class="element_danger" >
+						<div id="title_text_danger">${title} </div>
 					</div>
 				</div>
 				<div class="form_element">
 					<label for="image">IMAGE</label> <input type="text"
 						class="form_label" id="image" name="image"
 						placeholder="Obligatoire" value="${param.image}">
-					<div class="element">
-						<span class="text-danger">${image} </span>
+					<div class="element_danger">
+						<div id="image_text_danger">${image} </div>
 					</div>
 				</div>
 
@@ -42,28 +50,28 @@
 						class="form_label" id="secteur" name="secteur"
 						placeholder="Obligatoire" value="${param.secteur}">
 
-					<div class="element">
-						<span class="text-danger">${secteur} </span>
+					<div class="element_danger">
+						<div id="secteur_text_danger">${secteur} </div>
 					</div>
 				</div>
 
 				<div class="form_element">
 					<label for="longueur">LONGUEUR</label> <input type="text"
-						class="form_label" id="longueur" name="longueur" placeholder=">0"
-						value="${param.longueur}">
-					<div class="element">
-						<span class="text-danger">${longueur} </span>
+						class="form_label" id="longueur" name="longueur"
+						placeholder="1-100" value="${param.longueur}">
+					<div class="element_danger">
+						<div id="longueur_text_danger">${longueur} </div>
 					</div>
 				</div>
 
 				<div class="form_element">
 					<label for="nombreDeVoies">NOMBRE DE VOIES</label> <input
 						type="text" class="form_label" id="nombreDeVoies"
-						name="nombreDeVoies" placeholder="1-1000"
+						name="nombreDeVoies" placeholder="1-10"
 						value="${param.nombreDeVoies}">
 
-					<div class="element">
-						<span class="text-danger">${nombreDeVoies} </span>
+					<div class="element_danger">
+						<div id="nombreDeVoies_text_danger">${nombreDeVoies} </div>
 					</div>
 				</div>
 
@@ -103,12 +111,12 @@
 						</p>
 					</div>
 				</div>
-
-
 				<div class="form_element">
 					<div class="element">
 						<input type="hidden" class="form_label" id="id" name="id">
-						<button type="submit" class="btn_form_submit">Soumettre</button>
+						<button type="submit" class="btn_form_submit" id="btn_form_submit"
+							onclick="validate()">Soumettre</button>
+
 					</div>
 				</div>
 			</form>

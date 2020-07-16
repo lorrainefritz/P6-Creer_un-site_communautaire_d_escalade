@@ -35,8 +35,47 @@ body {
 	color: white;
 }
 
+/* #menu_element {
+	border: 1px solid pink;
+	padding-left: 5%;
+	padding-right: 5%;
+} */
+
 .menu_header a {
 	color: white;
+}
+
+/* pour les menus cachés */
+/*le conteneur du dropdown*/
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+/* le dropdown_content qui est caché par défaut */
+.dropdown_content {
+	display: none;
+	position: absolute;
+	background-color: rgb(19, 87, 149);
+	width: 100%;
+	overflow: auto;
+}
+
+.dropdown_content a {
+	padding: 13px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown_content a:hover {
+	background-color: #808080;
+}
+
+.dropdown:hover .dropdown_content {
+	display: block;
+}
+
+.dropdown:hover .droping {
+	background-color: #0080ff215215215;
 }
 
 /* .menu_header div{
@@ -46,7 +85,7 @@ body {
 /* titre de page */
 header .header_bottom_part {
 	text-align: center;
-	border: 3px black solid;
+	border: 1px black solid;
 }
 /* ------------------------------------------------------------------------------- */
 /* home page */
@@ -124,7 +163,18 @@ input[type=text] {
 	background-color: rgb(19, 87, 149);
 	color: white;
 }
+/* ---------------------------------------------------------------- */
+/* S'inscrire : REMARQUE LE BOUTON EST LE MEME QUE CI DESSUS */
+.page_formulaire_inscription {
+	background-color: rgb(173, 212, 251);
+}
 
+.formulaire_inscription {
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-left: 5%;
+	margin-right: 5%;
+}
 /* ---------------------------------------------------------------- */
 /* Liste des Sites d'escalade */
 
@@ -136,16 +186,109 @@ table {
 td {
 	border: 1px solid black;
 }
+/* ---------------------------------------------------------------- */
+/* A propose de l'association */
 
+.presentation_association_page {
+	/* padding-top: 5%;
+	padding-bottom: 5%; */
+	background-color: rgb(173, 212, 251);
+}
+.presentation_association_page article {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	margin-left: 5%;
+	margin-right: 5%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	background-color: rgb(173, 212, 251);
+	overflow: auto;
+}
+.image_group{
+	/* border: 1px blue solid; */
+	
+	
+}
+.presentation_association_page article p{
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-left: 5%;
+	margin-right: 5%;
+	background-color: white;
+}
+/* ---------------------------------------------------------------- */
+/* mentions legales*/
+
+.mention_page {
+	/* padding-top: 5%;
+	padding-bottom: 5%; */
+	background-color: rgb(173, 212, 251);
+	
+}
+.mention_page article{
+	display: flex;
+	justify-content: space-arround;
+	flex-direction: column;
+	margin-left: 5%;
+	margin-right: 5%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	background-color: rgb(173, 212, 251);
+	overflow: auto;
+	
+}
+.mention_page article .mention_leg{
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-top: 1%;
+	background-color: white;
+}
+.mention_page article p{
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-left: 5%;
+	margin-right: 5%;
+	/* background-color: white; */
+	
+}
+/* ---------------------------------------------------------------- */
+/* contact*/
+
+.contact_page {
+	background-color: rgb(173, 212, 251);
+	/* border: 1px blue solid; */
+	 padding-top: 1%;
+	padding-bottom: 1%;
+	}
+	
+.contact_element{
+	margin-left: 5%;
+	margin-right: 5%;
+	/* margin-top: 1%;
+	margin-bottom:1%; */
+	padding-top: 1%;
+	padding-bottom: 1%;
+	background-color: white;
+	/* border: 1px red solid; */
+}
+.contact_element p{
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-left: 5%;
+	margin-right: 5%;
+}
 /* ---------------------------------------------------------------- */
 /* erreurs */
-.text-danger {
+.element_danger {
 	color: red;
 }
 
 /* ---------------------------------------------------------------- */
 /* footer */
 footer {
+	border: 1px solid black;
 	background-color: rgb(19, 87, 149);
 }
 
@@ -206,5 +349,5 @@ footer {
 	font-family: Georgia;
 }
 /*responsive*/
-@media all and (max-width: 1024px) {
+@media all and (max-width: 1024px) { 
 }
