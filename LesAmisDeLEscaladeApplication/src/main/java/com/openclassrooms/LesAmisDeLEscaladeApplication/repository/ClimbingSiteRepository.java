@@ -6,12 +6,12 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.LesAmisDeLEscaladeApplication.domain.ClimbingSiteItem;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entity.ClimbingSiteItem;
 
 @Repository
 public class ClimbingSiteRepository {
 	private List<ClimbingSiteItem> climbingSiteItems= new ArrayList<ClimbingSiteItem>();
-	private static int index=1;
+//	private static int index=1;
 	
 	
 	public List<ClimbingSiteItem> getListOfSite(){
@@ -19,7 +19,7 @@ public class ClimbingSiteRepository {
 	}
 	
 	public void addClimbingSiteItem(ClimbingSiteItem climbingSiteItem ) {
-		climbingSiteItem.setId(index++);
+//		climbingSiteItem.setId(index++);
 		climbingSiteItems.add(climbingSiteItem);
 	}
 	

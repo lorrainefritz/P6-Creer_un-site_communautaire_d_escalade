@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.LesAmisDeLEscaladeApplication.domain.ClimbingSiteItem;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entity.ClimbingSiteItem;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.exception.DuplicateTitleException;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.repository.ClimbingSiteRepository;
 

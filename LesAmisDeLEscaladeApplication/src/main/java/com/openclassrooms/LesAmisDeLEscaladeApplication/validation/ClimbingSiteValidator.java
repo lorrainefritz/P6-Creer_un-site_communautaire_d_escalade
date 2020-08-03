@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.openclassrooms.LesAmisDeLEscaladeApplication.controller.ClimbingSiteController;
-import com.openclassrooms.LesAmisDeLEscaladeApplication.domain.ClimbingSiteItem;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entity.ClimbingSiteItem;
 
 @Component
 public class ClimbingSiteValidator implements Validator {

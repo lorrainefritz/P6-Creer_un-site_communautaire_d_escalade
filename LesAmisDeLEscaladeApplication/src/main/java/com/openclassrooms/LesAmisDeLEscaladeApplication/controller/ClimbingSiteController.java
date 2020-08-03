@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.openclassrooms.LesAmisDeLEscaladeApplication.domain.ClimbingSiteItem;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entity.ClimbingSiteItem;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.exception.DuplicateTitleException;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.service.ClimbingSiteService;
 

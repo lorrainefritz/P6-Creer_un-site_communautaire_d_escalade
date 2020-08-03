@@ -1,35 +1,58 @@
-package com.openclassrooms.LesAmisDeLEscaladeApplication.domain;
+package com.openclassrooms.LesAmisDeLEscaladeApplication.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-public class ClimbingSiteItem {
+@Entity
+@Table(name="CLIMBING_SITES")
+public class ClimbingSiteItem implements Serializable { 
+	
+	@Id
+	@GeneratedValue 
+	@Column(name="ID")
 	private Integer id;
 	
+ 
+
 	@Size(max=10)
 	@NotBlank
+	@Column(name="TITLE")
 	private String title;
 	
 	@NotBlank
+	@Column(name="IMAGE")
 	private String image;
 	
 	@Size(max=10)
 	@NotBlank
+	@Column(name="SECTEUR")
 	private String secteur;
 	
 	@NotNull
+	@Column(name="LONGUEUR")
 	private int longueur;
 	
 	@NotBlank
+	@Column(name="DIFFICULTY")
 	private String difficulty;
+	
+	@Column(name="TAGGED")
 	private boolean tagged;
 	
 	@NotNull
+	@Column(name="NOMBRE_DE_VOIES")
 	private int nombreDeVoies;
 	
 	public ClimbingSiteItem() {
@@ -38,10 +61,9 @@ public class ClimbingSiteItem {
 	
 	
 
-	public ClimbingSiteItem(Integer id, String title, String image, String secteur, int longueur, String difficulty,
-			boolean tagged, int nombreDeVoies) {
+	public ClimbingSiteItem(String title, String image, String secteur, int longueur, String difficulty, boolean tagged,
+			int nombreDeVoies) {
 		super();
-		this.id = id;
 		this.title = title;
 		this.image = image;
 		this.secteur = secteur;
