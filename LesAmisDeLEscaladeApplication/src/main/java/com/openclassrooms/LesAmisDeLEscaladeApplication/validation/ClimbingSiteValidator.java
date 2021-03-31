@@ -10,17 +10,17 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.openclassrooms.LesAmisDeLEscaladeApplication.controller.ClimbingSiteController;
-import com.openclassrooms.LesAmisDeLEscaladeApplication.entity.ClimbingSiteItem;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.controller.ClimbingSiteFormAndListController;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.ClimbingSite;
 
 @Component
 public class ClimbingSiteValidator implements Validator {
-	private final Logger logger = LoggerFactory.getLogger(ClimbingSiteController.class);
+	private final Logger logger = LoggerFactory.getLogger(ClimbingSiteFormAndListController.class);
 	private ModelAndView error;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return ClimbingSiteItem.class.isAssignableFrom(clazz);
+		return ClimbingSite.class.isAssignableFrom(clazz);
 	}
 
 	@Override
@@ -28,11 +28,11 @@ public class ClimbingSiteValidator implements Validator {
 
 		error = new ModelAndView();
 		logger.info("verification du formulaire via le validator");
-		ClimbingSiteItem climbingSiteItem = (ClimbingSiteItem) target;
+		ClimbingSite climbingSiteItem = (ClimbingSite) target;
 
 //		Integer id = climbingSiteItem.getId();
 		String title = climbingSiteItem.getTitle();
-		String image = climbingSiteItem.getImage();
+//		String image = climbingSiteItem.getImage();
 		String secteur= climbingSiteItem.getSecteur();
 		int longueur= climbingSiteItem.getLongueur();
 		String difficulty = climbingSiteItem.getDifficulty();
@@ -53,17 +53,17 @@ public class ClimbingSiteValidator implements Validator {
 			logger.info("titre trop grand");
 		}
 		
-		//validation de l'image
-		if (image == null || image.trim().isEmpty()) {
-			errors.rejectValue("image", "image.empty");
-			error.addObject("image", "le champs d'image est vide. Merci de rentrer une image.");
-			logger.info("l'image est vide");
-		}
-		 if(!image.contains(".png")&&!image.contains(".jpeg")&& image.length()<5){
-			errors.rejectValue("image", "image.wrong.format");
-			error.addObject("image","Merci de rentrer une image qui est au format jpeg ou png.");
-			logger.info("l'image est au mauvais format");
-		 }
+//		//validation de l'image
+//		if (image == null || image.trim().isEmpty()) {
+//			errors.rejectValue("image", "image.empty");
+//			error.addObject("image", "le champs d'image est vide. Merci de rentrer une image.");
+//			logger.info("l'image est vide");
+//		}
+//		 if(!image.contains(".png")&&!image.contains(".jpeg")&& image.length()<5){
+//			errors.rejectValue("image", "image.wrong.format");
+//			error.addObject("image","Merci de rentrer une image qui est au format jpeg ou png.");
+//			logger.info("l'image est au mauvais format");
+//		 }
 		 
 		 //validation du secteur
 		 if (secteur == null || secteur.trim().isEmpty()) {

@@ -5,13 +5,32 @@
 body {
 	text-align: justify;
 	margin-left: 5%;
-	margin-right: 5%;
+	margin-right: 5%; 
 	font-family: Georgia;
 }
 
 /* ---------------------------------------------------------------- */
 /* header */
-.navigation_menu {
+
+header .header_top_part{
+	/* border: 1px solid red; */
+}
+#container_menu{
+	/* border: 1px solid green; */
+}
+
+ .navbar-custom { 
+   background-color: rgb(19, 87, 149); 
+  } 
+  /* Modify brand and text color */ 
+          
+   .navbar-custom .navbar-nav .nav-item .nav-link{ 
+    color: white;
+   }
+
+
+
+/* .navigation_menu {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -33,7 +52,7 @@ body {
 	background-color: rgb(19, 87, 149);
 	font-family: Georgia;
 	color: white;
-}
+} */
 
 /* #menu_element {
 	border: 1px solid pink;
@@ -178,14 +197,21 @@ input[type=text] {
 /* ---------------------------------------------------------------- */
 /* Liste des Sites d'escalade */
 
+
+ /* pour le titre et le tagg */
+/* .titleAndTagged{
+	display: flex;
+} */
+
+
 /* tableau climbingSiteList */
-table {
+/* table {
 	border-collapse: collapse;
 }
 
 td {
 	border: 1px solid black;
-}
+} */
 /* ---------------------------------------------------------------- */
 /* A propose de l'association */
 

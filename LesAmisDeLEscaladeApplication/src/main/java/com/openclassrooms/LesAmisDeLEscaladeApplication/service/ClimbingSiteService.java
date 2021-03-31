@@ -2,52 +2,51 @@ package com.openclassrooms.LesAmisDeLEscaladeApplication.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.LesAmisDeLEscaladeApplication.entity.ClimbingSiteItem;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.ClimbingSite;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.exception.DuplicateTitleException;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.repository.ClimbingSiteRepository;
 
 @Service
 public class ClimbingSiteService {
+	private final Logger logger = LoggerFactory.getLogger(ClimbingSiteService.class);
+
+	@Autowired
 	ClimbingSiteRepository climbingSiteRepository;
 
-	public ClimbingSiteService(ClimbingSiteRepository climbingSiterepository) {
-		super();
-		this.climbingSiteRepository = climbingSiterepository;
-	}
-	
-	public List<ClimbingSiteItem> getClimbingSiteItems(){
-		List<ClimbingSiteItem> climbingSiteItems = climbingSiteRepository.getListOfSite();
+	public List<ClimbingSite> getAllClimbingSites() {
+		logger.info("in ClimbingSiteService in getClimbingSites");
+		List<ClimbingSite> climbingSiteItems = climbingSiteRepository.findAll();
 		return climbingSiteItems;
 	}
-	
-	public int getClimbinSiteListSize() {
-		return climbingSiteRepository.getListOfSite().size();
+
+	public int getClimbingSiteListSize() {
+		logger.info("in ClimbingSiteService in getClimbingSiteListSize");
+		return getAllClimbingSites().size();
+	}
+
+	public ClimbingSite getOneClimbingSiteById(Integer id) {
+		logger.info("in ClimbingSiteService in getOneClimbingSiteById");
+		return climbingSiteRepository.getOne(id);
+	}
+
+	public ClimbingSite addClimbingSite (ClimbingSite climbingSite) {
+		logger.info("in ClimbingSiteService in addClimbingSite");
+		return climbingSiteRepository.save(climbingSite);
 	}
 	
-	public ClimbingSiteItem findClimbingSiteById(Integer id) {
-		return climbingSiteRepository.findClimbingSiteById(id);
-		
+	public void deleteClimbingSite(Integer id) {
+		logger.info("in ClimbingSiteService in deleteClimbingSite");
+		ClimbingSite climbingSite = getOneClimbingSiteById(id);
+		climbingSiteRepository.delete(climbingSite);
 	}
 	
-	public void addOrUpdateClimbingSiteItem(ClimbingSiteItem climbingSiteItem) throws DuplicateTitleException {
-		ClimbingSiteItem existingSiteItem = findClimbingSiteById(climbingSiteItem.getId());
-		if (existingSiteItem == null) {
-			if (climbingSiteRepository.findClimbingSiteBySecteur(climbingSiteItem.getTitle())!=null) {
-				throw new DuplicateTitleException();
-			}
-			climbingSiteRepository.addClimbingSiteItem(climbingSiteItem);
-			
-		}else {
-			existingSiteItem.setTitle(climbingSiteItem.getTitle());
-			existingSiteItem.setSecteur(climbingSiteItem.getSecteur());
-			existingSiteItem.setImage(climbingSiteItem.getImage());
-			existingSiteItem.setLongueur(climbingSiteItem.getLongueur());
-			existingSiteItem.setNombreDeVoies(climbingSiteItem.getNombreDeVoies());
-			existingSiteItem.setDifficulty(climbingSiteItem.getDifficulty());
-			existingSiteItem.setTagged(climbingSiteItem.isTagged());
-		}
-	}
+	
+
+
 
 }

@@ -1,0 +1,156 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<link rel="stylesheet" href="style.css">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div class="bloc_page">
+		<header>
+			<div class="header_top_part">
+				<div th:insert="menu.html"></div>
+			</div>
+			<div class="header_bottom_part">
+				<h1>TOUS LES SITES D'ESCALADE</h1>
+			</div>
+		</header>
+
+
+		<div class="row" th:each="climbingSite:${climbingSites}">
+			<div class="col-sm-4" style="background-color: lavender;">
+				<img alt="image of climbing site"
+					src="imagesAndLogos/images/success.jpg">
+			</div>
+			<div class="col-sm-4" style="background-color: lavenderblush;">
+				<div class="titleAndTagged">
+					<h3 th:text="${climbingSite.title}"></h3>
+					<div class="float-right" th:if=${climbingSite.tagged}>
+						<img alt="officiel des amis de l'escalade"
+							src="/imagesAndLogos/logos/logoOfficielDesAmisDeLEscalade.png">
+					</div>
+				</div>
+				<div>
+					LIEU : <a th:text="${climbingSite.lieu}"></a>
+				</div>
+				<div>
+					SECTEUR : <a th:text="${climbingSite.secteur}"></a>
+				</div>
+				<div>
+					LONGUEUR : <a th:text="${climbingSite.longueur}"></a>
+				</div>
+				<div>
+					NOMBRE DE VOIES : <a th:text="${climbingSite.nombreDeVoies}"></a>
+				</div>
+				<div>
+					DIFFICULTEE : <a th:text="${climbingSite.difficulty}"></a>
+				</div>
+			</div>
+			<div class="col-sm-4">
+
+				<div sec:authorize="isAuthenticated()">
+					<button type="button" class="btn btn-primary"
+						th:href="@{editClimbingSite(id=${climbingSite.id})}">
+						Modifier</button>
+				</div>
+
+				<div sec:authorize="hasRole('ADMIN')">
+					<button type="button" class="btn btn-danger"
+						onclick="return confirm('êtes vous sur de vouloir supprimer?')"
+						th:href="@{deleteClimbingSite(id=${climbingSite.id})}">
+						Supprimer</button>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+
+
+
+		<!-- 		<div class="row">
+			<div th:each="climbingSite:${climbingSites}">
+				<div class="col-sm-6">
+					<img alt="image of climbing site"
+						src="imagesAndLogos/images/success.jpg">
+				</div>
+				<div class="col-sm-6">
+					<div th:text="${climbingSite.title}">TITRE</div>
+					<div th:if=${climbingSite.tagged}>
+						<img alt="officiel des amis de l'escalade"
+							src="/imagesAndLogos/logos/logoOfficielDesAmisDeLEscalade.png">
+					</div>
+					<div th:text="${climbingSite.lieu}">LIEU</div>
+					<div th:text="${climbingSite.secteur}">SECTEUR</div>
+					<div th:text="${climbingSite.longueur}">LONGUEUR</div>
+					<div th:text="${climbingSite.nombreDeVoies}">NOMBRE DE VOIES</div>
+					<div th:text="${climbingSite.difficulty}">DIFFICULTEE</div>
+				</div>
+			</div>
+		</div> -->
+
+		<!-- 		<table class="table">
+			<thead class="table top">
+				<tr>
+					<th>ID</th>
+					<th></th>
+					<th>TITRE</th>
+					<th>LIEU</th>
+					<th>IMAGE</th>
+					<th>SECTEUR</th>
+					<th>LONGUEUR</th>
+					<th>NOMBRE DE VOIES</th>
+					<th>DIFFICULTE</th>
+					<th>TAG</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="climbingSite:${climbingSites}">
+					<td><img alt="image of climbing site" src="imagesAndLogos/images/success.jpg"></td>
+					<td>
+						<object ="/imagesAndLogos/images/success.jpg" type="image/jpg">
+							<img alt="image of climbing site" th:src="@{/image/${climbingSite.image}}">
+						</object>
+					</td>
+					<td th:text="${climbingSite.id}"></td>
+					<td th:text="${climbingSite.title}"></td>
+					<td th:text="${climbingSite.lieu}"></td>
+					<td th:text="${climbingSite.secteur}"></td>
+					<td th:text="${climbingSite.longueur}"></td>
+					<td th:text="${climbingSite.nombreDeVoies}"></td>
+					<td th:text="${climbingSite.difficulty}"></td>
+					<td th:if=${climbingSite.tagged}><img
+						alt="officiel des amis de l'escalade"
+						src="/imagesAndLogos/logos/logoOfficielDesAmisDeLEscalade.png">
+					</td>
+					<td><a
+						onclick="return confirm('êtes vous sur de vouloir supprimer?')"
+						th:href="@{deleteClimbingSite(id=${climbingSite.id})}">
+							Supprimer</a></td>
+					<td><a
+						th:href="@{editClimbingSite(id=${climbingSite.id})}">
+							Modifier</a>
+					</td>
+			</tbody>
+		</table> -->
+
+
+
+
+		<footer>
+			<div th:insert="footer.html"></div>
+		</footer>
+	</div>
+</body>
+</html>
