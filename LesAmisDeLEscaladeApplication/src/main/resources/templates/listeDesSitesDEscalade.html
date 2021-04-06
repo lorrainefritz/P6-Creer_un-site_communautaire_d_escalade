@@ -25,16 +25,16 @@
 		</header>
 
 
-		<div class="row" th:each="climbingSite:${climbingSites}">
-			<div class="col-sm-4" style="background-color: lavender;">
-				<img alt="image of climbing site"
+		<div class="row" id="blocPageClimbingSiteList" th:each="climbingSite:${climbingSites}">
+			<div class="col-sm-4">
+				<img class="img-fluid" alt="image of climbing site"
 					src="imagesAndLogos/images/success.jpg">
 			</div>
-			<div class="col-sm-4" style="background-color: lavenderblush;">
+			<div class="col-sm-4" id ="descriptionClimbingSiteList">
 				<div class="titleAndTagged">
 					<h3 th:text="${climbingSite.title}"></h3>
 					<div class="float-right" th:if=${climbingSite.tagged}>
-						<img alt="officiel des amis de l'escalade"
+						<img class="img-fluid" alt="officiel des amis de l'escalade"
 							src="/imagesAndLogos/logos/logoOfficielDesAmisDeLEscalade.png">
 					</div>
 				</div>
@@ -55,18 +55,12 @@
 				</div>
 			</div>
 			<div class="col-sm-4">
-
 				<div sec:authorize="isAuthenticated()">
-					<button type="button" class="btn btn-primary"
-						th:href="@{editClimbingSite(id=${climbingSite.id})}">
-						Modifier</button>
+					<a  class="btn btn-info btn-lg" th:href="@{editClimbingSite(id=${climbingSite.id})}"> Modifier</a>
 				</div>
 
 				<div sec:authorize="hasRole('ADMIN')">
-					<button type="button" class="btn btn-danger"
-						onclick="return confirm('êtes vous sur de vouloir supprimer?')"
-						th:href="@{deleteClimbingSite(id=${climbingSite.id})}">
-						Supprimer</button>
+					<a class="btn btn-dark btn-lg" id="buttonSuppressionClimbingSite" th:href="@{deleteClimbingSite(id=${climbingSite.id})}" onclick="return confirm('êtes vous sur de vouloir supprimer?')" >Supprimer</a>		
 				</div>
 
 			</div>

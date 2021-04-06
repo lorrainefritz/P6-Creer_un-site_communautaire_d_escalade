@@ -198,19 +198,48 @@ input[type=text] {
 /* Liste des Sites d'escalade */
 
 
- /* pour le titre et le tagg */
-/* .titleAndTagged{
-	display: flex;
-} */
-
-
-/* tableau climbingSiteList */
-/* table {
-	border-collapse: collapse;
+#blocPageClimbingSiteList{
+	padding-top: 1%;
+	padding-bottom: 1%;
+	background-color: rgb(173, 212, 251);
+}
+#descriptionClimbingSiteList{
+		
+	/* margin-left: 5%;
+	margin-right: 5%; */
+/* 	padding-top: 1%;
+	padding-bottom: 1%; */
+	background-color: white;
+	border: 1px solid black; 	
 }
 
-td {
-	border: 1px solid black;
+/* #buttonModificationClimbingSite{
+	height:100px;
+	width:100px
+}
+
+
+#buttonSuppressionClimbingSite{
+	height:100px;
+	width:100px
+	} */
+#buttonSuppressionClimbingSite:hover {
+  background-color: red;
+}
+
+/* ---------------------------------------------------------------- */
+/* Se connecter */
+
+#enregistrementBlock{
+	/* margin-left: 5%;
+	margin-right: 5%; */
+}
+#loginBlock{
+	/* border-left-color: black; */
+	border-left: 1px solid black;
+}
+/* #enregistrementEtLogin{
+	display:flex;
 } */
 /* ---------------------------------------------------------------- */
 /* A propose de l'association */
