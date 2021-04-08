@@ -20,7 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.LesAmisDeLEscaladeApplication.dto.UserRegistrationDto;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Commentaire;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Role;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Topo;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.User;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.repository.UserRepository;
 
@@ -43,92 +45,19 @@ public class UserServiceImplementation implements UserService {
 		this.userRepository = userRepository;
 	}
 
+	
 	@Override
 	public User save(UserRegistrationDto registrationDto) {
-		Role roleUserParDefaut = roleService.getOneRoleById(1);
+		Role roleUserParDefaut = roleService.getOneRoleById(2);
 		logger.info("IN SAVE USER and roleUserParDefaut= " + roleUserParDefaut.getName());
-		User user = new User(registrationDto.getName(), passwordEncoder.encode(registrationDto.getPassword()),
-				registrationDto.getEmail(), false, Arrays.asList(roleUserParDefaut));
+		User user = new User(registrationDto.getNom(), registrationDto.getPrenom(), registrationDto.getAdresse(), registrationDto.getTelephone(), 
+				passwordEncoder.encode(registrationDto.getPassword()), registrationDto.getEmail(), Arrays.asList(roleUserParDefaut),registrationDto.getCommentaires(),registrationDto.getTopos());
 		return userRepository.save(user);
 	}	
+	
+	
 		
-//	
-//	@Override
-//	public User save(UserRegistrationDto registrationDto) {
-//		Role roleUserParDefaut = roleService.getOneRoleById(1);
-//		User user = new User(registrationDto.getName(), passwordEncoder.encode(registrationDto.getPassword()),
-//				registrationDto.getEmail(), false, Arrays.asList(new Role("ROLE_USER")));
-//		return userRepository.save(user);
-//	}
 
-//	@Override
-//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		logger.info("IN LOADUSERBYUSERNAME");
-//		User user = userRepository.findByEmail(username);
-//		
-//		  UserBuilder builder = null;
-//		    if (user != null) {
-//		      builder = org.springframework.security.core.userdetails.User.withUsername(username);
-//		      String poire = new BCryptPasswordEncoder().encode(user.getPassword());
-//		      builder.password(poire);
-//		      builder.authorities(user.getAuthorities());
-//		      logger.info("utilisateur email "+user.getEmail());
-//				logger.info("utilisateur password "+user.getPassword());
-//				logger.info("utilisateur password poire "+poire);
-//				logger.info("utilisateur role "+user.getAuthorities());
-//				logger.info("utilisateur name "+user.getName());
-//				logger.info("utilisateur id "+user.getId());      
-//		    } else {
-//		      throw new UsernameNotFoundException("User not found.");
-//		    }
-//		
-//		
-//		
-//		return builder.build();
-//	}		
-
-//==============================> truc qui ne marche pas mais test en cours	
-//	@Override
-//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		logger.info("IN LOADUSERBYUSERNAME");
-//		User user = userRepository.findByEmail(username);
-//		logger.info("IN LOADUSERBYUSERNAME AFTER USER CREATION VIA FINDBYEMAIL");
-//		if(user== null) {
-//			throw new UsernameNotFoundException("Invalid email or Password");
-//		}
-//		logger.info("email "+username);
-//		logger.info("utilisateur email "+user.getEmail());
-//		logger.info("utilisateur password "+user.getPassword());
-//		logger.info("utilisateur role "+user.getAuthorities());
-//		logger.info("utilisateur name "+user.getName());
-//		logger.info("utilisateur id "+user.getId());
-////		return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getName()
-////				,(user.getAuthorities()));
-//		return user;
-//	}	
-
-//============================>test ac wrapper shopmeUserDetails	
-//	@Override
-//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		logger.info("IN LOADUSERBYUSERNAME");
-////		User user = userRepository.getUserByEmail(email);
-//		User user = userRepository.findByEmail(username);
-//		logger.info("IN LOADUSERBYUSERNAME AFTER USER CREATION VIA FINDBYEMAIL");
-//		
-//		if(user== null) {
-//			throw new UsernameNotFoundException("Invalid email or Password");
-//		}
-//		logger.info("email "+username);
-//		logger.info("utilisateur email "+user.getEmail());
-//		logger.info("utilisateur password "+user.getPassword());
-//		logger.info("utilisateur name "+user.getName());
-//		logger.info("utilisateur id "+user.getId());
-////		return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getName()
-////				,mapRolesToAuthorities(user.getRoles()));
-//		return new ShopMeUserDetails(user);
-//	}	
-
-//============================>Truc qui marche
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("IN LOADUSERBYUSERNAME");
@@ -167,8 +96,11 @@ public class UserServiceImplementation implements UserService {
 		return userRepository.save(user);
 	}
 
-	public User nameModification(User user, String name) {
-		user.setName(name);
+	public User userInfosModification(User user, String nom, String prenom,String adresse,String telephone) {
+		user.setNom(nom);
+		user.setPrenom(prenom);
+		user.setAdresse(adresse);
+		user.setTelephone(telephone);
 		return userRepository.save(user);
 
 	}
@@ -179,7 +111,7 @@ public class UserServiceImplementation implements UserService {
 		return userRepository.save(user);
 	}
 
-//// méthode d'admin pour admin les roles des user bien changer partout en user
+// méthode d'admin pour admin les roles des user bien changer partout en user
 	public User roleUserModification(User user, Collection<Role> roles) {
 		logger.info("in roleModification" + roles);
 		user.setRoles(roles);
@@ -195,22 +127,6 @@ public class UserServiceImplementation implements UserService {
 		return userRepository.save(user);
 	}	
 	
-	
-	
-	
-	
-	
-//	public User deleteUserRole(User user, String roleName) {
-//		logger.info("in deleteRole with roleName = " + roleName);
-//		Role role =roleService.getOneByName(roleName);
-//		logger.info("in deleteRole with role = " + role.getName()+role.getId() +"and user is " + user.getName());
-//		List<Role> roles = (List<Role>)user.getRoles();
-//		Role rolo = roles.get(1);
-//		logger.info("in deleteRole roles "
-//				+ "contains role = " + roles.contains(role)+" "+ role.getName()+ " " +role.getId() 
-//				+ " contains rolo = " +roles.contains(rolo) +" "+ rolo.getName()+ " " +rolo.getId());			
-//		return userRepository.save(user);
-//	}
 	
 
 	public User addUserRole(User user, Role role) {

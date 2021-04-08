@@ -18,8 +18,23 @@
 		<form th:action="@{/registration}" method="post" th:object="${user}">
 
 			<div class="col-md-6 form-group">
-				<label for="name">NAME</label> <input type="text" th:field="*{name}"
-					id="name" class="form-control">
+				<label for="nom">NOM</label> <input type="text" th:field="*{nom}"
+					id="nom" class="form-control">
+			</div>
+			
+			<div class="col-md-6 form-group">
+				<label for="prenom">PRENOM</label> <input type="text" th:field="*{prenom}"
+					id="prenom" class="form-control">
+			</div>
+			
+			<div class="col-md-6 form-group">
+				<label for="adresse">ADRESSE</label> <input type="text" th:field="*{adresse}"
+					id="adresse" class="form-control">
+			</div>
+			
+			<div class="col-md-6 form-group">
+				<label for="telephone">TELEPHONE</label> <input type="text" th:field="*{telephone}"
+					id="telephone" class="form-control">
 			</div>
 			
 			<div class="col-md-6 form-group">

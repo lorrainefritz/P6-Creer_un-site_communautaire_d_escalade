@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -50,7 +51,7 @@ public class ClimbingSiteFormAndListController {
 			logger.info("HTTP POST request received at /ajouterDesSitesDEscalade in bindingResult.hasErrors");
 			return "/ajouterDesSitesDEscalade";
 		} else {
-			logger.info("chocolat ajouté avec les valeurs suivantes : " + "id= " + climbingSite.getId() + " titre "
+			logger.info("site d'escalade ajouté avec les valeurs suivantes : " + "id= " + climbingSite.getId() + " titre "
 					+ climbingSite.getTitle() + " lieu= " + climbingSite.getLieu() + " longueur="
 					+ climbingSite.getLongueur() + " nombre de voies=" + climbingSite.getNombreDeVoies() + " secteur ="
 					+ climbingSite.getSecteur() + " difficulté=" + climbingSite.getDifficulty() + " est taggé="
@@ -72,7 +73,15 @@ public class ClimbingSiteFormAndListController {
 		model.addAttribute("climbingSite",climbingSite);
 		return "ajouterDesSitesDEscalade";
 	}
-	
+
+//	@GetMapping(path="/taggClimbingSite")
+//	public String taggClimbingSite(Model model, Integer id) {
+//		logger.info("HTTP GET received at /editClimbingSite" + id);
+//		ClimbingSite climbingSite = climbingSiteService.getOneClimbingSiteById(id);
+//		climbingSite.isTagged();
+//		return "redirect:/listeDesSitesDEscalade";
+//	}
+		
 	@GetMapping("/deleteClimbingSite")
 	public String deleteClimbingSite(Integer id) {
 		logger.info("HTTP GET received at /deleteClimbingSite" +id);

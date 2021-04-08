@@ -20,7 +20,6 @@ import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.User;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.service.RoleService;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.service.UserServiceImplementation;
 
-
 @Controller
 public class EditUserController {
 	@Autowired
@@ -63,16 +62,17 @@ public class EditUserController {
 		model.addAttribute("curentuser", user);
 		logger.info("NOMBRE DE ROLES=" + roleService.howManyRolesExists());
 		model.addAttribute("globalsRolesList", roleService.getAllRoles());
-		userRolesCollection =user.getRoles();
-		logger.info("USER ROLES LISTE SIZE" + userRolesCollection.size()+ " hascode " + userRolesCollection.hashCode()+ userRolesCollection.toString());
+		userRolesCollection = user.getRoles();
+		logger.info("USER ROLES LISTE SIZE" + userRolesCollection.size() + " hascode " + userRolesCollection.hashCode()
+				+ userRolesCollection.toString());
 		model.addAttribute("roles", userRolesCollection);
 		return "editUser";
 	}
 
-	@PostMapping("/editName")
-	public String editName(String name) {
-		logger.info("HTTP GET received at /editEmail");
-		userServiceImp.nameModification(user, name);
+	@PostMapping("/editUserInfos")
+	public String editName(String nom, String prenom, String adresse, String telephone) {
+		logger.info("HTTP GET received at /editUserInfos");
+		userServiceImp.userInfosModification(user, nom, prenom, adresse, telephone);
 		return "redirect:/logSuccess";
 	}
 
@@ -87,7 +87,7 @@ public class EditUserController {
 	public String editPassword(String password) {
 		logger.info("HTTP GET received at /editPassword ");
 		logger.info("PASSWORD  " + password);
-		logger.info("NAME  " + user.getName());
+		logger.info("NOM  " + user.getNom());
 		userServiceImp.passwordModification(user, password);
 		return "redirect:/logSuccess";
 	}
@@ -98,10 +98,10 @@ public class EditUserController {
 	@GetMapping("/deleteUserRole")
 	public String deleteUserRole(Integer id) {
 		logger.info("HTTP GET received at deleteUserRole " + id);
-		userServiceImp.deleteUserRole(user,id);
+		userServiceImp.deleteUserRole(user, id);
 		return "redirect:/listeDesUsers";
 	}
-	
+
 //	@PreAuthorize("hasRole('ADMIN')")
 //	@GetMapping("/deleteUserRole")
 //	public String deleteUserRole(String roleName) {

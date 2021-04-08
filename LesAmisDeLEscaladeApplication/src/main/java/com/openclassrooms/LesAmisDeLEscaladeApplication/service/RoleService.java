@@ -34,6 +34,7 @@ public long howManyRolesExists() {
 
 public Role addRole (Role role) {
 	logger.info("in RoleService addRole");
+	logger.info("On save le role : nom " + role.getName()+" id " +role.getId());
 	return roleRepository.save(role);
 }
 

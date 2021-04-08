@@ -16,15 +16,27 @@
 		</div>
 	</header>
 	<div class="page_formulaire">
-		<form th:action="@{/editName}" method="post" th:object="${curentuser}">
+		<form th:action="@{/editUserInfos}" method="post" th:object="${curentuser}">
 
 			<div class="col-md-6 form-group">
-				<label for="name">NAME</label> <input type="text" th:field="*{name}"
-					id="name" class="form-control" placeholder="${curentuser.name}">
+				<label for="nom">NOM</label> <input type="text" th:field="*{nom}"
+					id="nom" class="form-control" placeholder="${curentuser.nom}">
 			</div>
 			<div class="col-md-6 form-group">
-				<button type="submit" class="btn btn-primary">EDITER
-					NAME</button>
+				<label for="prenom">PRENOM</label> <input type="text" th:field="*{prenom}"
+					id="prenom" class="form-control" placeholder="${curentuser.prenom}">
+			</div>
+			<div class="col-md-6 form-group">
+				<label for="adresse">ADRESSE</label> <input type="text" th:field="*{adresse}"
+					id="adresse" class="form-control" placeholder="${curentuser.adresse}">
+			</div>
+			<div class="col-md-6 form-group">
+				<label for="telephone">TELEPHONE</label> <input type="text" th:field="*{telephone}"
+					id="telephone" class="form-control" placeholder="${curentuser.telephone}">
+			</div>
+			
+			<div class="col-md-6 form-group">
+				<button type="submit" class="btn btn-primary">EDITER </button>
 			</div>
 		</form>
 		<form th:action="@{/editPassword}" method="post"

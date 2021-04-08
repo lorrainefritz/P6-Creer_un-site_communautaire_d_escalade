@@ -32,9 +32,11 @@ public class AddRoleController {
 	@PostMapping("/addRole")
 	public String submitRoleForm(@ModelAttribute("role") Role role) {
 		logger.info("HTTP POST received at /addRoleToList");
-		logger.info(
-				" On ajoute le role avec les valeurs suivantes ; id : " + role.getId() + " nom : " + role.getName());
+//		Integer numberOfRolesPlusOne =(int)roleService.howManyRolesExists()+1;
+//		role.setId(numberOfRolesPlusOne);
 		roleService.addRole(role);
+		logger.info(
+				" On ajoute le role nom : " + role.getName() +" id : " +role.getId());
 		return ("redirect:/editRole");
 	}
 }

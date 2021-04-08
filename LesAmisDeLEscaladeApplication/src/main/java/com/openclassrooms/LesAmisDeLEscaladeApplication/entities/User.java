@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
@@ -33,12 +34,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "REGISTERED_USER", 
+@Table(name = "REGISTERED_USERS", 
 	uniqueConstraints = @UniqueConstraint(columnNames = "EMAIL"))
-//@Getter
-//@Setter
-//@NoArgsConstructor
-//public class User implements Serializable, UserDetails {
+@Getter
+@Setter
+@NoArgsConstructor
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -48,10 +48,23 @@ public class User implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "NAME")
+	@Column(name = "NOM")
 	@NotBlank
-	private String name;
+	private String nom;
 
+	@Column(name = "PRENOM")
+	@NotBlank
+	private String prenom;
+	
+	@Column(name = "ADRESSE")
+	@NotBlank
+	private String adresse;
+	
+	@Column(name = "TELEPHONE")
+	@NotBlank
+	private String telephone;
+	
+	
 	@Column(name = "PASSWORD")
 	@NotBlank
 	private String password;
@@ -60,7 +73,6 @@ public class User implements Serializable{
 	@NotBlank
 	private String email;
 	
-	private boolean enabled;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
@@ -71,71 +83,27 @@ public class User implements Serializable{
 			(name = "ROLE_ID", referencedColumnName = "ID"))
 	private Collection<Role> roles;
 
-
-
-	public User(@NotBlank String name, @NotBlank String password, @NotBlank String email, boolean enabled,
-			Collection<Role> roles) {
-		super();
-		this.name = name;
-		this.password = password;
-		System.out.println("PASSWORD "+ this.password);
-		this.email = email;
-		this.enabled = enabled;
-		this.roles = roles;
-	}
-
-	public User() {
-		super();
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Collection<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
+		
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "REGISTERED_USERS_COMMENTAIRES",
+			joinColumns = @JoinColumn(
+					name = "USER_ID", referencedColumnName = "ID"),
+			inverseJoinColumns = @JoinColumn
+			(name="COMMENTAIRES_ID",referencedColumnName="ID"))
+	private Collection<Commentaire> commentaires;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "REGISTERED_USERS_TOPOS",
+			joinColumns = @JoinColumn(
+					name = "USER_ID", referencedColumnName = "ID"),
+			inverseJoinColumns = @JoinColumn
+			(name="TOPOS_ID",referencedColumnName="ID"))
+	private Collection<Topo> topos;	
+	
+	
+	
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		 Collection<Role> roles = getRoles();
 	        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -146,42 +114,21 @@ public class User implements Serializable{
 		return authorities;
 	}
 
-////	@Override
-//	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		 Collection<Role> roles = getRoles();
-//	        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-//	         
-//	        for (Role role : roles) {
-//	            authorities.add(new SimpleGrantedAuthority(role.getName()));
-//	        }         
-//		return authorities;
-//	}
-	
-	
-	
-	
-//	@Override
-//	public String getUsername() {
-//		return getEmail();
-//	}
-//
-//	@Override
-//	public boolean isAccountNonExpired() {
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean isAccountNonLocked() {
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean isCredentialsNonExpired() {
-//		return true;
-//	}
 
-	
 
-	
+	public User(@NotBlank String nom, @NotBlank String prenom, @NotBlank String adresse, @NotBlank String telephone,
+			@NotBlank String password, @NotBlank String email, Collection<Role> roles,
+			Collection<Commentaire> commentaires, Collection<Topo> topos) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresse = adresse;
+		this.telephone = telephone;
+		this.password = password;
+		this.email = email;
+		this.roles = roles;
+		this.commentaires = commentaires;
+		this.topos = topos;
+	}
 
 }

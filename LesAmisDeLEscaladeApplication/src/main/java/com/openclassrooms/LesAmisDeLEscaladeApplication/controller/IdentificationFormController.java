@@ -34,6 +34,15 @@ public class IdentificationFormController {
 		return "seConnecter";
 	}
 
+	@GetMapping("/monCompte")
+	public String showCompte(Authentication authentication, Model model) {
+		logger.info(" HTTP GET received at /monCompte");
+		   userPrincipal = (UserDetails)authentication.getPrincipal();
+		    currentLoggedUser = userServiceImp.findUserOnEmail(userPrincipal.getUsername());;
+		    model.addAttribute("curentuser",currentLoggedUser);
+		    model.addAttribute("principal",userPrincipal);
+		return "monCompte";
+	}
 
 	@GetMapping("/logSuccess")
 	public String managersStatusCheck(Authentication authentication, Model model) {
