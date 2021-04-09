@@ -35,11 +35,10 @@ public class Topo {
 	
 	
 	@Column(name = "LIBRE_POUR_EMPRUNT")
-	@NotBlank
 	private boolean freeForBorrow;
 
 
-	public Topo(@NotBlank String title, @NotBlank String content, @NotBlank boolean freeForBorrow) {
+	public Topo(@NotBlank String title, @NotBlank String content, boolean freeForBorrow) {
 		super();
 		this.title = title;
 		this.content = content;

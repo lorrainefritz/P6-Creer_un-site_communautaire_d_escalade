@@ -119,7 +119,7 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	public User deleteUserRole(User user, Integer id) {
-		logger.info("in deleteRole with roleName = " + id);
+		logger.info("in deleteRole with id = " + id);
 		List<Role> useroleColle= (List<Role>) user.getRoles();
 		Role role = useroleColle.get(id);
 		useroleColle.remove(role);
@@ -133,6 +133,25 @@ public class UserServiceImplementation implements UserService {
 		logger.info("in addRole" + role);
 		Collection<Role> roles = user.getRoles();	
 		roles.add(role);
+		return userRepository.save(user);
+	}
+
+
+	public User addUserTopo(User user, Topo topo) {
+		logger.info("in addTopoToUserTopoList" + topo);
+		Collection<Topo> topos = user.getTopos();	
+		topos.add(topo);
+		return userRepository.save(user);
+		
+	}
+
+
+	public User deleteUserTopoWithId(User user, Integer id) {
+		logger.info("in deleteTopoToUserTopoList Topo with id = " + id);
+		List<Topo> topos = (List<Topo>) user.getTopos();
+		Topo topo =topos.get(id);
+		topos.remove(topo);
+		user.setTopos(topos);
 		return userRepository.save(user);
 	}
 
