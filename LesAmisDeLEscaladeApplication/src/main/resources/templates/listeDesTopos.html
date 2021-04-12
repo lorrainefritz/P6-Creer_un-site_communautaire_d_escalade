@@ -29,7 +29,20 @@
 					<td th:text="${topo.id}"></td>
 					<td th:text="${topo.title}"></td>
 					<td th:text="${topo.content}"></td>
-					<td th:text="${topo.freeForBorrow}"></td>
+					<!-- <td th:text="${topo.freeForBorrow}"></td> -->
+					<td th:if="${topo.freeForBorrow == true}">
+						<a>
+							<img class="img-fluid" alt="topo disponible"
+							src="/imagesAndLogos/logos/logoTopoDispo.png">
+						</a>
+					</td>
+					<!-- <td><a th:href="'mailto:' + ${topo.ownerMail}">Faire une demande d'emprunt</a></td> -->
+					<td th:if="${topo.freeForBorrow == false}">
+						<a>
+							<img class="img-fluid" alt="topo disponible"
+							src="/imagesAndLogos/logos/logoTopoIndispo.png">
+						</a>
+					</td>
 					<!-- 					<td><a
 						onclick="return confirm('êtes vous sur de vouloir supprimer?')"
 						th:href="@{deleteUser(id=${user.id})}"> Supprimer</a></td>

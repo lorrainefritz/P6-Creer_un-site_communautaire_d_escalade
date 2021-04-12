@@ -20,43 +20,42 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.LesAmisDeLEscaladeApplication.dto.UserRegistrationDto;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.ClimbingSite;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Commentaire;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Role;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Topo;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.User;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.repository.UserRepository;
 
-
-
 @Service
 public class UserServiceImplementation implements UserService {
 
 	private final Logger logger = LoggerFactory.getLogger(UserServiceImplementation.class);
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private RoleService roleService;
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private ClimbingSiteService climbingSiteService;
 
 	public UserServiceImplementation(UserRepository userRepository) {
 		super();
 		this.userRepository = userRepository;
 	}
 
-	
 	@Override
 	public User save(UserRegistrationDto registrationDto) {
 		Role roleUserParDefaut = roleService.getOneRoleById(2);
 		logger.info("IN SAVE USER and roleUserParDefaut= " + roleUserParDefaut.getName());
-		User user = new User(registrationDto.getNom(), registrationDto.getPrenom(), registrationDto.getAdresse(), registrationDto.getTelephone(), 
-				passwordEncoder.encode(registrationDto.getPassword()), registrationDto.getEmail(), Arrays.asList(roleUserParDefaut),registrationDto.getCommentaires(),registrationDto.getTopos());
+		User user = new User(registrationDto.getNom(), registrationDto.getPrenom(), registrationDto.getAdresse(),
+				registrationDto.getTelephone(), passwordEncoder.encode(registrationDto.getPassword()),
+				registrationDto.getEmail(), Arrays.asList(roleUserParDefaut), registrationDto.getCommentaires(),
+				registrationDto.getTopos());
 		return userRepository.save(user);
-	}	
-	
-	
-		
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -96,7 +95,7 @@ public class UserServiceImplementation implements UserService {
 		return userRepository.save(user);
 	}
 
-	public User userInfosModification(User user, String nom, String prenom,String adresse,String telephone) {
+	public User userInfosModification(User user, String nom, String prenom, String adresse, String telephone) {
 		user.setNom(nom);
 		user.setPrenom(prenom);
 		user.setAdresse(adresse);
@@ -120,38 +119,53 @@ public class UserServiceImplementation implements UserService {
 
 	public User deleteUserRole(User user, Integer id) {
 		logger.info("in deleteRole with id = " + id);
-		List<Role> useroleColle= (List<Role>) user.getRoles();
+		List<Role> useroleColle = (List<Role>) user.getRoles();
 		Role role = useroleColle.get(id);
 		useroleColle.remove(role);
 		user.setRoles(useroleColle);
 		return userRepository.save(user);
-	}	
-	
-	
+	}
 
 	public User addUserRole(User user, Role role) {
 		logger.info("in addRole" + role);
-		Collection<Role> roles = user.getRoles();	
+		Collection<Role> roles = user.getRoles();
 		roles.add(role);
 		return userRepository.save(user);
 	}
 
-
 	public User addUserTopo(User user, Topo topo) {
 		logger.info("in addTopoToUserTopoList" + topo);
-		Collection<Topo> topos = user.getTopos();	
+		Collection<Topo> topos = user.getTopos();
 		topos.add(topo);
 		return userRepository.save(user);
-		
-	}
 
+	}
 
 	public User deleteUserTopoWithId(User user, Integer id) {
 		logger.info("in deleteTopoToUserTopoList Topo with id = " + id);
 		List<Topo> topos = (List<Topo>) user.getTopos();
-		Topo topo =topos.get(id);
+		Topo topo = topos.get(id);
 		topos.remove(topo);
 		user.setTopos(topos);
+		return userRepository.save(user);
+	}
+
+	public User addUserCommentaire(User user, Commentaire commentaire, ClimbingSite climbingSite) {
+		List<Commentaire> commentaires = (List<Commentaire>) user.getCommentaires();
+		logger.info("in addUserCommentaire");
+		logger.info("User" + user.getNom() +user.getAuthorities());
+		logger.info("commentaire" + commentaire.getTitle());
+		commentaires.add(commentaire);
+		climbingSiteService.addClimbingSiteCommentaire(climbingSite,commentaire);
+		return userRepository.save(user);
+	}
+
+	public User deleteUserCommentaireWithId(User user, Integer id) {
+		logger.info("in deleteUserCommentaireWithId = " + id);
+		List<Commentaire> commentaires = (List<Commentaire>) user.getCommentaires();
+		Commentaire commentaire = commentaires.get(id);
+		commentaires.remove(commentaire);
+		user.setCommentaires(commentaires);
 		return userRepository.save(user);
 	}
 

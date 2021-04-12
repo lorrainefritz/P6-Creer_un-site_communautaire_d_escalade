@@ -85,6 +85,8 @@ public DaoAuthenticationProvider authenticationProvider() {
 						"/registration**",
 						"/login**",
 						"/listeDesSitesDEscalade",
+						"/listeDesTopos",
+						"/listeDesCommentaires",
 						"/mentionsLegales**",
 //						"/listeDesUsers**",
 						"/imagesAndLogos/**",

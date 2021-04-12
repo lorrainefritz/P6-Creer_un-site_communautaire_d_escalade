@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.ClimbingSite;
-import com.openclassrooms.LesAmisDeLEscaladeApplication.exception.DuplicateTitleException;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Commentaire;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.repository.ClimbingSiteRepository;
 
 @Service
@@ -44,9 +44,20 @@ public class ClimbingSiteService {
 		ClimbingSite climbingSite = getOneClimbingSiteById(id);
 		climbingSiteRepository.delete(climbingSite);
 	}
+
+	public ClimbingSite addClimbingSiteCommentaire(ClimbingSite climbingSite, Commentaire commentaire) {
+		List<Commentaire> commentaires = (List<Commentaire>) climbingSite.getCommentaires();
+		commentaires.add(commentaire);
+		return climbingSiteRepository.save(climbingSite);
+	}
+
+	public ClimbingSite deleteCommentaireWithId(ClimbingSite climbingSite, Integer id) {
+		logger.info("in deleteUserCommentaireWithId = " + id);
+		List<Commentaire> commentaires = (List<Commentaire>) climbingSite.getCommentaires();
+		Commentaire commentaire = commentaires.get(id);
+		commentaires.remove(commentaire);
+		climbingSite.setCommentaires(commentaires);
+		return climbingSiteRepository.save(climbingSite);
+	}
 	
-	
-
-
-
 }

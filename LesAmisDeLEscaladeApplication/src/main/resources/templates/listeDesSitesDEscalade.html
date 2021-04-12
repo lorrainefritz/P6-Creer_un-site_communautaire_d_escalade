@@ -55,8 +55,12 @@
 				</div>
 			</div>
 			<div class="col-sm-4">
+				<div>
+					<a  class="btn btn-info btn-lg" th:href="@{listeDesCommentaires(id=${climbingSite.id})}"> Liste des Commentaire</a>
+				</div>
+				
 				<div sec:authorize="isAuthenticated()">
-					<a  class="btn btn-info btn-lg" th:href="@{editClimbingSite(id=${climbingSite.id})}"> Modifier</a>
+					<a  class="btn btn-warning btn-lg" th:href="@{editClimbingSite(id=${climbingSite.id})}"> Modifier</a>
 				</div>
 
 				<div sec:authorize="hasRole('ADMIN')">

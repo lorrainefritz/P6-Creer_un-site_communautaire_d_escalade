@@ -1,0 +1,63 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<link rel="stylesheet" href="style.css">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div id="bloc_page">
+		<header>
+			<div class="header_top_part">
+				<div th:insert="menu.html"></div>
+			</div>
+			<div class="header_bottom_part">
+				<h1>LISTE DES COMMENTAIRES DU SITE D'ESCALADE : </h1>
+				<h1 th:text = "${currentClimbingSite.title}"></h1>
+			</div>
+		</header>
+
+		<table class="col-md-6 table">
+			<thead class="table top">
+				<tr>
+					<th>ID</th>
+					<th>TITRE</th>
+					<th>CONTENU</th>
+					<th>DATE</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="commentaire,custStat:${commentaires}">
+					<td th:text="${custStat.index}"></td>
+					<td th:text="${commentaire.id}"></td>
+					<td th:text="${commentaire.title}"></td>
+					<td th:text="${commentaire.content}"></td>
+					<td th:text="${commentaire.creationDateTime}"></td>
+					<td sec:authorize="hasRole('ADMIN')"><a
+						class="btn btn-dark btn-lg" id="buttonSuppressionCommentaire"
+						th:href="@{deleteCommentaire(custStat=${custStat.index},id=${commentaire.id})}"
+						onclick="return confirm('êtes vous sur de vouloir supprimer?')">Supprimer</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div>
+			<a class="btn btn-info btn-lg" th:href="@{ajouterUnCommentaire}">
+				Ajouter un commentaire</a>
+		</div>
+
+		<footer>
+			<div th:insert="footer.html"></div>
+		</footer>
+	</div>
+</body>
+</html>
