@@ -150,13 +150,12 @@ public class UserServiceImplementation implements UserService {
 		return userRepository.save(user);
 	}
 
-	public User addUserCommentaire(User user, Commentaire commentaire, ClimbingSite climbingSite) {
+	public User addUserCommentaire(User user, Commentaire commentaire) {
 		List<Commentaire> commentaires = (List<Commentaire>) user.getCommentaires();
 		logger.info("in addUserCommentaire");
 		logger.info("User" + user.getNom() +user.getAuthorities());
 		logger.info("commentaire" + commentaire.getTitle());
 		commentaires.add(commentaire);
-		climbingSiteService.addClimbingSiteCommentaire(climbingSite,commentaire);
 		return userRepository.save(user);
 	}
 

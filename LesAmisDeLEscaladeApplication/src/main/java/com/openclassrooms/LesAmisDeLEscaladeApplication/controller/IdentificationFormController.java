@@ -1,6 +1,7 @@
 package com.openclassrooms.LesAmisDeLEscaladeApplication.controller;
 
 import java.security.Principal;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,13 +41,11 @@ public class IdentificationFormController {
 	ClimbingSiteService climbingSiteService;
 	@Autowired
 	CommentaireService commentaireService;
-	
+
 	private final Logger logger = LoggerFactory.getLogger(IdentificationFormController.class);
 	private UserDetails userPrincipal;
 	private User currentLoggedUser;
 	private ClimbingSite currentClimbingSite;
-	
-	
 
 	@GetMapping("/seConnecter")
 	public String showLoginForm() {
@@ -73,12 +74,18 @@ public class IdentificationFormController {
 	}
 
 	@PostMapping("/ajouterUnTopo")
-	public String submitTopoForm(@ModelAttribute("topo") Topo topo) {
-		logger.info("HTTP POST received at /addTopoToList ");
-		logger.info("On ajoute le topo avec les valeurs suivantes : id " + topo.getId() + " titre " + topo.getTitle()
-				+ " content " + topo.getContent() + " est disponible à l'emprunt " + topo.isFreeForBorrow());
-		userServiceImp.addUserTopo(currentLoggedUser, topo);
-		logger.info("juste avant le topoService ou on addTopo");
+	public String submitTopoForm(@Validated @ModelAttribute("topo") Topo topo, BindingResult bindingResult) {
+		logger.info("HTTP POST received at /addTopoToList");
+		if (bindingResult.hasErrors()) {
+			logger.info("HTTP POST received at /addTopoToList in bindingResult.hasErrors");
+			return "/ajouterUnTopo";
+		} else {
+			logger.info("On ajoute le topo avec les valeurs suivantes : id " + topo.getId() + " titre "
+					+ topo.getTitle() + " content " + topo.getContent() + " est disponible à l'emprunt "
+					+ topo.isFreeForBorrow());
+			userServiceImp.addUserTopo(currentLoggedUser, topo);
+			logger.info("juste avant le topoService ou on addTopo");
+		}
 		return ("redirect:/monCompte");
 	}
 
@@ -107,61 +114,66 @@ public class IdentificationFormController {
 		topoService.saveTopo(topo);
 		return ("redirect:/monCompte");
 	}
-	
+
 	@GetMapping("/listeDesCommentaires")
 	public String getCommentaireList(Integer id, Model model) {
-	logger.info("HTTP GET request received at /listeDesCommentaires URL");
-	currentClimbingSite = climbingSiteService.getOneClimbingSiteById(id);
-	model.addAttribute("currentClimbingSite", currentClimbingSite);
-	model.addAttribute("commentaires", currentClimbingSite.getCommentaires());
-	return("listeDesCommentaires");
+		logger.info("HTTP GET request received at /listeDesCommentaires URL");
+		currentClimbingSite = climbingSiteService.getOneClimbingSiteById(id);
+		model.addAttribute("currentClimbingSite", currentClimbingSite);
+		model.addAttribute("commentaires", currentClimbingSite.getCommentaires());
+		return ("listeDesCommentaires");
 	}
-	
+
 	@GetMapping("ajouterUnCommentaire")
 	public String ShowCommentaireForm(Authentication authentication, Model model) {
 		logger.info("HTTP GET request received at /ajouterUnCommentaire URL");
 		Commentaire commentaire = new Commentaire();
-		commentaire.setCreationDateTime(new Date());
-		logger.info("climbingSite "+ currentClimbingSite.getTitle());
+//		commentaire.setCreationDateTime(new Date());
+		logger.info("climbingSite " + currentClimbingSite.getTitle());
 		userPrincipal = (UserDetails) authentication.getPrincipal();
 		currentLoggedUser = userServiceImp.findUserOnEmail(userPrincipal.getUsername());
 		logger.info("NOM UTILISATEUR " + currentLoggedUser.getPrenom());
 		model.addAttribute("currentuser", currentLoggedUser);
-		model.addAttribute("commentaire",commentaire);
+		model.addAttribute("commentaire", commentaire);
 		return ("ajouterUnCommentaire");
 	}
-	
+
 	@PostMapping("ajouterUnCommentaire")
-	public String submitCommentaireForm(@ModelAttribute("commentaire") Commentaire commentaire, Authentication authentication) {
+	public String submitCommentaireForm(@Validated @ModelAttribute("commentaire") Commentaire commentaire,
+			BindingResult bindingResult, Authentication authentication) {
 		logger.info("HTTP POST request received at /ajouterUnCommentaire URL");
-		logger.info("NOM UTILISATEUR " + currentLoggedUser.getPrenom());
-		logger.info("On ajoute le commentaire avec les valeurs suivantes : id " + commentaire.getId() + " titre " + commentaire.getTitle()
-		+ " content " + commentaire.getContent() + " date " + commentaire.getCreationDateTime());
-		userPrincipal = (UserDetails) authentication.getPrincipal();
-		currentLoggedUser = userServiceImp.findUserOnEmail(userPrincipal.getUsername());		
-		userServiceImp.addUserCommentaire(currentLoggedUser,commentaire,currentClimbingSite);
+		if (bindingResult.hasErrors()) {
+			logger.info("HTTP POST request received at /ajouterUnCommentaire URL in bindingResult.hasErrors");
+			return "/ajouterUnCommentaire";
+		} else {
+			logger.info("NOM UTILISATEUR " + currentLoggedUser.getPrenom());
+			logger.info("On ajoute le commentaire avec les valeurs suivantes : id " + commentaire.getId() + " titre "
+					+ commentaire.getTitle() + " content " + commentaire.getContent() + " date "
+					+ commentaire.getCreationDateTime());
+			userPrincipal = (UserDetails) authentication.getPrincipal();
+			currentLoggedUser = userServiceImp.findUserOnEmail(userPrincipal.getUsername());
+			commentaire.setCreationDateTime(Date.from(Instant.now()));
+			commentaireService.addCommentaire(commentaire);
+			userServiceImp.addUserCommentaire(currentLoggedUser, commentaire);
+			climbingSiteService.addClimbingSiteCommentaire(currentClimbingSite, commentaire);
+		}
 		return ("redirect:/listeDesSitesDEscalade");
-	}
-	@GetMapping("/deleteCommentaire")
-	public String deleteCommentaire(Integer custStat, Integer id) {
-		logger.info("HTTP GET request received at /deleteCommentaire URL");
-		logger.info("on delete le commentaire avec l'id suivante" + id);
-		userServiceImp.deleteUserCommentaireWithId(currentLoggedUser,custStat);
-		climbingSiteService.deleteCommentaireWithId(currentClimbingSite,custStat);
-		commentaireService.deleteCommentaire(id);
-		return ("redirect:/listeDesSitesDEscalade");
-		
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@GetMapping("/deleteCommentaire")
+	public String deleteCommentaire(Integer custStat, Integer id, Authentication authentication) {
+		logger.info("HTTP GET request received at /deleteCommentaire URL");
+		logger.info("on delete le commentaire avec l'id suivante" + id + "le custStat suivant" + custStat);
+		userPrincipal = (UserDetails) authentication.getPrincipal();
+		currentLoggedUser = userServiceImp.findUserOnEmail(userPrincipal.getUsername());
+		// =>>> Cette ligne ce n'est pas le currentLogUser mais le user qui a laissé le
+		// comm!!!!!
+		userServiceImp.deleteUserCommentaireWithId(currentLoggedUser, custStat);
+		climbingSiteService.deleteCommentaireWithId(currentClimbingSite, custStat);
+		commentaireService.deleteCommentaire(id);
+		return ("redirect:/listeDesSitesDEscalade");
+
+	}
 
 	@GetMapping("/logSuccess")
 	public String managersStatusCheck(Authentication authentication, Model model) {

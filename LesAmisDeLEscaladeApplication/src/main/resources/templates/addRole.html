@@ -14,25 +14,36 @@
 				<h1>AJOUTER DES ROLES</h1>
 			</div>
 		</header>
-		 <form th:action="@{/addRole}" th:object="${role}"
-			method="post" class="formulaire" name="formulaire">
+		<div class="container-fluid pt-3">
+			<form th:action="@{/addRole}" th:object="${role}" method="post"
+				class="formulaire" name="formulaire">
 
- 			<div class="col-md-6 form-group">
-				<label>ID</label> <input type="hidden" id="id" class="form-control"
-					th:field="*{id}">
-			</div> 
+				<div class="col-lg-8 form-group" >
+					 <input type="hidden" id="id" class="form-control"
+						th:field="*{id}">
+				</div>
 
 
-			<div class="col-md-6 form-group">
-				<label>NOM</label> <input type="text" id="name" class="form-control"
-					th:field="*{name}">
-			</div>
+				<div class="col-lg-8 form-group">
+					<label>NOM</label> <input type="text" id="name"
+						class="form-control" th:field="*{name}">
+					<div class="element_danger">
+						<div id="errorNameUser"></div>
+						<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+					</div>
+				</div>
 
-			<div>
-				<button type="submit" class="btn btn-primary btn-block mt-3">ajouter
-					un role</button>
-			</div>
-		</form>  
+				<div class="col-lg-8 form-group">
+					<button type="submit" class="btn btn-primary btn-block mt-3">ajouter
+						un role</button>
+				</div>
+				<div class="col-lg-8 form-group">
+				<button type="button" class="btn btn-primary" onclick="poire()">Test
+					JS</button>
+				</div>	
+
+			</form>
+		</div>
 		<footer>
 			<div th:insert="footer.html"></div>
 		</footer>

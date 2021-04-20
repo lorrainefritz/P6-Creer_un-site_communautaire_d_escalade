@@ -2,8 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<link rel="stylesheet" href="style.css">
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
@@ -11,8 +9,11 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+<script type="text/javascript" th:src="@{/myScript.js}"></script>
+<!--  <script src="@{myScript.js}"></script> -->
+<!-- <script type="text/javascript" th:src="@{myScript.js}"></script> -->
+<!-- <script type="text/javascript" src ="../static/myScript.js" th:src="@{/myScript.js}"></script> -->
 </head>
 <body>
 	<div class="container">
@@ -37,32 +38,19 @@
 				<div class="dropdown-menu">
 					<a class="dropdown-item" href="/listeDesSitesDEscalade">La
 						liste des Sites D'escalade</a> <a class="dropdown-item"
-						href="/lesSitesDEscalade">Rechercher des Sites D'escalade</a> <a
-						class="dropdown-item" href="/ajouterDesSitesDEscalade">Ajouter
-						des Sites D'escalade</a>
+						href="/ajouterDesSitesDEscalade">Ajouter des Sites D'escalade</a>
 				</div>
 			</li>
+		
+
 			<li class="nav-item"><a class="nav-link" href="/listeDesTopos">Liste
 					des topos </a></li>
-			
-			
-			<li class="nav-item" sec:authorize="isAnonymous()">
-				<a class="nav-link" href="/seConnecter"> Mon Compte
-					<!-- <img class="img-fluid" alt="Mon Compte" src="/imagesAndLogos/logos/monCompte.png"> -->
-				</a>
-			</li>
-			
-			<!-- 			 <li class="dropdown" sec:authorize="isAnonymous()">
-			 	<button type="button" class="btn btn-primary dropdown-toggle"
-					data-toggle="dropdown">Mon Compte
-					<img alt="Mon Compte" src="/imagesAndLogos/logos/monCompte.jpg">
-				</button>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="/login">Se connecter</a>
-					<a class="dropdown-item" href="/registration">S'enregistrer</a>
-				</div>
-			</li>
-				 -->
+
+
+			<li class="nav-item" sec:authorize="isAnonymous()"><a
+				class="nav-link" href="/seConnecter"> Mon Compte <!-- <img class="img-fluid" alt="Mon Compte" src="/imagesAndLogos/logos/monCompte.png"> -->
+			</a></li>
+
 
 
 			<li class="dropdown" sec:authorize="hasRole('ADMIN')">
@@ -79,8 +67,6 @@
 				<button type="button" class="btn btn-primary dropdown-toggle"
 					data-toggle="dropdown">
 					Mon Compte
-					<!-- <img class="img-fluid" alt="logo isAuth"
-					rc="/imagesAndLogos/logos/isAuth.png"> -->
 				</button>
 				<div class="dropdown-menu">
 					<a class="nav-link" href="/monCompte">Mon Compte</a> <a
@@ -88,15 +74,14 @@
 				</div>
 			</li>
 		</ul>
-			<a class="navbar-brand" href="#" sec:authorize="isAnonymous()">
-				<img class="img-fluid" alt="Mon Compte" src="/imagesAndLogos/logos/monCompte.png">
-			</a>
-			
-			<a class="navbar-brand" href="#" sec:authorize="isAuthenticated()">
-				<img class="img-fluid" alt="logo isAuth"
-						src="/imagesAndLogos/logos/isAuth.png">
-			</a>
-					
+		<a class="navbar-brand" href="#" sec:authorize="isAnonymous()"> <img
+			class="img-fluid" alt="Mon Compte"
+			src="/imagesAndLogos/logos/monCompte.png">
+		</a> <a class="navbar-brand" href="#" sec:authorize="isAuthenticated()">
+			<img class="img-fluid" alt="logo isAuth"
+			src="/imagesAndLogos/logos/isAuth.png">
+		</a>
+
 	</nav>
 
 </body>

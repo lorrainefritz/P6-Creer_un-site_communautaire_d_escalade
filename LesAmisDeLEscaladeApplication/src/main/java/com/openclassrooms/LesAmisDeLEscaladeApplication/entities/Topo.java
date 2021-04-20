@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,11 +27,13 @@ public class Topo {
 	private Integer id;
 	
 	@Column(name = "TITLE")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String title;
 	
 	@Column(name = "CONTENT")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String content;
 	
 	
@@ -38,18 +41,14 @@ public class Topo {
 	private boolean freeForBorrow;
 
 
-	public Topo(@NotBlank String title, @NotBlank String content, boolean freeForBorrow) {
+	public Topo(
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String title,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String content,
+			boolean freeForBorrow) {
 		super();
 		this.title = title;
 		this.content = content;
 		this.freeForBorrow = freeForBorrow;
 	}
-	
-	
-
-
-
-	
-
 	
 }

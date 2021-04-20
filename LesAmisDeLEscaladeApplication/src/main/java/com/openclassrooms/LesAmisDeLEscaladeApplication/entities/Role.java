@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,11 +32,15 @@ public class Role implements Serializable {
 	private Integer id;
 
 	@Column(name = "NAME")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String name;
 
-	public Role(@NotBlank String name) {
+	public Role(
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String name) {
 		super();
 		this.name = name;
 	}
+
+	
 }

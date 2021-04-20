@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="style.css">
-<script type="text/javascript" th:src="@{/js/myScript.js}"></script>
 </head>
 <body>
 	<div class="bloc_page">
@@ -42,8 +41,7 @@
 						<td th:text="${curentuser.email}"></td>
 						<td th:text="${principal.authorities}"></td>
 						<td><a th:href="@{editUser}">Modifier</a></td>
-						<td><a th:href="@{ajouterUnTopo}">Ajouter un
-					Topo</a></td>
+						<td><a th:href="@{ajouterUnTopo}">Ajouter un Topo</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -63,8 +61,16 @@
 						<td th:text="${topo.id}"></td>
 						<td th:text="${topo.title}"></td>
 						<td th:text="${topo.content}"></td>
-						<td th:text="${topo.freeForBorrow}"></td>
-						<td><a th:href="@{deleteTopo(custStat=${custStat.index},id=${topo.id})}">Supprimer</a></td>
+						<td th:if="${topo.freeForBorrow == true}"><a> <img
+								class="img-fluid" alt="topo disponible"
+								src="/imagesAndLogos/logos/logoTopoDispo.png">
+						</a></td>
+						<td th:if="${topo.freeForBorrow == false}"><a> <img
+								class="img-fluid" alt="topo disponible"
+								src="/imagesAndLogos/logos/logoTopoIndispo.png">
+						</a></td>
+						<td><a
+							th:href="@{deleteTopo(custStat=${custStat.index},id=${topo.id})}">Supprimer</a></td>
 						<td><a th:href="@{editTopo(id=${topo.id})}">Modifier</a></td>
 					</tr>
 				</tbody>

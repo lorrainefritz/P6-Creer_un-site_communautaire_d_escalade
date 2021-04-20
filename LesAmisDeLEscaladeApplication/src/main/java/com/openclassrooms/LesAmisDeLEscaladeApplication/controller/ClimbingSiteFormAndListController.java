@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,8 +27,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.ClimbingSite;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.exception.DuplicateTitleException;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.service.ClimbingSiteService;
-
-import com.openclassrooms.LesAmisDeLEscaladeApplication.validation.ClimbingSiteValidator;
 
 @Controller
 public class ClimbingSiteFormAndListController {
@@ -51,8 +50,8 @@ public class ClimbingSiteFormAndListController {
 			logger.info("HTTP POST request received at /ajouterDesSitesDEscalade in bindingResult.hasErrors");
 			return "/ajouterDesSitesDEscalade";
 		} else {
-			logger.info("site d'escalade ajouté avec les valeurs suivantes : " + "id= " + climbingSite.getId() + " titre "
-					+ climbingSite.getTitle() + " lieu= " + climbingSite.getLieu() + " longueur="
+			logger.info("site d'escalade ajouté avec les valeurs suivantes : " + "id= " + climbingSite.getId()
+					+ " titre " + climbingSite.getTitle() + " lieu= " + climbingSite.getLieu() + " longueur="
 					+ climbingSite.getLongueur() + " nombre de voies=" + climbingSite.getNombreDeVoies() + " secteur ="
 					+ climbingSite.getSecteur() + " difficulté=" + climbingSite.getDifficulty() + " est taggé="
 					+ climbingSite.isTagged());
@@ -60,34 +59,59 @@ public class ClimbingSiteFormAndListController {
 		}
 		return "redirect:/listeDesSitesDEscalade";
 	}
+
 	@GetMapping("/listeDesSitesDEscalade")
-	public String getClimbingSiteList(Model model) {
+	public String getClimbingSiteList(Model model, @Param("keyword")String keyword) {
 		logger.info("HTTP GET request received at /listeDesSitesDEscalade");
-		model.addAttribute("climbingSites", climbingSiteService.getAllClimbingSites());
+		if (keyword != null) {
+			logger.info("HTTP GET request received at /listeDesSitesDEscalade + keyword " + keyword);
+			model.addAttribute("climbingSites", climbingSiteService.getClimbingSitesSearchingByKeyword(keyword));
+			model.addAttribute("keyword", keyword);
+		} else {
+			model.addAttribute("climbingSites", climbingSiteService.getAllClimbingSites());
+		}
 		return "listeDesSitesDEscalade";
 	}
-	@GetMapping(path="/editClimbingSite")
+
+//	@GetMapping("/listeDesSitesDEscalade")
+//	public String getClimbingSiteList(String stringKeyword, Integer intKeyword, Model model) {
+//		logger.info("HTTP GET request received at /listeDesSitesDEscalade" + stringKeyword);
+//		if (stringKeyword != null || intKeyword != null) {
+//			logger.info("HOURRA" + stringKeyword + intKeyword);
+//			if (stringKeyword != null) {
+//				logger.info("HOURRA et voila le string" + stringKeyword);
+//				model.addAttribute("climbingSites",
+//						climbingSiteService.getClimbingSitesBySearchingStringKeyword(stringKeyword));
+//			} else {
+//				logger.info("HOURRA et voila le Int" + intKeyword);
+//				model.addAttribute("climbingSites",
+//						climbingSiteService.getClimbingSitesBySearchingIntKeyword(intKeyword));
+//			}
+////		} else if (stringKeyword != null && intKeyword >= 1) {
+////			model.addAttribute("climbingSites", climbingSiteService
+////					.getClimbingSitesBySearchingIntKeywordAndStringKeyword(intKeyword, stringKeyword));
+////
+//		} else {
+//			model.addAttribute("climbingSites", climbingSiteService.getAllClimbingSites());
+//		}
+//
+//		return "listeDesSitesDEscalade";
+//	}
+
+	@GetMapping(path = "/editClimbingSite")
 	public String editClimbingSite(Model model, Integer id) {
 		logger.info("HTTP GET received at /editClimbingSite" + id);
 		ClimbingSite climbingSite = climbingSiteService.getOneClimbingSiteById(id);
-		model.addAttribute("climbingSite",climbingSite);
+		model.addAttribute("climbingSite", climbingSite);
 		return "ajouterDesSitesDEscalade";
 	}
 
-//	@GetMapping(path="/taggClimbingSite")
-//	public String taggClimbingSite(Model model, Integer id) {
-//		logger.info("HTTP GET received at /editClimbingSite" + id);
-//		ClimbingSite climbingSite = climbingSiteService.getOneClimbingSiteById(id);
-//		climbingSite.isTagged();
-//		return "redirect:/listeDesSitesDEscalade";
-//	}
-		
+
 	@GetMapping("/deleteClimbingSite")
 	public String deleteClimbingSite(Integer id) {
-		logger.info("HTTP GET received at /deleteClimbingSite" +id);
+		logger.info("HTTP GET received at /deleteClimbingSite" + id);
 		climbingSiteService.deleteClimbingSite(id);
-		 return "redirect:/listeDesSitesDEscalade";
+		return "redirect:/listeDesSitesDEscalade";
 	}
-	
-	
+
 }

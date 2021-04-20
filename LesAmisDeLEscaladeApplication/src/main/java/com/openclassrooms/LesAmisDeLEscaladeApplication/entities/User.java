@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,28 +50,34 @@ public class User implements Serializable{
 	private Integer id;
 
 	@Column(name = "NOM")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String nom;
 
 	@Column(name = "PRENOM")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String prenom;
 	
 	@Column(name = "ADRESSE")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String adresse;
 	
 	@Column(name = "TELEPHONE")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String telephone;
 	
 	
 	@Column(name = "PASSWORD")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String password;
 
 	@Column(name = "EMAIL")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String email;
 	
 
@@ -116,9 +123,14 @@ public class User implements Serializable{
 
 
 
-	public User(@NotBlank String nom, @NotBlank String prenom, @NotBlank String adresse, @NotBlank String telephone,
-			@NotBlank String password, @NotBlank String email, Collection<Role> roles,
-			Collection<Commentaire> commentaires, Collection<Topo> topos) {
+	public User(
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String nom,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String prenom,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String adresse,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String telephone,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String password,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String email,
+			Collection<Role> roles, Collection<Commentaire> commentaires, Collection<Topo> topos) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;

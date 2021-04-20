@@ -19,11 +19,18 @@ public class ClimbingSiteService {
 	ClimbingSiteRepository climbingSiteRepository;
 
 	public List<ClimbingSite> getAllClimbingSites() {
-		logger.info("in ClimbingSiteService in getClimbingSites");
+		logger.info("in ClimbingSiteService in getAllClimbingSites");
 		List<ClimbingSite> climbingSiteItems = climbingSiteRepository.findAll();
 		return climbingSiteItems;
 	}
-
+	
+	public List<ClimbingSite> getClimbingSitesSearchingByKeyword(String keyword) {
+		logger.info("in ClimbingSiteService in getClimbingSitesSearchingByKeyword");
+		List<ClimbingSite> climbingSiteItems = climbingSiteRepository.findByKeyword(keyword);
+		return climbingSiteItems;
+	}
+	
+		
 	public int getClimbingSiteListSize() {
 		logger.info("in ClimbingSiteService in getClimbingSiteListSize");
 		return getAllClimbingSites().size();
@@ -60,4 +67,5 @@ public class ClimbingSiteService {
 		return climbingSiteRepository.save(climbingSite);
 	}
 	
+
 }

@@ -1,12 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <title>Les Amis de L'escalade</title>
+
 <link rel="stylesheet" href="style.css">
-<script type="text/javascript" th:src="@{/js/myScript.js}"></script>
 </head>
 <body>
+
 	<div class="bloc_page">
 		<header>
 			<div class="header_top_part">
@@ -17,51 +18,52 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 			</div>
 		</header>
 		<div class="page_formulaire">
-			<form th:action="@{/ajouterDesSitesDEscalade}"
-				th:object="${climbingSite}" method="post" class="formulaire"
-				name="formulaire">
+			<div class="container-fluid pt-3">
+				<form th:action="@{/ajouterDesSitesDEscalade}"
+					th:object="${climbingSite}" method="post" class="formulaire"
+					name="formulaire">
 
-				<div class="form-group">
-					<input type="hidden" id="id" class="form-control" th:field="*{id}">
-				</div>
-
-				<div class="form-group">
-					<label for="title">TITRE</label> <input th:field="*{title}"
-						type="text" class="form_label" id="title" name="title"
-						placeholder="Obligatoire">
-					<div class="element_danger">
-						<div id="error_title"></div>
-						<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+					<div class="col-lg-8 form-group">
+						<input type="hidden" id="id" class="form-control" th:field="*{id}">
 					</div>
-				</div>
 
-				<div class="form_group">
-					<label for="lieu">LIEU</label> <input th:field="*{lieu}"
-						type="text" class="form_label" id="lieu" name="lieu"
-						placeholder="Obligatoire">
-					<div class="element_danger">
-						<div id="error"></div>
-						<div th:if="${#fields.hasErrors('lieu')}" th:errors="*{lieu}"></div>
+					<div class="col-lg-8 form-group">
+						<label for="title">TITRE</label> <input th:field="*{title}"
+							type="text" class="form_label" id="title" name="title"
+							placeholder="Obligatoire">
+						<div class="element_danger">
+							<div id="errorTitleSiteEscalade"></div>
+							<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					<!-- <label for="image">IMAGE</label> <input th:field="*{image}"
+					<div class="col-lg-8 form-group">
+						<label for="lieu">LIEU</label> <input th:field="*{lieu}"
+							type="text" class="form_label" id="lieu" name="lieu"
+							placeholder="Obligatoire">
+						<div class="element_danger">
+							<div id="errorLieuSiteEscalade"></div>
+							<div th:if="${#fields.hasErrors('lieu')}" th:errors="*{lieu}"></div>
+						</div>
+					</div>
+
+					<!-- 				<div class="col-lg-8 form-group"">
+					<label for="image">IMAGE</label> <input th:field="*{image}"
 						type="text" class="form_label" id="image" name="image"
-						placeholder="Obligatoire"> -->
-<!-- 					<div class="custom-file">
+						placeholder="Obligatoire">
+					<div class="custom-file">
 						<input th:field="*{image}" type="file" class="custom-file-input"
 							id="customFile" name="filename"> <label
 							class="custom-file-label" for="customFile">Choisir une
 							image</label>
-					</div> -->
+					</div>
 					<div class="element_danger">
 						<div id="error"></div>
 						<div th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></div>
 					</div>
-				</div>
+				</div> -->
 
-				<script>
+					<!-- 				<script>
 					// Add the following code if you want the name of the file appear on select
 					$(".custom-file-input").on(
 							"change",
@@ -70,99 +72,93 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 								$(this).siblings(".custom-file-label")
 										.addClass("selected").html(fileName);
 							});
-				</script>
+				</script> -->
 
-				<div class="form-group">
-					<label for="secteur">SECTEUR</label> <input th:field="*{secteur}"
-						type="text" class="form_label" id="secteur" name="secteur"
-						placeholder="Obligatoire">
-					<div class="element_danger">
-						<div id="error"></div>
-						<div th:if="${#fields.hasErrors('secteur')}"
-							th:errors="*{secteur}"></div>
+					<div class="col-lg-8 form-group">
+						<label for="secteur">SECTEUR</label> <input th:field="*{secteur}"
+							type="text" class="form_label" id="secteur" name="secteur"
+							placeholder="Obligatoire">
+						<div class="element_danger">
+							<div id="errorSecteurSiteEscalade"></div>
+							<div th:if="${#fields.hasErrors('secteur')}"
+								th:errors="*{secteur}"></div>
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					<label for="longueur">LONGUEUR</label> <input
-						th:field="*{longueur}" type="text" class="form_label"
-						id="longueur" name="longueur" placeholder="1-100">
-					<div class="element_danger">
-						<div id="error"></div>
-						<div th:if="${#fields.hasErrors('longueur')}"
-							th:errors="*{longueur}"></div>
+					<div class="col-lg-8 form-group">
+						<label for="longueur">LONGUEUR</label> <input
+							th:field="*{longueur}" type="text" class="form_label"
+							id="longueur" name="longueur" placeholder="1-100">
+						<div class="element_danger">
+							<div id="errorLongueurSiteEscalade"></div>
+							<div th:if="${#fields.hasErrors('longueur')}"
+								th:errors="*{longueur}"></div>
+						</div>
 					</div>
-				</div>
 
 
-				<div class="form-group">
-					<label for="nombreDeVoies">NOMBRE DE VOIES</label> <input
-						th:field="*{nombreDeVoies}" type="text" class="form_label"
-						id="nombreDeVoies" name="nombreDeVoies" placeholder="1-10">
-					<div class="element_danger">
-						<div id="error"></div>
-						<div th:if="${#fields.hasErrors('nombreDeVoies')}"
-							th:errors="*{nombreDeVoies}"></div>
+					<div class="col-lg-8 form-group">
+						<label for="nombreDeVoies">NOMBRE DE VOIES</label> <input
+							th:field="*{nombreDeVoies}" type="text" class="form_label"
+							id="nombreDeVoies" name="nombreDeVoies" placeholder="1-10">
+						<div class="element_danger">
+							<div id="errorNombreDeVoiesSiteEscalade"></div>
+							<div th:if="${#fields.hasErrors('nombreDeVoies')}"
+								th:errors="*{nombreDeVoies}"></div>
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					DIFFICULTE <select th:field="*{difficulty}">
-						<option th:value="3a">3a</option>
-						<option th:value="3b">3b</option>
-						<option th:value="3c">3c</option>
-						<option th:value="4a">4a</option>
-						<option th:value="4b">4b</option>
-						<option th:value="4c">4c</option>
-						<option th:value="5a">5a</option>
-						<option th:value="5b">5b</option>
-						<option th:value="5c">5c</option>
-						<option th:value="6a">6a</option>
-						<option th:value="6b">6b</option>
-						<option th:value="6c">6c</option>
-						<option th:value="7a">7a</option>
-						<option th:value="7b">7b</option>
-						<option th:value="7c">7c</option>
-						<option th:value="8a">8a</option>
-						<option th:value="8b">8b</option>
-						<option th:value="8c">8c</option>
-						<option th:value="9a">9a</option>
-						<option th:value="9b">9b</option>
-						<option th:value="9c">9c</option>
+					<div class="col-lg-8 form-group">
+						DIFFICULTE <select th:field="*{difficulty}">
+							<option th:value="3a">3a</option>
+							<option th:value="3b">3b</option>
+							<option th:value="3c">3c</option>
+							<option th:value="4a">4a</option>
+							<option th:value="4b">4b</option>
+							<option th:value="4c">4c</option>
+							<option th:value="5a">5a</option>
+							<option th:value="5b">5b</option>
+							<option th:value="5c">5c</option>
+							<option th:value="6a">6a</option>
+							<option th:value="6b">6b</option>
+							<option th:value="6c">6c</option>
+							<option th:value="7a">7a</option>
+							<option th:value="7b">7b</option>
+							<option th:value="7c">7c</option>
+							<option th:value="8a">8a</option>
+							<option th:value="8b">8b</option>
+							<option th:value="8c">8c</option>
+							<option th:value="9a">9a</option>
+							<option th:value="9b">9b</option>
+							<option th:value="9c">9c</option>
 
-					</select>
-				</div>
-
-				<!-- <div class="form-group">
-					<input type="hidden" id="tagged" class="form-control" th:field="*{tagged}" th:value="false">
-				</div>  --> 
-				
-				
-
-					
-			 <div sec:authorize="isAuthenticated()" class="form-group">
-					<div class="tag">
-						OFFICIEL DE L'ASSOCIATION :
-						<p>
-							<input type="radio" name="tagged" value="true" checked="checked"
-								th:field="*{tagged}">Oui <input type="radio"
-								name="tagged" value="false">Non
-						</p>
+						</select>
 					</div>
-				</div> 
-				<div>
-					<button type="submit" class="btn_form_submit" id="btn_form_submit">Soumettre</button>
-					<!-- onclick="validate()">Soumettre</button> -->
-				</div>
-				<div>
-					<button type="button" class="btn_form_test" id="btn_form_test"
-						onclick="validate()">TESTING JS</button>
-				</div>
+
+					<div sec:authorize="isAuthenticated()" class="col-lg-8 form-group">
+						<div class="tag">
+							OFFICIEL DE L'ASSOCIATION :
+							<p>
+								<input type="radio" name="tagged" value="true" checked="checked"
+									th:field="*{tagged}">Oui <input type="radio"
+									name="tagged" value="false">Non
+							</p>
+						</div>
+					</div>
+
+					<div class="col-lg-8 form-group">
+						<button type="submit" class="btn btn-primary" id="btn_form_submit">Soumettre</button>
+					</div>
+					<div class="col-lg-8 form-group">
+						<button type="button" class="btn_form_test" id="btn_form_test"
+							onclick="poire()">TESTING JS</button>
+					</div>
 			</form>
 		</div>
-		<footer>
-			<div th:insert="footer.html"></div>
-		</footer>
+	</div>
+	<footer>
+		<div th:insert="footer.html"></div>
+	</footer>
 	</div>
 </body>
 </html>

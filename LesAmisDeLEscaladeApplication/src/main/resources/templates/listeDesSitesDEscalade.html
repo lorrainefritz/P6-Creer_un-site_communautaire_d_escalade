@@ -2,16 +2,6 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <link rel="stylesheet" href="style.css">
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 	<div class="bloc_page">
@@ -24,13 +14,21 @@
 			</div>
 		</header>
 
+		<form class="form-inline" th:action="@{/listeDesSitesDEscalade}"
+			method="get">
+			<label>Filtrer:</label> <input id="txtSearch" type="text"
+				name="keyword" th:value=${keyword} class="form-control"
+				placeholder="Lieu, Secteur, Longueur, Difficulté, Nombre de voies">
+			<button type="submit" class="btn btn-primary">Chercher</button>
+		</form>
 
-		<div class="row" id="blocPageClimbingSiteList" th:each="climbingSite:${climbingSites}">
+		<div class="row" id="blocPageClimbingSiteList"
+			th:each="climbingSite:${climbingSites}">
 			<div class="col-sm-4">
 				<img class="img-fluid" alt="image of climbing site"
 					src="imagesAndLogos/images/success.jpg">
 			</div>
-			<div class="col-sm-4" id ="descriptionClimbingSiteList">
+			<div class="col-sm-4" id="descriptionClimbingSiteList">
 				<div class="titleAndTagged">
 					<h3 th:text="${climbingSite.title}"></h3>
 					<div class="float-right" th:if=${climbingSite.tagged}>
@@ -56,15 +54,20 @@
 			</div>
 			<div class="col-sm-4">
 				<div>
-					<a  class="btn btn-info btn-lg" th:href="@{listeDesCommentaires(id=${climbingSite.id})}"> Liste des Commentaire</a>
+					<a class="btn btn-info btn-lg"
+						th:href="@{listeDesCommentaires(id=${climbingSite.id})}">
+						Liste des Commentaire</a>
 				</div>
-				
+
 				<div sec:authorize="isAuthenticated()">
-					<a  class="btn btn-warning btn-lg" th:href="@{editClimbingSite(id=${climbingSite.id})}"> Modifier</a>
+					<a class="btn btn-warning btn-lg"
+						th:href="@{editClimbingSite(id=${climbingSite.id})}"> Modifier</a>
 				</div>
 
 				<div sec:authorize="hasRole('ADMIN')">
-					<a class="btn btn-dark btn-lg" id="buttonSuppressionClimbingSite" th:href="@{deleteClimbingSite(id=${climbingSite.id})}" onclick="return confirm('êtes vous sur de vouloir supprimer?')" >Supprimer</a>		
+					<a class="btn btn-dark btn-lg" id="buttonSuppressionClimbingSite"
+						th:href="@{deleteClimbingSite(id=${climbingSite.id})}"
+						onclick="return confirm('êtes vous sur de vouloir supprimer?')">Supprimer</a>
 				</div>
 
 			</div>

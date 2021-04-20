@@ -1,6 +1,7 @@
 package com.openclassrooms.LesAmisDeLEscaladeApplication.entities;
 
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Date;
 
@@ -13,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -31,24 +34,28 @@ public class Commentaire {
 	private Integer id;
 
 	@Temporal(TemporalType.TIMESTAMP)
-    Date creationDateTime;
+    Date creationDateTime ;
 
+	
 	@Column(name = "TITLE")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String title;
 
 	@Column(name = "CONTENT")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String content;
 
-	public Commentaire(Date creationDateTime, @NotBlank String title, @NotBlank String content) {
+	public Commentaire(Date creationDateTime,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String title,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String content) {
 		super();
 		this.creationDateTime = creationDateTime;
 		this.title = title;
 		this.content = content;
 	}
 
-	
 
 
 }

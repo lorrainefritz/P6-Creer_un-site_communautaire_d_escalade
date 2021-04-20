@@ -90,6 +90,7 @@ public DaoAuthenticationProvider authenticationProvider() {
 						"/mentionsLegales**",
 //						"/listeDesUsers**",
 						"/imagesAndLogos/**",
+						"/myScript.js",
 						"/style.css",
 						"/images/**",
 						"/logos/**"

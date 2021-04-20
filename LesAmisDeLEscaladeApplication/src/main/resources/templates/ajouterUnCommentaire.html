@@ -1,10 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <title>Les Amis de L'escalade</title>
 <link rel="stylesheet" href="style.css">
-<script type="text/javascript" th:src="@{/js/myScript.js}"></script>
 </head>
 <body>
 	<div class="bloc_page">
@@ -17,9 +16,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 			</div>
 		</header>
 		<div class="page_formulaire">
-			<form th:action="@{/ajouterUnCommentaire}"
-				th:object="${commentaire}" method="post" class="formulaire"
-				name="formulaire">
+			<form th:action="@{/ajouterUnCommentaire}" th:object="${commentaire}"
+				method="post" class="formulaire" name="formulaire">
 
 				<div class="form-group">
 					<input type="hidden" id="id" class="form-control" th:field="*{id}">
@@ -41,19 +39,18 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 						placeholder="Obligatoire">
 					<div class="element_danger">
 						<div id="error_content"></div>
-						<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+						<div th:if="${#fields.hasErrors('content')}"
+							th:errors="*{content}"></div>
 					</div>
 				</div>
 
-	 
+
 				<div>
-					<button type="submit" class="btn_form_submit" id="btn_form_submit">Soumettre</button>
+					<button type="submit" class="btn btn-primary" id="btn_form_submit">Soumettre</button>
 					<!-- onclick="validate()">Soumettre</button> -->
 				</div>
-				<div>
-					<button type="button" class="btn_form_test" id="btn_form_test"
-						onclick="validate()">TESTING JS</button>
-				</div>
+				<button type="button" class="btn btn-primary" onclick="poire()">Test
+					JS</button>
 			</form>
 		</div>
 		<footer>

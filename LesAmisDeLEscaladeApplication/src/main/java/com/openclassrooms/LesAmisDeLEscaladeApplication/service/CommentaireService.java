@@ -28,7 +28,7 @@ public class CommentaireService {
 	}
 
 	public void deleteCommentaire(Integer id) {
-		logger.info("in CommentaireService deleteCommentaire");
+		logger.info("in CommentaireService deleteCommentaire" + id);
 		commentaireRepository.deleteById(id);
 	}
 

@@ -18,6 +18,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -53,13 +55,13 @@ public class ClimbingSite implements Serializable {
 	
 	
 		
-	@Size(max=65, message="taille max 65 BACK")
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	@Column(name="TITLE")
 	private String title;
 	
-	@Size
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	@Column(name="LIEU")
 	private String lieu;
 	
@@ -69,18 +71,20 @@ public class ClimbingSite implements Serializable {
     private byte[] image;
 	
 	
-	@Size(max=65)
-	@NotBlank
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
 	@Column(name="SECTEUR")
 	private String secteur;
 	
-	
-	@NotNull
+	@Min(message="Doit être compris entre 1 et 100", value = 1)
+	@Max (message="Doit être compris entre 1 et 100", value=100)
+	@NotNull(message="Ce champ ne doit pas être vide")
 	@Column(name="LONGUEUR")
 	private int longueur;
 	
-	
-	@NotNull
+	@Min(message="Doit être compris entre 1 et 10", value = 1)
+	@Max (message="Doit être compris entre 1 et 10", value=10)
+	@NotNull(message="Ce champ ne doit pas être vide")
 	@Column(name="NOMBRE_DE_VOIES")
 	private int nombreDeVoies;
 	
@@ -108,10 +112,14 @@ public class ClimbingSite implements Serializable {
 
 
 
-	public ClimbingSite(@Size(max = 65, message = "taille max 65 BACK") @NotBlank String title,
-			@Size @NotBlank String lieu, byte[] image, @Size(max = 65) @NotBlank String secteur, @NotNull int longueur,
-			@NotNull int nombreDeVoies, @NotBlank String difficulty, boolean tagged,
-			Collection<Commentaire> commentaires) {
+	public ClimbingSite(
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String title,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String lieu,
+			byte[] image,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String secteur,
+			@Min(message = "Doit être compris entre 1 et 100", value = 1) @Max(message = "Doit être compris entre 1 et 100", value = 100) @NotNull(message = "Ce champs ne doit pas être vide") int longueur,
+			@Min(message = "Doit être compris entre 1 et 10", value = 1) @Max(message = "Doit être compris entre 1 et 10", value = 10) @NotNull(message = "Ce champs ne doit pas être vide") int nombreDeVoies,
+			@NotBlank String difficulty, boolean tagged, Collection<Commentaire> commentaires) {
 		super();
 		this.title = title;
 		this.lieu = lieu;
@@ -123,6 +131,13 @@ public class ClimbingSite implements Serializable {
 		this.tagged = tagged;
 		this.commentaires = commentaires;
 	}
+
+
+
+
+
+
+
 
 
 

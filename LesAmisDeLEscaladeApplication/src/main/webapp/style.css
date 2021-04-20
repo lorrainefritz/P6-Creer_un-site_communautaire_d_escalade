@@ -113,6 +113,9 @@ header .header_bottom_part {
 .header_midle_part {
 	background-color: rgb(215, 215, 215);
 }
+/* .header_bottom_part h1{
+	font-family:Lucida Handwriting;
+} */
 
 .image_holder {
 	display: flex;
@@ -212,6 +215,10 @@ input[type=text] {
 	background-color: white;
 	border: 1px solid black; 	
 }
+#blocPageClimbingSiteList h3{
+	font-family:'Brush Script MT', cursive;
+}
+
 
 /* #buttonModificationClimbingSite{
 	height:100px;
@@ -382,11 +389,11 @@ footer {
 	align-items: center;
 	display: flex;
 	justify-content: space-arround;
-	margin-left: 5%;
+	margin-left: 10%;
 }
 
 .logo_twitter {
-	padding-left: 5%;
+	padding-left: 10%;
 }
 
 .logo_instagram {
