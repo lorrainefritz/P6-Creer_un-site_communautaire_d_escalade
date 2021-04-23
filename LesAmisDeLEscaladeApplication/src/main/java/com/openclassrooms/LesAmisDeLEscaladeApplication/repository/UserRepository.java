@@ -11,7 +11,4 @@ import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 	User findByEmail(String email);
 
-//	User getUserByEmail(String email);
-
-
 }

@@ -64,6 +64,7 @@ public class IdentificationFormController {
 		return "monCompte";
 	}
 
+//______________________________ Les Topos______________________________________	
 	@GetMapping("/ajouterUnTopo")
 	public String showTopoForm(Model model) {
 		logger.info("HTTP GET received at /addTopoToList ");
@@ -83,6 +84,7 @@ public class IdentificationFormController {
 			logger.info("On ajoute le topo avec les valeurs suivantes : id " + topo.getId() + " titre "
 					+ topo.getTitle() + " content " + topo.getContent() + " est disponible à l'emprunt "
 					+ topo.isFreeForBorrow());
+			topo.setOwnerMail(currentLoggedUser.getEmail());
 			userServiceImp.addUserTopo(currentLoggedUser, topo);
 			logger.info("juste avant le topoService ou on addTopo");
 		}
@@ -95,7 +97,7 @@ public class IdentificationFormController {
 		logger.info("On delete le topo avec les valeurs suivantes : id " + id);
 		userServiceImp.deleteUserTopoWithId(currentLoggedUser, custStat);
 		topoService.deleteTopo(id);
-		return ("redirect:/listeDesTopos"); // Redirection vers mon compte avec la liste perso plutot?
+		return ("redirect:/monCompte");
 	}
 
 	@GetMapping("/editTopo")
@@ -115,6 +117,8 @@ public class IdentificationFormController {
 		return ("redirect:/monCompte");
 	}
 
+	// ______________________________ Les Commentaires______________________________________
+
 	@GetMapping("/listeDesCommentaires")
 	public String getCommentaireList(Integer id, Model model) {
 		logger.info("HTTP GET request received at /listeDesCommentaires URL");
@@ -128,7 +132,6 @@ public class IdentificationFormController {
 	public String ShowCommentaireForm(Authentication authentication, Model model) {
 		logger.info("HTTP GET request received at /ajouterUnCommentaire URL");
 		Commentaire commentaire = new Commentaire();
-//		commentaire.setCreationDateTime(new Date());
 		logger.info("climbingSite " + currentClimbingSite.getTitle());
 		userPrincipal = (UserDetails) authentication.getPrincipal();
 		currentLoggedUser = userServiceImp.findUserOnEmail(userPrincipal.getUsername());
@@ -146,14 +149,16 @@ public class IdentificationFormController {
 			logger.info("HTTP POST request received at /ajouterUnCommentaire URL in bindingResult.hasErrors");
 			return "/ajouterUnCommentaire";
 		} else {
-			logger.info("NOM UTILISATEUR " + currentLoggedUser.getPrenom());
-			logger.info("On ajoute le commentaire avec les valeurs suivantes : id " + commentaire.getId() + " titre "
-					+ commentaire.getTitle() + " content " + commentaire.getContent() + " date "
-					+ commentaire.getCreationDateTime());
 			userPrincipal = (UserDetails) authentication.getPrincipal();
 			currentLoggedUser = userServiceImp.findUserOnEmail(userPrincipal.getUsername());
 			commentaire.setCreationDateTime(Date.from(Instant.now()));
-			commentaireService.addCommentaire(commentaire);
+
+			logger.info("On ajoute le commentaire avec les valeurs suivantes : id " + commentaire.getId() + " titre "
+					+ commentaire.getTitle() + " content " + commentaire.getContent() + " date "
+					+ commentaire.getCreationDateTime() + " et le prénom de l'utilisateur est "
+					+ currentLoggedUser.getPrenom());
+
+			commentaireService.addCommentaire(currentLoggedUser, commentaire);
 			userServiceImp.addUserCommentaire(currentLoggedUser, commentaire);
 			climbingSiteService.addClimbingSiteCommentaire(currentClimbingSite, commentaire);
 		}
@@ -163,17 +168,20 @@ public class IdentificationFormController {
 	@GetMapping("/deleteCommentaire")
 	public String deleteCommentaire(Integer custStat, Integer id, Authentication authentication) {
 		logger.info("HTTP GET request received at /deleteCommentaire URL");
-		logger.info("on delete le commentaire avec l'id suivante" + id + "le custStat suivant" + custStat);
-		userPrincipal = (UserDetails) authentication.getPrincipal();
-		currentLoggedUser = userServiceImp.findUserOnEmail(userPrincipal.getUsername());
-		// =>>> Cette ligne ce n'est pas le currentLogUser mais le user qui a laissé le
-		// comm!!!!!
-		userServiceImp.deleteUserCommentaireWithId(currentLoggedUser, custStat);
+		Commentaire commentaire = commentaireService.getOneCommentaireById(id);
+		String email = commentaire.getAuthorEmail();
+		User authorOfComment = userServiceImp.findUserOnEmail(email);
+		logger.info("on delete le commentaire avec l'id suivante" + id + "le custStat suivant" + custStat
+				+ " pour l'utilisateur suivant " + authorOfComment.getPrenom() + " pour le site d'escalade suivant"
+				+ currentClimbingSite.getTitle());
+		userServiceImp.deleteUserCommentaireWithCommentaire(authorOfComment,commentaire);
 		climbingSiteService.deleteCommentaireWithId(currentClimbingSite, custStat);
 		commentaireService.deleteCommentaire(id);
 		return ("redirect:/listeDesSitesDEscalade");
 
 	}
+
+	// ______________________________ Authentification réussie______________________________________
 
 	@GetMapping("/logSuccess")
 	public String managersStatusCheck(Authentication authentication, Model model) {
@@ -183,31 +191,8 @@ public class IdentificationFormController {
 		;
 		model.addAttribute("curentuser", currentLoggedUser);
 		model.addAttribute("principal", userPrincipal);
-//	    logger.info("USERNAME ="+ userPrincipal.getUsername());  
-//	    logger.info("PASSWORD ="+ userPrincipal.getPassword());
-//	    logger.info("AUTHORITIES ="+ userPrincipal.getAuthorities());
-//	    logger.info("NAME En passant par authentication ="+ authentication.getName());
-//	    logger.info("DETAILS En passant par authentication ="+ authentication.getDetails());
-//	    logger.info("USER EMAIL=" + currentLoggedUser.getEmail() );
-//	    logger.info("USER NAME ="+ currentLoggedUser.getName() );
-//	    logger.info("USER PASSWORD ="+ currentLoggedUser.getPassword() );
-//	    logger.info("USER NAME ="+ currentLoggedUser.getId());
+
 		return "logSuccess";
 	}
 
-//	@GetMapping("/logSuccess")
-//	public ModelAndView showSuccessPage(Principal principal) {
-//		logger.info(" HTTP GET received at /logSuccess");
-//		UserDetails userdetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		ModelAndView mv = new ModelAndView("logSucess");
-//		mv.addObject("fullname",userdetails.getUsername());
-//		final String loggedInUserName = principal.getName() ;
-//		return mv;
-//	}
-
-//	@GetMapping("/logSuccess")
-//	public String showSuccessPage() {
-//		logger.info(" HTTP GET received at /logSuccess");
-//		return "logSuccess";
-//	}
 }

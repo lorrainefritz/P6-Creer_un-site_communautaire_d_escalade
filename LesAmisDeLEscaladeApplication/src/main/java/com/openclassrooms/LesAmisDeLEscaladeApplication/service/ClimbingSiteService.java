@@ -1,11 +1,15 @@
 package com.openclassrooms.LesAmisDeLEscaladeApplication.service;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.util.StringUtils;
 
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.ClimbingSite;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Commentaire;
@@ -17,6 +21,8 @@ public class ClimbingSiteService {
 
 	@Autowired
 	ClimbingSiteRepository climbingSiteRepository;
+	@Autowired
+	private CommentaireService commentaireService;
 
 	public List<ClimbingSite> getAllClimbingSites() {
 		logger.info("in ClimbingSiteService in getAllClimbingSites");
@@ -45,6 +51,19 @@ public class ClimbingSiteService {
 		logger.info("in ClimbingSiteService in addClimbingSite");
 		return climbingSiteRepository.save(climbingSite);
 	}
+	public ClimbingSite addImageToClimbingSite (ClimbingSite climbingSite,MultipartFile image) {
+		logger.info("in ClimbingSiteService in addImageToClimbingSite");
+		
+		try {
+			logger.info("in ClimbingSiteService in addImageToClimbingSite try ");
+			climbingSite.setImage(Base64.getEncoder().encodeToString(image.getBytes()));
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		return climbingSiteRepository.save(climbingSite);
+	}
+	
+	
 	
 	public void deleteClimbingSite(Integer id) {
 		logger.info("in ClimbingSiteService in deleteClimbingSite");
@@ -58,14 +77,26 @@ public class ClimbingSiteService {
 		return climbingSiteRepository.save(climbingSite);
 	}
 
-	public ClimbingSite deleteCommentaireWithId(ClimbingSite climbingSite, Integer id) {
-		logger.info("in deleteUserCommentaireWithId = " + id);
+	public ClimbingSite deleteCommentaireWithId(ClimbingSite climbingSite, Integer custStat) {
+		logger.info("in deleteUserCommentaireWithCustat = " + custStat);
 		List<Commentaire> commentaires = (List<Commentaire>) climbingSite.getCommentaires();
-		Commentaire commentaire = commentaires.get(id);
-		commentaires.remove(commentaire);
+		int positionOfCommentInTheList = custStat;
+		commentaires.remove(positionOfCommentInTheList);
 		climbingSite.setCommentaires(commentaires);
 		return climbingSiteRepository.save(climbingSite);
 	}
+	
+//	public ClimbingSite deleteCommentaireWithCommentaire(ClimbingSite climbingSite, Commentaire commentaire) {
+//		logger.info("in deleteCommentaireFromClimbingSiteWithCommentaire id du commentaire " + commentaire.getId());
+//		List<Commentaire> commentaires = (List<Commentaire>) climbingSite.getCommentaires();
+//		Commentaire comment = commentaireService.getOneCommentaireById(commentaire.getId());
+//		
+//		logger.info("in deleteCommentaireFromClimbingSiteWithCommentaire contient le commentaire" + commentaires.contains(commentaire));
+//		logger.info("in deleteCommentaireFromClimbingSiteWithCommentaire contient le commentaire" + commentaires.contains(comment));
+////		commentaires.remove(commentaire);
+////		climbingSite.setCommentaires(commentaires);
+//		return climbingSiteRepository.save(climbingSite);
+//	}	
 	
 
 }

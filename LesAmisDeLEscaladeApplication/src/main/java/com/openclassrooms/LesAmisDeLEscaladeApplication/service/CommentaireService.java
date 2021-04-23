@@ -1,5 +1,6 @@
 package com.openclassrooms.LesAmisDeLEscaladeApplication.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Commentaire;
+import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.User;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.repository.CommentaireRepository;
 
 @Service
@@ -22,13 +24,14 @@ public class CommentaireService {
 		return listOfCommentaires;
 	}
 
-	public Commentaire addCommentaire(Commentaire commentaire) {
+	public Commentaire addCommentaire(User currentLoggedUser, Commentaire commentaire) {
 		logger.info("in CommentaireService addCommentaire");
+		commentaire.setAuthorEmail(currentLoggedUser.getEmail());
 		return commentaireRepository.save(commentaire);
 	}
 
 	public void deleteCommentaire(Integer id) {
-		logger.info("in CommentaireService deleteCommentaire" + id);
+		logger.info("in CommentaireService deleteCommentaire " + id);
 		commentaireRepository.deleteById(id);
 	}
 
@@ -36,6 +39,11 @@ public class CommentaireService {
 		logger.info("in CommentaireService getOneCommentaireById");
 		return commentaireRepository.getOne(id);
 
+	}
+	
+	public Commentaire getOneCommentaireByDate(Date date) {
+		logger.info("in CommentaireService getOneCommentaireByDate");
+		return commentaireRepository.findByCreationDateTime(date);
 	}
 
 	public Commentaire saveCommentaire(Commentaire commentaire) {

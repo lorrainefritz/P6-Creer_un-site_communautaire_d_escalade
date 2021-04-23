@@ -20,27 +20,27 @@
 
 				<div class="col-lg-8 form-group">
 					<label for="nom">NOM</label> <input type="text" th:field="*{nom}"
-						id="nom" class="form-control">
+						id="nomRegistration" class="form-control">
 					<div class="element_danger">
-						<div id="errorNom"></div>
+						<div id="errorNomRegistration"></div>
 						<div th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></div>
 					</div>
 				</div>
 
 				<div class="col-lg-8 form-group">
 					<label for="prenom">PRENOM</label> <input type="text"
-						th:field="*{prenom}" id="prenom" class="form-control">
+						th:field="*{prenom}" id="prenomRegistration" class="form-control">
 					<div class="element_danger">
-						<div id="errorPrenom"></div>
+						<div id="errorPrenomRegistration"></div>
 						<div th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"></div>
 					</div>
 				</div>
 
 				<div class="col-lg-8 form-group">
 					<label for="adresse">ADRESSE</label> <input type="text"
-						th:field="*{adresse}" id="adresse" class="form-control">
+						th:field="*{adresse}" id="adresseRegistration" class="form-control">
 					<div class="element_danger">
-						<div id="errorAdresse"></div>
+						<div id="errorAdresseRegistration"></div>
 						<div th:if="${#fields.hasErrors('adresse')}"
 							th:errors="*{adresse}"></div>
 					</div>
@@ -48,9 +48,9 @@
 
 				<div class="col-lg-8 form-group">
 					<label for="telephone">TELEPHONE</label> <input type="text"
-						th:field="*{telephone}" id="telephone" class="form-control">
+						th:field="*{telephone}" id="telephoneRegistration" class="form-control">
 					<div class="element_danger">
-						<div id="errorTelephone"></div>
+						<div id="errorTelephoneRegistration"></div>
 						<div th:if="${#fields.hasErrors('telephone')}"
 							th:errors="*{telephone}"></div>
 					</div>
@@ -58,18 +58,18 @@
 
 				<div class="col-lg-8 form-group">
 					<label for="password">MOT DE PASSE</label> <input type="text"
-						th:field="*{password}" id="password" class="form-control">
+						th:field="*{password}" id="passwordRegistration" class="form-control">
 					<div class="element_danger">
-						<div id="errorPassword"></div>
+						<div id="errorPasswordRegistration"></div>
 						<div th:if="${#fields.hasErrors('password')}"
 							th:errors="*{password}"></div>
 					</div>
 				</div>
 				<div class="col-lg-8 form-group">
 					<label for="email">EMAIL</label> <input type="text"
-						th:field="*{email}" id="email" class="form-control">
+						th:field="*{email}" id="emailRegistration" class="form-control">
 					<div class="element_danger">
-						<div id="errorEmail"></div>
+						<div id="errorEmailRegistration"></div>
 						<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 					</div>
 				</div>
@@ -78,7 +78,7 @@
 				<div class="col-lg-8 form-group">
 					<button type="submit" class="btn btn-primary">S'enregistrer</button>
 				</div>
-				<button type="button" class="btn btn-primary" onclick="poire()">Test
+				<button type="button" class="btn btn-primary" onclick="validateRegistration()">Test
 					JS</button>
 
 			</form>

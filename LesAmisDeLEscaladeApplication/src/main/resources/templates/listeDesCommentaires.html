@@ -32,8 +32,8 @@
 					<td th:text="${commentaire.id}"></td>
 					<td th:text="${commentaire.title}"></td>
 					<td th:text="${commentaire.content}"></td>
-					<!-- <td th:text="${commentaire.creationDateTime}"></td> -->
 					<td th:text="${#dates.format(commentaire.creationDateTime, 'dd-MMM-yyyy')}"></td>
+					<td th:text="${commentaire.signature}"></td>
 					<td sec:authorize="hasRole('ADMIN')"><a
 						class="btn btn-dark btn-lg" id="buttonSuppressionCommentaire"
 						th:href="@{deleteCommentaire(custStat=${custStat.index},id=${commentaire.id})}"

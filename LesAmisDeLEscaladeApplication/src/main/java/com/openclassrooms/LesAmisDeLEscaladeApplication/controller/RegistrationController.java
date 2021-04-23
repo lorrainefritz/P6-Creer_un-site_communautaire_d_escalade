@@ -44,6 +44,6 @@ public class RegistrationController {
 		} else {
 		userService.save(registrationDto);
 		}
-		return "redirect:/registration?success";
+		return "redirect:/monCompte";
 	}
 }

@@ -1,8 +1,7 @@
 package com.openclassrooms.LesAmisDeLEscaladeApplication.entities;
 
 
-import java.time.Instant;
-import java.util.Collection;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +17,7 @@ import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+
 import lombok.Setter;
 
 @Entity
@@ -46,16 +45,26 @@ public class Commentaire {
 	@Size(max=65, message="65 charactères maximum")
 	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String content;
+	
+	@Column(name = "SIGNATURE")
+	@Size(max=65, message="65 charactères maximum")
+	@NotBlank(message="Ce champ ne doit pas être vide")
+	private String signature;
+	
+	@Column(name = "AUTHOR_EMAIL")
+	private String authorEmail;
 
 	public Commentaire(Date creationDateTime,
 			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String title,
-			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String content) {
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String content,
+			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String signature,
+			String authorEmail) {
 		super();
 		this.creationDateTime = creationDateTime;
 		this.title = title;
 		this.content = content;
+		this.signature = signature;
+		this.authorEmail = authorEmail;
 	}
-
-
 
 }

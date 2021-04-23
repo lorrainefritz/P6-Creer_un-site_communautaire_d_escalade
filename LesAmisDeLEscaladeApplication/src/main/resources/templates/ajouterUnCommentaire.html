@@ -25,31 +25,42 @@
 
 				<div class="form-group">
 					<label for="title">TITRE</label> <input th:field="*{title}"
-						type="text" class="form_label" id="title" name="title"
+						type="text" class="form_label" id="titleCommentaire" name="title"
 						placeholder="Obligatoire">
 					<div class="element_danger">
-						<div id="error_title"></div>
+						<div id="errorTitleCommentaire"></div>
 						<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="content">CONTENU</label> <input th:field="*{content}"
-						type="text" class="form_label" id="content" name="content"
+						type="text" class="form_label" id="contentCommentaire" name="content"
 						placeholder="Obligatoire">
 					<div class="element_danger">
-						<div id="error_content"></div>
+						<div id="errorContentCommentaire"></div>
 						<div th:if="${#fields.hasErrors('content')}"
 							th:errors="*{content}"></div>
 					</div>
 				</div>
+				
+				<div class="form-group">
+					<label for="signature">SIGNATURE</label> <input th:field="*{signature}"
+						type="text" class="form_label" id="signatureCommentaire" name="signature"
+						placeholder="Obligatoire">
+					<div class="element_danger">
+						<div id="errorSignatureCommentaire"></div>
+						<div th:if="${#fields.hasErrors('signature')}"
+							th:errors="*{signature}"></div>
+					</div>
+				</div>
 
-
+				
 				<div>
 					<button type="submit" class="btn btn-primary" id="btn_form_submit">Soumettre</button>
 					<!-- onclick="validate()">Soumettre</button> -->
 				</div>
-				<button type="button" class="btn btn-primary" onclick="poire()">Test
+				<button type="button" class="btn btn-primary" onclick="validateAjouterUnCommentaire()">Test
 					JS</button>
 			</form>
 		</div>

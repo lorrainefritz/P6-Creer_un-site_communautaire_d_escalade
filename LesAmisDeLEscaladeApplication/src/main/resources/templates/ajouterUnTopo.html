@@ -26,20 +26,20 @@
 
 					<div class="col-lg-8 form-group">
 						<label for="title">TITRE</label> <input th:field="*{title}"
-							type="text" class="form_label" id="title" name="title"
+							type="text" class="form_label" id="titleTopo" name="title"
 							placeholder="Obligatoire">
 						<div class="element_danger">
-							<div id="error_title"></div>
+							<div id="errorTitleTopo"></div>
 							<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 						</div>
 					</div>
 
 					<div class="col-lg-8 form-group">
 						<label for="content">DESCRIPTION</label> <input
-							th:field="*{content}" type="text" class="form_label" id="content"
+							th:field="*{content}" type="text" class="form_label" id="contentTopo"
 							name="content" placeholder="Obligatoire">
 						<div class="element_danger">
-							<div id="error_content"></div>
+							<div id="errorContentTopo"></div>
 							<div th:if="${#fields.hasErrors('content')}"
 								th:errors="*{content}"></div>
 						</div>
@@ -62,7 +62,7 @@
 					</div>
 					<div class="col-lg-8 form-group">
 						<button type="button" class="btn_form_test" id="btn_form_test"
-							onclick="poire()">TESTING JS</button>
+							onclick="validateAjouterUnTopo()">TESTING JS</button>
 					</div>
 		
 				</form>

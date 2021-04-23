@@ -68,7 +68,7 @@ public class ClimbingSite implements Serializable {
 	
 	@Lob
     @Column(name = "IMAGE", length = Integer.MAX_VALUE, nullable = true)
-    private byte[] image;
+    private String image;
 	
 	
 	@Size(max=65, message="65 charactères maximum")
@@ -115,7 +115,7 @@ public class ClimbingSite implements Serializable {
 	public ClimbingSite(
 			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String title,
 			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String lieu,
-			byte[] image,
+			String image,
 			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String secteur,
 			@Min(message = "Doit être compris entre 1 et 100", value = 1) @Max(message = "Doit être compris entre 1 et 100", value = 100) @NotNull(message = "Ce champs ne doit pas être vide") int longueur,
 			@Min(message = "Doit être compris entre 1 et 10", value = 1) @Max(message = "Doit être compris entre 1 et 10", value = 10) @NotNull(message = "Ce champs ne doit pas être vide") int nombreDeVoies,

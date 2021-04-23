@@ -43,33 +43,6 @@ public DaoAuthenticationProvider authenticationProvider() {
 		auth.authenticationProvider(authenticationProvider());
 	}
 	
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		logger.info("DANS LA CONFIGURATION DANS CONFIGURE DU AUTH MANAGER BUILDER JUSTE AVANT AUTHENTIFICATION PROVIDER");
-//		
-//		
-//		auth.authenticationProvider(authenticationProvider()); 
-//		auth.jdbcAuthentication().passwordEncoder(new PasswordEncoder(){
-//				
-//				BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder(); 
-//				CharSequence decryptedPassword;
-//				 @Override
-//			        public boolean matches(CharSequence rawPassword, String encodedPassword) {
-//
-//			            // Decoding stuff on the encrypted password sended by the client (rawPassword)
-//					 logger.info("Config matches rawPassword : "+rawPassword);
-//					 logger.info("Config matches rawPassword : "+encodedPassword);   
-//						return bcryptPasswordEncoder.matches(decryptedPassword, encodedPassword);
-//			        }
-//
-//			        @Override
-//			        public String encode(CharSequence rawPassword) {
-//			        	logger.info("Config matches rawPassword : "+rawPassword);
-//			            //Same crypto operation to get the plain password
-//			            return bcryptPasswordEncoder.encode(decryptedPassword);
-//			        }
-//			    });
-//	}	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -88,26 +61,19 @@ public DaoAuthenticationProvider authenticationProvider() {
 						"/listeDesTopos",
 						"/listeDesCommentaires",
 						"/mentionsLegales**",
-//						"/listeDesUsers**",
 						"/imagesAndLogos/**",
 						"/myScript.js",
 						"/style.css",
 						"/images/**",
 						"/logos/**"
 						).permitAll()
-//				.antMatchers("/listeDesUsers**").hasRole("USER")
 				.antMatchers("/editUser").authenticated()
 				.antMatchers("/listeDesUsers**","/editRole**").hasRole("ADMIN")
 				.anyRequest().authenticated()
-//				.and()
-//				.httpBasic()
 				.and()
 			.formLogin()
-//				.usernameParameter("username").passwordParameter("password")
 //				.loginPage("/badLogin") 
 				.loginPage("/seConnecter") 
-//				.loginPage("/login.html") 
-//				.loginProcessingUrl("/perform_login")
 				.defaultSuccessUrl("/logSuccess")
 //				.failureUrl("/login.html?error=true")
 				.permitAll()

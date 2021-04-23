@@ -24,10 +24,21 @@
 
 		<div class="row" id="blocPageClimbingSiteList"
 			th:each="climbingSite:${climbingSites}">
-			<div class="col-sm-4">
+			<div th:if="${climbingSite.image == null}" class="col-sm-4">
 				<img class="img-fluid" alt="image of climbing site"
 					src="imagesAndLogos/images/success.jpg">
-			</div>
+			</div> 
+			
+			<div th:if="${climbingSite.image != null}" class="col-sm-4">
+				<img class="img-fluid" alt="image of climbing site"
+					th:src="*{'data:image/png;base64,'+{climbingSite.image}}">
+					<!-- th:src="*{'data:image/jpeg;base64,'+{product.image}}" -->
+					
+			</div> 
+			
+			
+			
+			
 			<div class="col-sm-4" id="descriptionClimbingSiteList">
 				<div class="titleAndTagged">
 					<h3 th:text="${climbingSite.title}"></h3>
@@ -58,12 +69,15 @@
 						th:href="@{listeDesCommentaires(id=${climbingSite.id})}">
 						Liste des Commentaire</a>
 				</div>
-
+				<div sec:authorize="isAuthenticated()">
+					<a class="btn btn-warning btn-lg"
+						th:href="@{ajouterUneImageAuSiteDescalade(id=${climbingSite.id})}"> Modifier l'image de ce site d'escalade</a>
+				</div>
 				<div sec:authorize="isAuthenticated()">
 					<a class="btn btn-warning btn-lg"
 						th:href="@{editClimbingSite(id=${climbingSite.id})}"> Modifier</a>
 				</div>
-
+				
 				<div sec:authorize="hasRole('ADMIN')">
 					<a class="btn btn-dark btn-lg" id="buttonSuppressionClimbingSite"
 						th:href="@{deleteClimbingSite(id=${climbingSite.id})}"

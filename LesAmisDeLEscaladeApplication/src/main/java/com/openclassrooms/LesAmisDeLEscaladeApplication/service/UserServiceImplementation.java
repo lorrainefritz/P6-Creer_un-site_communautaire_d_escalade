@@ -13,14 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.LesAmisDeLEscaladeApplication.dto.UserRegistrationDto;
-import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.ClimbingSite;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Commentaire;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Role;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.entities.Topo;
@@ -38,8 +36,6 @@ public class UserServiceImplementation implements UserService {
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	@Autowired
-	private ClimbingSiteService climbingSiteService;
 
 	public UserServiceImplementation(UserRepository userRepository) {
 		super();
@@ -159,13 +155,22 @@ public class UserServiceImplementation implements UserService {
 		return userRepository.save(user);
 	}
 
-	public User deleteUserCommentaireWithId(User user, Integer id) {
-		logger.info("in deleteUserCommentaireWithId = " + id);
+//	public User deleteUserCommentaireWithId(User user, Integer id) {
+//		logger.info("in deleteUserCommentaireWithId = " + id);
+//		List<Commentaire> commentaires = (List<Commentaire>) user.getCommentaires();
+//		Commentaire commentaire = commentaires.get(id);
+//		commentaires.remove(commentaire);
+//		user.setCommentaires(commentaires);
+//		return userRepository.save(user);
+//	}
+	
+	public User deleteUserCommentaireWithCommentaire(User user, Commentaire commentaire) {
+		logger.info("in deleteUserCommentaireWithCommentaire + id du commentaire " + commentaire.getId() );
 		List<Commentaire> commentaires = (List<Commentaire>) user.getCommentaires();
-		Commentaire commentaire = commentaires.get(id);
+		logger.info("in deleteUserCommentaireWithCommentaire contient le commentaire" + commentaires.contains(commentaire));
 		commentaires.remove(commentaire);
 		user.setCommentaires(commentaires);
 		return userRepository.save(user);
-	}
+	}	
 
 }

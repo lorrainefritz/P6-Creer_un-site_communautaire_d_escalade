@@ -36,6 +36,9 @@ public class Topo {
 	@NotBlank(message="Ce champ ne doit pas être vide")
 	private String content;
 	
+	@Column(name = "OWNERMAIL")
+	private String ownerMail;
+	
 	
 	@Column(name = "LIBRE_POUR_EMPRUNT")
 	private boolean freeForBorrow;
@@ -44,11 +47,21 @@ public class Topo {
 	public Topo(
 			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String title,
 			@Size(max = 65, message = "65 charactères maximum") @NotBlank(message = "Ce champ ne doit pas être vide") String content,
-			boolean freeForBorrow) {
+			String ownerMail, boolean freeForBorrow) {
 		super();
 		this.title = title;
 		this.content = content;
+		this.ownerMail = ownerMail;
 		this.freeForBorrow = freeForBorrow;
 	}
+
+
+
+
+
+
+
+
+
 	
 }

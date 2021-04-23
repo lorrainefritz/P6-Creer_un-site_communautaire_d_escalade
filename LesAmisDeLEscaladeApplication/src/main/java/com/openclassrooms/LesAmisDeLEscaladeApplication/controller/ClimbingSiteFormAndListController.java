@@ -7,12 +7,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.tomcat.jni.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,11 +36,13 @@ public class ClimbingSiteFormAndListController {
 	@Autowired
 	private ClimbingSiteService climbingSiteService;
 	private final Logger logger = LoggerFactory.getLogger(ClimbingSiteFormAndListController.class);
+	private ClimbingSite currentClimbingSite;
 
 	@GetMapping("/ajouterDesSitesDEscalade")
 	public String showClimbingSiteForm(Model model) {
 		logger.info("HTTP GET request received at /ajouterDesSitesDEscalade");
 		model.addAttribute("climbingSite", new ClimbingSite());
+
 		return "ajouterDesSitesDEscalade";
 	}
 
@@ -60,8 +64,61 @@ public class ClimbingSiteFormAndListController {
 		return "redirect:/listeDesSitesDEscalade";
 	}
 
+	@GetMapping("/ajouterUneImageAuSiteDescalade")
+	public String showImageForm(Model model, Integer id) {
+		logger.info("HTTP GET request received at /ajouterUneImageAuSiteDescalade");
+		currentClimbingSite =climbingSiteService.getOneClimbingSiteById(id);
+		model.addAttribute("climbingSite", currentClimbingSite );
+		return "ajouterUneImageAuSiteDescalade";
+	}
+
+	@PostMapping("/ajouterUneImageAuSiteDescalade")
+	public String submitImageForm(@RequestParam("fileImage") MultipartFile fileImage) {
+		logger.info("HTTP POST request received at /ajouterUneImageAuSiteDescalade");
+			logger.info("image ajoutée avec la valeur suivante" + fileImage.getContentType());
+			climbingSiteService.addImageToClimbingSite(currentClimbingSite, fileImage);
+		
+		return "redirect:/listeDesSitesDEscalade";
+
+	}
+//	@PostMapping("/ajouterUneImageAuSiteDescalade")
+//	public String submitImageForm(@RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+//		logger.info("HTTP POST request received at /ajouterUneImageAuSiteDescalade");
+//			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//			
+//			currentClimbingSite.setImage(fileName);
+//			climbingSiteService.addClimbingSite(currentClimbingSite);
+//			
+//			String uploadDir = "./src/main/webapp/imagesAndLogos/images/imagesSiteEscalade/" +currentClimbingSite.getId();
+//			
+//			Path uploadPath = Paths.get(uploadDir);
+//			if(!Files.exists(uploadPath)) {
+//				try {
+//					Files.createDirectories(uploadPath);
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			
+//			try(InputStream inputStream = multipartFile.getInputStream()) {
+//			
+//				Path filePath = uploadPath.resolve(fileName);
+//				System.out.println(filePath.toFile().getAbsolutePath());
+//				Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+//				
+//			} catch (IOException e) {
+//				throw new IOException("could not save uploaded file : " + fileName);
+//				
+//			}
+//		
+//		
+//		return "redirect:/listeDesSitesDEscalade";
+//
+//	}
+
 	@GetMapping("/listeDesSitesDEscalade")
-	public String getClimbingSiteList(Model model, @Param("keyword")String keyword) {
+	public String getClimbingSiteList(Model model, @Param("keyword") String keyword) {
 		logger.info("HTTP GET request received at /listeDesSitesDEscalade");
 		if (keyword != null) {
 			logger.info("HTTP GET request received at /listeDesSitesDEscalade + keyword " + keyword);
@@ -73,30 +130,7 @@ public class ClimbingSiteFormAndListController {
 		return "listeDesSitesDEscalade";
 	}
 
-//	@GetMapping("/listeDesSitesDEscalade")
-//	public String getClimbingSiteList(String stringKeyword, Integer intKeyword, Model model) {
-//		logger.info("HTTP GET request received at /listeDesSitesDEscalade" + stringKeyword);
-//		if (stringKeyword != null || intKeyword != null) {
-//			logger.info("HOURRA" + stringKeyword + intKeyword);
-//			if (stringKeyword != null) {
-//				logger.info("HOURRA et voila le string" + stringKeyword);
-//				model.addAttribute("climbingSites",
-//						climbingSiteService.getClimbingSitesBySearchingStringKeyword(stringKeyword));
-//			} else {
-//				logger.info("HOURRA et voila le Int" + intKeyword);
-//				model.addAttribute("climbingSites",
-//						climbingSiteService.getClimbingSitesBySearchingIntKeyword(intKeyword));
-//			}
-////		} else if (stringKeyword != null && intKeyword >= 1) {
-////			model.addAttribute("climbingSites", climbingSiteService
-////					.getClimbingSitesBySearchingIntKeywordAndStringKeyword(intKeyword, stringKeyword));
-////
-//		} else {
-//			model.addAttribute("climbingSites", climbingSiteService.getAllClimbingSites());
-//		}
-//
-//		return "listeDesSitesDEscalade";
-//	}
+
 
 	@GetMapping(path = "/editClimbingSite")
 	public String editClimbingSite(Model model, Integer id) {
@@ -105,7 +139,6 @@ public class ClimbingSiteFormAndListController {
 		model.addAttribute("climbingSite", climbingSite);
 		return "ajouterDesSitesDEscalade";
 	}
-
 
 	@GetMapping("/deleteClimbingSite")
 	public String deleteClimbingSite(Integer id) {
