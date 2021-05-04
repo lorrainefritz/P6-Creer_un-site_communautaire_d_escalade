@@ -17,7 +17,7 @@ import com.openclassrooms.LesAmisDeLEscaladeApplication.service.UserService;
 @RequestMapping("/registration")
 public class RegistrationController {
 	private UserService userService;
-	private final Logger logger = LoggerFactory.getLogger(IdentificationFormController.class);
+	private final Logger logger = LoggerFactory.getLogger(CommentaireTopoLoginGestionController.class);
 
 	public RegistrationController(UserService userService) {
 		super();

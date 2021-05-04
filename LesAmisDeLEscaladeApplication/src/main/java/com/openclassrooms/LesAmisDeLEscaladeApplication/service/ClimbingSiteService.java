@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.StringUtils;
 
@@ -51,6 +54,8 @@ public class ClimbingSiteService {
 		logger.info("in ClimbingSiteService in addClimbingSite");
 		return climbingSiteRepository.save(climbingSite);
 	}
+	
+	
 	public ClimbingSite addImageToClimbingSite (ClimbingSite climbingSite,MultipartFile image) {
 		logger.info("in ClimbingSiteService in addImageToClimbingSite");
 		
@@ -86,17 +91,7 @@ public class ClimbingSiteService {
 		return climbingSiteRepository.save(climbingSite);
 	}
 	
-//	public ClimbingSite deleteCommentaireWithCommentaire(ClimbingSite climbingSite, Commentaire commentaire) {
-//		logger.info("in deleteCommentaireFromClimbingSiteWithCommentaire id du commentaire " + commentaire.getId());
-//		List<Commentaire> commentaires = (List<Commentaire>) climbingSite.getCommentaires();
-//		Commentaire comment = commentaireService.getOneCommentaireById(commentaire.getId());
-//		
-//		logger.info("in deleteCommentaireFromClimbingSiteWithCommentaire contient le commentaire" + commentaires.contains(commentaire));
-//		logger.info("in deleteCommentaireFromClimbingSiteWithCommentaire contient le commentaire" + commentaires.contains(comment));
-////		commentaires.remove(commentaire);
-////		climbingSite.setCommentaires(commentaires);
-//		return climbingSiteRepository.save(climbingSite);
-//	}	
+
 	
 
 }

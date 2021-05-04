@@ -26,41 +26,22 @@
 					
 					<div class="col-lg-8 form-group">
 						<label>Image : </label>
-						<input type="file" name="fileImage" id="fileImage" accept="image/png, image/jpeg">
+						<input type="file" name="fileImage" id="imageSiteEscalade" accept="image/png, image/jpeg">
+					</div>
+			
+							
+					<div class="element_danger">
+						<div id="errorImageSiteEscalade"></div>
 					</div>
 					
-					
-					
-					
-					
-					
-					<!-- <div class="col-lg-8 form-group">
-						<input type="file" name="file" class="custom-file-input"
-							id="customFile"> <label class="custom-file-label"
-							for="customFile">Image</label>
-						<div class="element_danger">
-							<div id="errorImageSiteEscalade"></div>
-						</div>
-					</div> -->
 
-					<!-- 		<script>
-						// Add the following code if you want the name of the file appear on select
-						$(".custom-file-input").on(
-								"change",
-								function() {
-									var fileName = $(this).val().split("\\")
-											.pop();
-									$(this).siblings(".custom-file-label")
-											.addClass("selected")
-											.html(fileName);
-								});
-					</script> -->
+					
 
 					<div class="col-lg-8 form-group">
-						<button type="submit" class="btn btn-primary" id="btn_form_submit">Soumettre</button>
+						<button type="submit" class="btn btn-primary" id="btn_form_submit" onclick="validateImage()">Soumettre</button>
 					</div>
 					<div class="col-lg-8 form-group">
-						<button type="button" class="btn_form_test" id="btn_form_test"
+						<button type="button" class="btn btn-primary" id="btn_form_test"
 							onclick="validateImage()">TESTING JS</button>
 					</div>
 				</form>

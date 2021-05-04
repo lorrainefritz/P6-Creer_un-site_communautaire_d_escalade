@@ -14,37 +14,30 @@
 				<h1>LISTE DES TOPOS DISPONIBLES</h1>
 			</div>
 		</header>
+		<div class="row" id="blocPageTopoList" th:each="topo:${topos}">
 		
-		<table class="col-md-6 table">
-			<thead class="table top">
-				<tr>
-					<th>ID</th>
-					<th>TITRE</th>
-					<th>DESCRIPTION</th>
-					<th>DISPONIBLE A L'EMPRUNT</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="topo:${topos}">
-					<td th:text="${topo.id}"></td>
-					<td th:text="${topo.title}"></td>
-					<td th:text="${topo.content}"></td>
-					<td th:if="${topo.freeForBorrow == true}">
+			<div class="col-sm-4" ></div>
+			<div class="col-sm-4" id=descriptionTopoList>
+			
+				<div class="float-right" th:if="${topo.freeForBorrow == true}">
 						<a>
 							<img class="img-fluid" alt="topo disponible"
 							src="/imagesAndLogos/logos/logoTopoDispo.png">
 						</a>
-					</td>
-					<td><a th:href="'mailto:' + ${topo.ownerMail}">Faire une demande d'emprunt</a></td> 
-					<td th:if="${topo.freeForBorrow == false}">
-						<a>
+					</div>
+					 
+					<div class="float-right" th:if="${topo.freeForBorrow == false}">
 							<img class="img-fluid" alt="topo disponible"
 							src="/imagesAndLogos/logos/logoTopoIndispo.png">
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+					</div>
+				<h3 th:text="${topo.title}">TITRE</h3>
+				<div th:text="${topo.content}">DESCRIPTION</div>
+			
+			</div>
+			<div class="col-sm-4" ><a class="btn btn-primary" th:href="'mailto:' + ${topo.ownerMail}">Faire une demande d'emprunt</a></div>
+			
+			
+		</div>
 		<footer>
 			<div th:insert="footer.html"></div>
 		</footer>

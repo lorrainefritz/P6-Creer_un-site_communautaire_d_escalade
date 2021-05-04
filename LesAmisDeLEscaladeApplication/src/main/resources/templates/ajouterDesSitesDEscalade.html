@@ -21,7 +21,7 @@
 			<div class="container-fluid pt-3">
 				<form th:action="@{/ajouterDesSitesDEscalade}"
 					th:object="${climbingSite}" method="post" class="formulaire"
-					name="formulaire" enctype="application/x-www-form-urlencoded">
+					name="formulaire">
 
 					<div class="col-lg-8 form-group">
 						<input type="hidden" id="id" class="form-control" th:field="*{id}">
@@ -109,7 +109,7 @@
 						</select>
 					</div>
 
-					<div sec:authorize="isAuthenticated()" class="col-lg-8 form-group">
+					<div sec:authorize="hasAnyRole('ADMIN', 'MEMBRE')" class="col-lg-8 form-group">
 						<div class="tag">
 							OFFICIEL DE L'ASSOCIATION :
 							<p>
@@ -121,10 +121,10 @@
 					</div>
 
 					<div class="col-lg-8 form-group">
-						<button type="submit" class="btn btn-primary" id="btn_form_submit">Soumettre</button>
+						<button type="submit" class="btn btn-primary" id="btn_form_submit" onclick="validateClimbingSite()">Soumettre</button>
 					</div>
 					<div class="col-lg-8 form-group">
-						<button type="button" class="btn_form_test" id="btn_form_test"
+						<button type="button" class="btn btn-primary" id="btn_form_test"
 							onclick="validateClimbingSite()">TESTING JS</button>
 					</div>
 				</form>

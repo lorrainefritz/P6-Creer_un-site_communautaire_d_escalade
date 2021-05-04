@@ -14,9 +14,9 @@
 			</div>
 		</header>
 
-		<form class="form-inline" th:action="@{/listeDesSitesDEscalade}"
+		<form class="form-inline" id ="searchField" th:action="@{/listeDesSitesDEscalade}"
 			method="get">
-			<label>Filtrer:</label> <input id="txtSearch" type="text"
+			<label>Filtrer : </label> <input id="txtSearch" type="text"
 				name="keyword" th:value=${keyword} class="form-control"
 				placeholder="Lieu, Secteur, Longueur, Difficulté, Nombre de voies">
 			<button type="submit" class="btn btn-primary">Chercher</button>
@@ -32,8 +32,6 @@
 			<div th:if="${climbingSite.image != null}" class="col-sm-4">
 				<img class="img-fluid" alt="image of climbing site"
 					th:src="*{'data:image/png;base64,'+{climbingSite.image}}">
-					<!-- th:src="*{'data:image/jpeg;base64,'+{product.image}}" -->
-					
 			</div> 
 			
 			
@@ -69,16 +67,16 @@
 						th:href="@{listeDesCommentaires(id=${climbingSite.id})}">
 						Liste des Commentaire</a>
 				</div>
-				<div sec:authorize="isAuthenticated()">
+				<div sec:authorize="hasAnyRole('ADMIN', 'MEMBRE')">
 					<a class="btn btn-warning btn-lg"
 						th:href="@{ajouterUneImageAuSiteDescalade(id=${climbingSite.id})}"> Modifier l'image de ce site d'escalade</a>
 				</div>
-				<div sec:authorize="isAuthenticated()">
+				<div sec:authorize="hasAnyRole('ADMIN', 'MEMBRE')">
 					<a class="btn btn-warning btn-lg"
 						th:href="@{editClimbingSite(id=${climbingSite.id})}"> Modifier</a>
 				</div>
 				
-				<div sec:authorize="hasRole('ADMIN')">
+				<div sec:authorize="hasAnyRole('ADMIN', 'MEMBRE')">
 					<a class="btn btn-dark btn-lg" id="buttonSuppressionClimbingSite"
 						th:href="@{deleteClimbingSite(id=${climbingSite.id})}"
 						onclick="return confirm('êtes vous sur de vouloir supprimer?')">Supprimer</a>
@@ -86,82 +84,6 @@
 
 			</div>
 		</div>
-
-
-
-
-
-
-
-		<!-- 		<div class="row">
-			<div th:each="climbingSite:${climbingSites}">
-				<div class="col-sm-6">
-					<img alt="image of climbing site"
-						src="imagesAndLogos/images/success.jpg">
-				</div>
-				<div class="col-sm-6">
-					<div th:text="${climbingSite.title}">TITRE</div>
-					<div th:if=${climbingSite.tagged}>
-						<img alt="officiel des amis de l'escalade"
-							src="/imagesAndLogos/logos/logoOfficielDesAmisDeLEscalade.png">
-					</div>
-					<div th:text="${climbingSite.lieu}">LIEU</div>
-					<div th:text="${climbingSite.secteur}">SECTEUR</div>
-					<div th:text="${climbingSite.longueur}">LONGUEUR</div>
-					<div th:text="${climbingSite.nombreDeVoies}">NOMBRE DE VOIES</div>
-					<div th:text="${climbingSite.difficulty}">DIFFICULTEE</div>
-				</div>
-			</div>
-		</div> -->
-
-		<!-- 		<table class="table">
-			<thead class="table top">
-				<tr>
-					<th>ID</th>
-					<th></th>
-					<th>TITRE</th>
-					<th>LIEU</th>
-					<th>IMAGE</th>
-					<th>SECTEUR</th>
-					<th>LONGUEUR</th>
-					<th>NOMBRE DE VOIES</th>
-					<th>DIFFICULTE</th>
-					<th>TAG</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<tr th:each="climbingSite:${climbingSites}">
-					<td><img alt="image of climbing site" src="imagesAndLogos/images/success.jpg"></td>
-					<td>
-						<object ="/imagesAndLogos/images/success.jpg" type="image/jpg">
-							<img alt="image of climbing site" th:src="@{/image/${climbingSite.image}}">
-						</object>
-					</td>
-					<td th:text="${climbingSite.id}"></td>
-					<td th:text="${climbingSite.title}"></td>
-					<td th:text="${climbingSite.lieu}"></td>
-					<td th:text="${climbingSite.secteur}"></td>
-					<td th:text="${climbingSite.longueur}"></td>
-					<td th:text="${climbingSite.nombreDeVoies}"></td>
-					<td th:text="${climbingSite.difficulty}"></td>
-					<td th:if=${climbingSite.tagged}><img
-						alt="officiel des amis de l'escalade"
-						src="/imagesAndLogos/logos/logoOfficielDesAmisDeLEscalade.png">
-					</td>
-					<td><a
-						onclick="return confirm('êtes vous sur de vouloir supprimer?')"
-						th:href="@{deleteClimbingSite(id=${climbingSite.id})}">
-							Supprimer</a></td>
-					<td><a
-						th:href="@{editClimbingSite(id=${climbingSite.id})}">
-							Modifier</a>
-					</td>
-			</tbody>
-		</table> -->
-
-
-
 
 		<footer>
 			<div th:insert="footer.html"></div>

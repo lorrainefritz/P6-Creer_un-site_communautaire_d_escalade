@@ -17,70 +17,76 @@
 		</header>
 
 
-		<div class="page_formulaire">
+		<div class="d-flex flex-column align-items-center"  id="blocPageMonCompte">
 
-			<table class="table">
-				<thead class="table top">
-					<tr>
-						<th>ID</th>
-						<th>NOM</th>
-						<th>PRENOM</th>
-						<th>ADRESSE</th>
-						<th>TELEPHONE</th>
-						<th>EMAIL</th>
-						<th>ROLE</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td th:text="${curentuser.id}"></td>
-						<td th:text="${curentuser.nom}"></td>
-						<td th:text="${curentuser.prenom}"></td>
-						<td th:text="${curentuser.adresse}"></td>
-						<td th:text="${curentuser.telephone}"></td>
-						<td th:text="${curentuser.email}"></td>
-						<td th:text="${principal.authorities}"></td>
-						<td><a th:href="@{editUser}">Modifier</a></td>
-						<td><a th:href="@{ajouterUnTopo}">Ajouter un Topo</a></td>
-					</tr>
-				</tbody>
-			</table>
-			<h1>MES TOPOS</h1>
-			<table class="table">
-				<thead class="table top">
-					<tr>
-						<th>ID</th>
-						<th>TITRE</th>
-						<th>DESCRIPTION</th>
-						<th>EST DISPONIBLE A L'EMPRUNT</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="topo,custStat:${topos}">
-						<td th:text="${custStat.index}"></td>
-						<td th:text="${topo.id}"></td>
-						<td th:text="${topo.title}"></td>
-						<td th:text="${topo.content}"></td>
-						<td th:if="${topo.freeForBorrow == true}"><a> <img
-								class="img-fluid" alt="topo disponible"
-								src="/imagesAndLogos/logos/logoTopoDispo.png">
-						</a></td>
-						<td th:if="${topo.freeForBorrow == false}"><a> <img
-								class="img-fluid" alt="topo disponible"
-								src="/imagesAndLogos/logos/logoTopoIndispo.png">
-						</a></td>
-						<td><a
-							th:href="@{deleteTopo(custStat=${custStat.index},id=${topo.id})}">Supprimer</a></td>
-						<td><a th:href="@{editTopo(id=${topo.id})}">Modifier</a></td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="p-2 border" id="MonCompteInfos">
+				<h2>Mes informations générales</h2>
+				<div>
+					NOM : <a th:text="${curentuser.nom}"></a>
+				</div>
+				<div>
+					PRENOM : <a th:text="${curentuser.prenom}"></a>
+				</div>
+				<div>
+					ADRESSE : <a th:text="${curentuser.adresse}"></a>
+				</div>
+				<div>
+					TELEPHONE : <a th:text="${curentuser.telephone}"></a>
+				</div>
+				<div>
+					EMAIL : <a th:text="${curentuser.email}"></a>
+				</div>
+				<div sec:authorize="hasRole('ADMIN')">
+					MES AUTORISATIONS : <a th:text="${principal.authorities}"></a>
+				</div>
+				<div>
+					 <a class="btn btn-warning" th:href="@{editUser}">Modifier mes informations</a>
+				</div>
+			</div>
 
+
+			<div class="p-2 border" id="MonCompteMesTopos">
+				<h2>Mes Topos</h2>
+				
+				<div>
+					 <a class="btn btn-primary" th:href="@{ajouterUnTopo}">Ajouter un topo</a>
+				</div>
+				
+				<div id ="UnTopoMonCompte" th:each="topo,custStat:${topos}">
+				
+					<div class="float-right" th:if="${topo.freeForBorrow == true}">
+						<a> <img class="img-fluid" alt="topo disponible"
+							src="/imagesAndLogos/logos/logoTopoDispo.png">
+						</a>
+					</div>
+					<div class="float-right" th:if="${topo.freeForBorrow == false}">
+						<a> <img class="img-fluid" alt="topo disponible"
+							src="/imagesAndLogos/logos/logoTopoIndispo.png">
+						</a>
+					</div>
+				
+					<h3>
+						 <a th:text="${topo.title}"></a>
+					</h3>
+					<div>
+						DESCRIPTION <a th:text="${topo.content}"></a>
+					</div>
+					
+					<div>
+						<a class="btn btn-warning"th:href="@{editTopo(id=${topo.id})}">Modifier</a>
+					</div>
+					<div>
+						<a class="btn btn-dark" id="buttonSuppressionTopo" th:href="@{deleteTopo(custStat=${custStat.index},id=${topo.id})}">Supprimer</a>
+					</div>
+
+				</div>
+				
+			</div>
 		</div>
 
-		<footer>
-			<div th:insert="footer.html"></div>
-		</footer>
+	<footer>
+		<div th:insert="footer.html"></div>
+	</footer>
 	</div>
 </body>
 </html>

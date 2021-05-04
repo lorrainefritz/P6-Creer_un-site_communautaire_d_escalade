@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.apache.tomcat.jni.File;
@@ -47,7 +48,7 @@ public class ClimbingSiteFormAndListController {
 	}
 
 	@PostMapping("/ajouterDesSitesDEscalade")
-	public String submitClimbingSiteForm(@Validated @ModelAttribute("climbingSite") ClimbingSite climbingSite,
+	public String submitClimbingSiteForm(@Validated @ModelAttribute("climbingSite") ClimbingSite climbingSite, 
 			BindingResult bindingResult) {
 		logger.info("HTTP POST request received at /ajouterDesSitesDEscalade");
 		if (bindingResult.hasErrors()) {
@@ -60,10 +61,11 @@ public class ClimbingSiteFormAndListController {
 					+ climbingSite.getSecteur() + " difficulté=" + climbingSite.getDifficulty() + " est taggé="
 					+ climbingSite.isTagged());
 			climbingSiteService.addClimbingSite(climbingSite);
+			
 		}
 		return "redirect:/listeDesSitesDEscalade";
 	}
-
+	@Transactional
 	@GetMapping("/ajouterUneImageAuSiteDescalade")
 	public String showImageForm(Model model, Integer id) {
 		logger.info("HTTP GET request received at /ajouterUneImageAuSiteDescalade");
@@ -81,41 +83,7 @@ public class ClimbingSiteFormAndListController {
 		return "redirect:/listeDesSitesDEscalade";
 
 	}
-//	@PostMapping("/ajouterUneImageAuSiteDescalade")
-//	public String submitImageForm(@RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
-//		logger.info("HTTP POST request received at /ajouterUneImageAuSiteDescalade");
-//			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-//			
-//			currentClimbingSite.setImage(fileName);
-//			climbingSiteService.addClimbingSite(currentClimbingSite);
-//			
-//			String uploadDir = "./src/main/webapp/imagesAndLogos/images/imagesSiteEscalade/" +currentClimbingSite.getId();
-//			
-//			Path uploadPath = Paths.get(uploadDir);
-//			if(!Files.exists(uploadPath)) {
-//				try {
-//					Files.createDirectories(uploadPath);
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			
-//			try(InputStream inputStream = multipartFile.getInputStream()) {
-//			
-//				Path filePath = uploadPath.resolve(fileName);
-//				System.out.println(filePath.toFile().getAbsolutePath());
-//				Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-//				
-//			} catch (IOException e) {
-//				throw new IOException("could not save uploaded file : " + fileName);
-//				
-//			}
-//		
-//		
-//		return "redirect:/listeDesSitesDEscalade";
-//
-//	}
+
 
 	@GetMapping("/listeDesSitesDEscalade")
 	public String getClimbingSiteList(Model model, @Param("keyword") String keyword) {

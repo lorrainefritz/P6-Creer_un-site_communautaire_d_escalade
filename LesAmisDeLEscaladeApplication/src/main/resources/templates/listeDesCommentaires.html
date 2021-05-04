@@ -2,7 +2,7 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <link rel="stylesheet" href="style.css">
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
 </head>
 <body>
 	<div id="bloc_page">
@@ -11,43 +11,40 @@
 				<div th:insert="menu.html"></div>
 			</div>
 			<div class="header_bottom_part">
-				<h1>LISTE DES COMMENTAIRES DU SITE D'ESCALADE : </h1>
-				<h1 th:text = "${currentClimbingSite.title}"></h1>
+				<h1>LISTE DES COMMENTAIRES DU SITE D'ESCALADE :</h1>
+				<h1 th:text="${currentClimbingSite.title}"></h1>
 			</div>
 		</header>
+		<div id="blocPageCommentaireList">
+			<table class="col-md-6 table">
+				<thead class="table top">
+					<tr>
+						<th>TITRE</th>
+						<th>CONTENU</th>
+						<th>DATE</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="commentaire,custStat:${commentaires}">
+						<td th:text="${commentaire.title}"></td>
+						<td th:text="${commentaire.content}"></td>
+						<td
+							th:text="${#dates.format(commentaire.creationDateTime, 'dd-MMM-yyyy')}"></td>
+						<td th:text="${commentaire.signature}"></td>
+						<td sec:authorize="hasAnyRole('ADMIN', 'MEMBRE')"><a
+							class="btn btn-dark btn-lg" id="buttonSuppressionCommentaire"
+							th:href="@{deleteCommentaire(custStat=${custStat.index},id=${commentaire.id})}"
+							onclick="return confirm('êtes vous sur de vouloir supprimer?')">Supprimer</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
-		<table class="col-md-6 table">
-			<thead class="table top">
-				<tr>
-					<th>Index</th>
-					<th>ID</th>
-					<th>TITRE</th>
-					<th>CONTENU</th>
-					<th>DATE</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="commentaire,custStat:${commentaires}">
-					<td th:text="${custStat.index}"></td>
-					<td th:text="${commentaire.id}"></td>
-					<td th:text="${commentaire.title}"></td>
-					<td th:text="${commentaire.content}"></td>
-					<td th:text="${#dates.format(commentaire.creationDateTime, 'dd-MMM-yyyy')}"></td>
-					<td th:text="${commentaire.signature}"></td>
-					<td sec:authorize="hasRole('ADMIN')"><a
-						class="btn btn-dark btn-lg" id="buttonSuppressionCommentaire"
-						th:href="@{deleteCommentaire(custStat=${custStat.index},id=${commentaire.id})}"
-						onclick="return confirm('êtes vous sur de vouloir supprimer?')">Supprimer</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<div>
-			<a class="btn btn-info btn-lg" th:href="@{ajouterUnCommentaire}">
-				Ajouter un commentaire</a>
+			<div>
+				<a class="btn btn-info btn-lg" th:href="@{ajouterUnCommentaire}">
+					Ajouter un commentaire</a>
+			</div>
 		</div>
-
 		<footer>
 			<div th:insert="footer.html"></div>
 		</footer>

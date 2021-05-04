@@ -96,6 +96,27 @@ function nombreDeVoiesLenghtSiteEscaladeIsNotValid() {
 	}
 }
 
+
+//_______________________Validation d'une image ____________________________________
+
+function validateImage(){
+	document.getElementById("errorImageSiteEscalade").innerHTML = "";
+	imageInvalidFormat()
+	emptyImage();
+	
+	
+}
+
+function emptyImageSiteEscalade() {
+	var image = document.getElementById("imageSiteEscalade").value;
+	if (image == "") {
+		document.getElementById("errorImageSiteEscalade").innerHTML = "Le champs image est vide";
+//		event.preventDefault();
+	}
+}
+
+
+
 function imageInvalidFormat() {
 	var image = document.getElementById("imageSiteEscalade").value;
 	var png = "^[a-zA-Z0-9]+\.png$";
@@ -105,6 +126,7 @@ function imageInvalidFormat() {
 //		event.preventDefault();
 	}
 }
+
 //_______________________Validation ajout d'un nouveau type de role général____________________________________
 
 function validateAddRole(){

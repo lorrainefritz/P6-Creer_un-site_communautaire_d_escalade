@@ -26,7 +26,7 @@ public class EditUserController {
 	UserServiceImplementation userServiceImp;
 	@Autowired
 	RoleService roleService;
-	private final Logger logger = LoggerFactory.getLogger(IdentificationFormController.class);
+	private final Logger logger = LoggerFactory.getLogger(CommentaireTopoLoginGestionController.class);
 	private UserDetails userPrincipal;
 	private User user;
 	private Collection<Role> userRolesCollection;

@@ -32,7 +32,7 @@ import com.openclassrooms.LesAmisDeLEscaladeApplication.service.TopoService;
 import com.openclassrooms.LesAmisDeLEscaladeApplication.service.UserServiceImplementation;
 
 @Controller
-public class IdentificationFormController {
+public class CommentaireTopoLoginGestionController {
 	@Autowired
 	UserServiceImplementation userServiceImp;
 	@Autowired
@@ -42,7 +42,7 @@ public class IdentificationFormController {
 	@Autowired
 	CommentaireService commentaireService;
 
-	private final Logger logger = LoggerFactory.getLogger(IdentificationFormController.class);
+	private final Logger logger = LoggerFactory.getLogger(CommentaireTopoLoginGestionController.class);
 	private UserDetails userPrincipal;
 	private User currentLoggedUser;
 	private ClimbingSite currentClimbingSite;
@@ -65,6 +65,15 @@ public class IdentificationFormController {
 	}
 
 //______________________________ Les Topos______________________________________	
+	
+	@GetMapping("/listeDesTopos")	
+	public String getToposList(Model model) {
+	logger.info("HTTP GET request received at /listeDesTopos URL");
+	model.addAttribute("topos", topoService.getAllTopos());
+	return ("listeDesTopos");
+	}
+	
+	
 	@GetMapping("/ajouterUnTopo")
 	public String showTopoForm(Model model) {
 		logger.info("HTTP GET received at /addTopoToList ");

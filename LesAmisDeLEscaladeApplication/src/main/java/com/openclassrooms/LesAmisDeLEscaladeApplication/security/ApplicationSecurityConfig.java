@@ -53,12 +53,10 @@ public DaoAuthenticationProvider authenticationProvider() {
 				.antMatchers(
 						"/",
 						"/aProposDeLAssociation**",
-						"/ajouterDesSitesDEscalade**",
 						"/contact**",
 						"/registration**",
 						"/login**",
 						"/listeDesSitesDEscalade",
-						"/listeDesTopos",
 						"/listeDesCommentaires",
 						"/mentionsLegales**",
 						"/imagesAndLogos/**",
@@ -67,15 +65,22 @@ public DaoAuthenticationProvider authenticationProvider() {
 						"/images/**",
 						"/logos/**"
 						).permitAll()
-				.antMatchers("/editUser").authenticated()
+				.antMatchers(
+						"/editUser",
+						"/listeDesTopos",
+						"/ajouterDesSitesDEscalade**",
+						"/ajouterUnCommentaire",
+						"/modifierUnTopo"
+						).authenticated()
+
 				.antMatchers("/listeDesUsers**","/editRole**").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
-//				.loginPage("/badLogin") 
+
 				.loginPage("/seConnecter") 
 				.defaultSuccessUrl("/logSuccess")
-//				.failureUrl("/login.html?error=true")
+
 				.permitAll()
 				.and()
 			.logout()
@@ -84,9 +89,7 @@ public DaoAuthenticationProvider authenticationProvider() {
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/seConnecter?logout")
 				.permitAll();
-//		and()
-//		.exceptionHandling()
-//		.accessDeniedPage("/accessDenied");
+
 		
 	}
 

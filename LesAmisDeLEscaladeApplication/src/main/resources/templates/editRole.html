@@ -14,7 +14,8 @@
 				<h1>TOUS LES ROLES</h1>
 			</div>
 		</header>
-		<table class="table">
+		<div id="blocPageRoleList">
+		<table class="table" id="tableDesRoles">
 			<thead class="table top">
 				<tr>
 					<th>ID</th>
@@ -25,17 +26,18 @@
 				<tr th:each="role:${roles}">
 					<td th:text="${role.id}"></td>
 					<td th:text="${role.name}"></td>
-					<td><a
+					<td><a class="btn btn-warning btn-lg" th:href="@{editRoleName(id=${role.id})}"> Modifier</a></td>
+					<td><a class="btn btn-dark btn-lg" id="buttonSuppressionMember"
 						onclick="return confirm('êtes vous sur de vouloir supprimer?')"
 						th:href="@{deleteRole(id=${role.id})}"> Supprimer</a></td>
-					<td><a th:href="@{editRoleName(id=${role.id})}"> Modifier</a></td> 
+					 
 				</tr>
 			</tbody>
 		</table>
 		<div>
-			<a href="addRole">Ajouter un Role</a>
+			<a class="btn btn-primary btn-lg" href="addRole">Ajouter un Role</a>
 		</div>
-
+</div>
 		<footer>
 			<div th:insert="footer.html"></div>
 		</footer>
